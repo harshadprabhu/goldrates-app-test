@@ -1,9 +1,48 @@
-<title>MyGoldRates</title>
+<title>Gold Rate Today in India - Compare 14+ Jewellers | MyGoldRates</title>
+<meta name="description" content="Live 24K, 22K & 18K gold rates from 14+ Indian jewellers, updated daily. Pre-GST prices, calculators (loan, SIP, making charges, budget) and market pulse — MyGoldRates.">
+<meta name="keywords" content="gold rate today, gold rate India, 24k gold rate, 22k gold rate, 18k gold rate, gold price today, jeweller gold rates, IBJA rate, MCX gold, gold calculator">
+<meta name="author" content="MyGoldRates">
+<link rel="canonical" href="https://mygoldrates.com/">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1208">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<!-- GEO -->
+<meta name="geo.region" content="IN">
+<meta name="geo.placename" content="India">
+<meta name="geo.position" content="20.5937;78.9629">
+<meta name="ICBM" content="20.5937, 78.9629">
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="MyGoldRates">
+<meta property="og:title" content="Gold Rate Today in India - Compare 14+ Jewellers">
+<meta property="og:description" content="Live 24K, 22K & 18K gold rates from 14+ Indian jewellers, updated daily.">
+<meta property="og:url" content="https://mygoldrates.com/">
+<meta property="og:image" content="https://mygoldrates.com/og.png">
+<meta property="og:locale" content="en_IN">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Gold Rate Today in India - Compare Jewellers">
+<meta name="twitter:description" content="Live 24K, 22K & 18K gold rates from 14+ Indian jewellers, updated daily.">
+<meta name="twitter:image" content="https://mygoldrates.com/og.png">
+<!-- Structured data -->
+<script type="application/ld+json">
+{"@context":"https://schema.org","@graph":[
+ {"@type":"WebSite","@id":"https://mygoldrates.com/#site","url":"https://mygoldrates.com/","name":"MyGoldRates","inLanguage":"en-IN","potentialAction":{"@type":"SearchAction","target":"https://mygoldrates.com/?q={search_term_string}","query-input":"required name=search_term_string"}},
+ {"@type":"Organization","@id":"https://mygoldrates.com/#org","name":"MyGoldRates","url":"https://mygoldrates.com/","logo":"https://mygoldrates.com/logo.png","areaServed":"IN","sameAs":["https://twitter.com/mygoldrates"]},
+ {"@type":"Dataset","name":"Gold rates across Indian jewellers","description":"Daily 24K, 22K and 18K per-gram gold rates compared across major Indian jewellery brands.","license":"https://mygoldrates.com/#terms","isAccessibleForFree":true,"creator":{"@id":"https://mygoldrates.com/#org"},"spatialCoverage":{"@type":"Place","name":"India","geo":{"@type":"GeoCoordinates","latitude":20.5937,"longitude":78.9629}}},
+ {"@type":"FAQPage","mainEntity":[
+  {"@type":"Question","name":"What is the gold rate today in India?","acceptedAnswer":{"@type":"Answer","text":"Today the 24K gold rate across major Indian jewellers ranges from about ₹15,075 to ₹15,438 per gram (pre-GST). The 22K rate is around ₹13,944 per gram."}},
+  {"@type":"Question","name":"Which jeweller has the lowest gold rate today?","acceptedAnswer":{"@type":"Answer","text":"Today PN Gadgil lists the lowest effective 24K gold rate at ₹15,075 per gram. Rates typically differ by 1-3% between brands due to varying sourcing and hallmarking premiums."}},
+  {"@type":"Question","name":"Are these rates inclusive of GST?","acceptedAnswer":{"@type":"Answer","text":"Rates shown are per gram, pre-GST. Use the GST toggle to see prices including 3% GST. Making charges vary by design and are always extra."}},
+  {"@type":"Question","name":"What is the difference between 24K, 22K and 18K gold?","acceptedAnswer":{"@type":"Answer","text":"24K (99.9% pure) is investment-grade gold. 22K (91.6%) is standard for Indian jewellery. 18K (75%) is common in diamond jewellery. Purity scales the price."}}
+ ]}
+]}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;background:#0a0804}
@@ -46,35 +85,21 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px;flex-shrink:0}
 .logo{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,0.5)}
 .logo .g{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.top-right{display:flex;align-items:center;gap:8px}
+.top-right{display:flex;align-items:center;gap:6px}
 .live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.3px;color:var(--text2);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:99px;padding:5px 10px}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(92,196,160,0.7);animation:pulse 2s ease-in-out infinite}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
 
-/* ─── Music bar (saloon.wtf style) ─── */
-.music-bar{display:flex;align-items:center;gap:10px;padding:6px 16px 8px;flex-shrink:0}
-.music-art{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#2a1a0a,#3a2510);border:1px solid var(--glass-border2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
-.music-art .note{animation:noteFloat 3s ease-in-out infinite}
-@keyframes noteFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2px) rotate(5deg)}}
-.music-info{flex:1;min-width:0}
-.music-title{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.music-artist{font-size:10px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.music-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
-.m-btn{width:28px;height:28px;border-radius:50%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .2s}
-.m-btn:active{transform:scale(.85)}
-.m-btn svg{width:14px;height:14px;fill:currentColor}
-.m-btn.play{width:34px;height:34px;background:var(--gold);color:#1a0a04}
-.m-btn.play svg{width:16px;height:16px;margin-left:1px}
-.music-links{display:flex;gap:6px;flex-shrink:0;margin-left:4px}
-.m-link{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-border);color:var(--text3);text-decoration:none;transition:all .2s}
-.m-link:hover{border-color:var(--glass-border2);color:var(--text2)}
-.m-link svg{width:13px;height:13px;fill:currentColor}
+/* ─── View system (tabbed) ─── */
+.view{display:none;animation:fadeIn .25s ease}
+.view.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-/* ─── Seek bar ─── */
-.seek-row{display:flex;align-items:center;gap:6px;padding:0 16px 6px}
-.seek-time{font-size:9px;color:var(--text3);min-width:28px;font-weight:500}
-.seek-track{flex:1;height:3px;background:rgba(200,160,60,0.15);border-radius:3px;position:relative;overflow:hidden;cursor:pointer}
-.seek-fill{height:100%;width:12%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width .3s}
+/* ─── Brand selector on hero ─── */
+.brand-sel-wrap{display:flex;justify-content:center;margin:8px 16px 0}
+.brand-sel{background:var(--glass2);backdrop-filter:blur(16px);border:1px solid var(--glass-border2);border-radius:99px;padding:6px 32px 6px 14px;color:var(--text);font-size:12px;font-weight:600;font-family:inherit;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
+.brand-sel:focus{border-color:var(--gold)}
+.hero-rate .per{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text3);-webkit-text-fill-color:var(--text3);margin-left:4px}
 
 /* ─── Sections container ─── */
 .sections{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -96,8 +121,12 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .karat-pill{font-size:11px;font-weight:700;padding:6px 22px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);backdrop-filter:blur(12px);color:var(--text3);cursor:pointer;transition:all .25s}
 .karat-pill.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 4px 16px rgba(212,166,60,0.35)}
 
-/* ─── Savings chip ─── */
-.savings{display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 16px 10px;padding:7px 12px;border-radius:10px;background:var(--mint-soft);backdrop-filter:blur(12px);border:1px solid rgba(92,196,160,0.12)}
+/* ─── Savings + GST chip row ─── */
+.chip-row{display:flex;align-items:stretch;gap:6px;margin:4px 16px 10px}
+.savings{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:7px 12px;border-radius:10px;background:var(--mint-soft);backdrop-filter:blur(12px);border:1px solid rgba(92,196,160,0.12)}
+.gst-btn{background:var(--glass2);backdrop-filter:blur(12px);border:1px solid var(--glass-border2);border-radius:10px;padding:6px 12px;font-size:10px;font-weight:700;letter-spacing:.3px;color:var(--text2);cursor:pointer;transition:all .2s;font-family:inherit;text-transform:uppercase;white-space:nowrap}
+.gst-btn.on{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 2px 10px rgba(212,166,60,0.3)}
+.gst-btn:active{transform:scale(.94)}
 .savings svg{width:13px;height:13px;stroke:var(--mint);fill:none;stroke-width:2.5;flex-shrink:0}
 .savings span{font-size:11px;font-weight:500;color:var(--mint)}
 .savings strong{font-weight:700}
@@ -112,6 +141,7 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .br.best{background:var(--mint-soft)}
 .b-rk{width:18px;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0}
 .br.best .b-rk{color:var(--mint)}
+.b-logo{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.92);border:1px solid var(--glass-border);flex-shrink:0;padding:2px;object-fit:contain;margin-right:8px}
 .b-inf{flex:1;min-width:0;display:flex;align-items:center;gap:5px}
 .b-nm{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .br.best .b-nm{color:var(--mint);font-weight:600}
@@ -152,6 +182,11 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 /* ─── Quick calc ─── */
 .qcw{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border-radius:16px;border:1px solid var(--glass-border);padding:14px;position:relative;overflow:hidden}
 .qcw::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--blue))}
+.qc-tabs{display:flex;gap:4px;margin-bottom:10px;background:rgba(0,0,0,0.25);border-radius:9px;padding:3px}
+.qc-tab{flex:1;background:transparent;border:none;color:var(--text3);font-size:11px;font-weight:700;padding:6px;border-radius:7px;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.4px;transition:all .2s}
+.qc-tab.active{background:var(--gold-soft);color:var(--gold-light);box-shadow:inset 0 0 0 1px var(--glass-border2)}
+.calc-note{font-size:10px;color:var(--text3);text-align:center;padding:10px 20px 0;line-height:1.5}
+select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .qcr{display:flex;gap:8px;margin-bottom:10px}
 .qci{flex:1;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
 .qci:focus{border-color:var(--gold)}
@@ -210,40 +245,28 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
   </div>
 </header>
 
-<!-- Music bar -->
-<div class="music-bar">
-  <div class="music-art"><span class="note">&#127926;</span></div>
-  <div class="music-info">
-    <div class="music-title" id="mTitle">Gazab Ka Hai Din (Instrumental)</div>
-    <div class="music-artist" id="mArtist">Qayamat Se Qayamat Tak</div>
-  </div>
-  <div class="music-controls">
-    <button class="m-btn" id="mPrev"><svg viewBox="0 0 24 24"><path d="M19 20L9 12l10-8v16zM5 19V5"/></svg></button>
-    <button class="m-btn play" id="mPlay"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
-    <button class="m-btn" id="mNext"><svg viewBox="0 0 24 24"><path d="M5 4l10 8-10 8V4zM19 5v14"/></svg></button>
-  </div>
-  <div class="music-links">
-    <a class="m-link" href="https://open.spotify.com/playlist/37i9dQZF1DWTJPjbBFMMBm" target="_blank" rel="noopener" aria-label="Open on Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
-    <a class="m-link" href="https://music.youtube.com/playlist?list=PLGr9kS-J2hVeKdSOfHkqxaLvGhf3hOCF9" target="_blank" rel="noopener" aria-label="Open on YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L16.2 12l-6.516 3.54z"/></svg></a>
-  </div>
-</div>
-<div class="seek-row">
-  <span class="seek-time" id="sTime">0:00</span>
-  <div class="seek-track" id="seekTrack"><div class="seek-fill" id="seekFill"></div></div>
-  <span class="seek-time" id="sTotal">4:28</span>
-</div>
+<!-- Google One Tap (uses Google Identity Services) -->
+<div id="g_id_onload"
+     data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+     data-callback="handleCredentialResponse"
+     data-auto_prompt="true"
+     data-cancel_on_tap_outside="false"
+     data-context="signin"></div>
 
 <!-- Scrollable content -->
 <div class="sections" id="sections">
 
-  <!-- HERO -->
-  <section class="hero" id="sec-rates">
-    <div class="hero-badge"><div class="dot"></div>24K GOLD &middot; MEDIAN</div>
-    <div class="hero-rate" id="heroRate">
-      <span class="sym">&#8377;</span><span id="heroVal">15,211</span><span class="unit">/g</span>
+  <!-- ═══════ RATES VIEW ═══════ -->
+  <div class="view active" id="v-rates">
+  <section class="hero">
+    <div class="hero-badge"><div class="dot"></div><span id="heroBadge">24K &middot; PN GADGIL</span></div>
+    <div class="hero-rate">
+      <span class="sym">&#8377;</span><span id="heroVal">1,50,750</span><span class="per">/10g</span>
       <div class="hero-sparkle"></div>
     </div>
-    <div class="hero-sub">Pre-GST &middot; <b>19 jewellers</b> &middot; IBJA ref &#8377;15,106</div>
+    <div class="brand-sel-wrap">
+      <select class="brand-sel" id="heroBrand"></select>
+    </div>
   </section>
 
   <div class="karat-row" id="karatRow">
@@ -252,198 +275,317 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
     <button class="karat-pill" data-k="18K">18K</button>
   </div>
 
-  <div class="savings"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Save up to <strong>&#8377;363/g</strong> &mdash; pick the cheapest</span></div>
+  <div class="chip-row">
+    <div class="savings"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Save up to <strong id="saveAmt">&#8377;363/g</strong> &mdash; pick the cheapest</span></div>
+    <button class="gst-btn" id="gstBtn" aria-pressed="false">+3% GST</button>
+  </div>
 
   <!-- Brands -->
   <div class="brands-wrap">
     <div class="brands-head"><span class="t">Today's Board</span><span class="c">19 brands</span></div>
     <div id="brandList">
-      <div class="br best"><span class="b-rk">1</span><div class="b-inf"><span class="b-nm">PN Gadgil</span><span class="b-tg">Lowest</span></div><div class="b-pr"><div class="b-rt">&#8377;15,075</div><div class="b-dl neg">&minus;&#8377;136</div></div></div>
-      <div class="br"><span class="b-rk">2</span><div class="b-inf"><span class="b-nm">Senco Gold</span></div><div class="b-pr"><div class="b-rt">&#8377;15,147</div><div class="b-dl neg">&minus;&#8377;64</div></div></div>
-      <div class="br"><span class="b-rk">3</span><div class="b-inf"><span class="b-nm">Indriya</span></div><div class="b-pr"><div class="b-rt">&#8377;15,191</div><div class="b-dl neg">&minus;&#8377;20</div></div></div>
-      <div class="br"><span class="b-rk">4</span><div class="b-inf"><span class="b-nm">GRT Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,196</div><div class="b-dl neg">&minus;&#8377;15</div></div></div>
-      <div class="br"><span class="b-rk">5</span><div class="b-inf"><span class="b-nm">Bhima Jewels</span></div><div class="b-pr"><div class="b-rt">&#8377;15,199</div><div class="b-dl neg">&minus;&#8377;12</div></div></div>
-      <div class="br"><span class="b-rk">6</span><div class="b-inf"><span class="b-nm">Jos Alukkas</span></div><div class="b-pr"><div class="b-rt">&#8377;15,201</div><div class="b-dl neg">&minus;&#8377;10</div></div></div>
-      <div class="br"><span class="b-rk">7</span><div class="b-inf"><span class="b-nm">Candere</span></div><div class="b-pr"><div class="b-rt">&#8377;15,207</div><div class="b-dl neg">&minus;&#8377;4</div></div></div>
-      <div class="br"><span class="b-rk">8</span><div class="b-inf"><span class="b-nm">Kalyan Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,216</div><div class="b-dl pos">+&#8377;4</div></div></div>
-      <div class="br"><span class="b-rk">9</span><div class="b-inf"><span class="b-nm">ORRA</span></div><div class="b-pr"><div class="b-rt">&#8377;15,222</div><div class="b-dl pos">+&#8377;10</div></div></div>
-      <div class="br"><span class="b-rk">10</span><div class="b-inf"><span class="b-nm">CaratLane</span></div><div class="b-pr"><div class="b-rt">&#8377;15,241</div><div class="b-dl pos">+&#8377;30</div></div></div>
-      <div class="br"><span class="b-rk">11</span><div class="b-inf"><span class="b-nm">Tanishq</span></div><div class="b-pr"><div class="b-rt">&#8377;15,245</div><div class="b-dl pos">+&#8377;34</div></div></div>
-      <div class="br"><span class="b-rk">12</span><div class="b-inf"><span class="b-nm">Kisna</span></div><div class="b-pr"><div class="b-rt">&#8377;15,250</div><div class="b-dl pos">+&#8377;39</div></div></div>
-      <div class="br"><span class="b-rk">13</span><div class="b-inf"><span class="b-nm">BlueStone</span></div><div class="b-pr"><div class="b-rt">&#8377;15,390</div><div class="b-dl pos">+&#8377;179</div></div></div>
-      <div class="br"><span class="b-rk">14</span><div class="b-inf"><span class="b-nm">Waman Hari Pethe</span></div><div class="b-pr"><div class="b-rt">&#8377;15,438</div><div class="b-dl pos">+&#8377;227</div></div></div>
+      <div class="br best" data-dom="pngjewellers.com"><span class="b-rk">1</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=pngjewellers.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">PN Gadgil</span><span class="b-tg">Lowest</span></div><div class="b-pr"><div class="b-rt">&#8377;15,075</div><div class="b-dl neg">&minus;&#8377;136</div></div></div>
+      <div class="br" data-dom="sencogoldanddiamonds.com"><span class="b-rk">2</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Senco Gold</span></div><div class="b-pr"><div class="b-rt">&#8377;15,147</div><div class="b-dl neg">&minus;&#8377;64</div></div></div>
+      <div class="br" data-dom="indriya.com"><span class="b-rk">3</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=indriya.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Indriya</span></div><div class="b-pr"><div class="b-rt">&#8377;15,191</div><div class="b-dl neg">&minus;&#8377;20</div></div></div>
+      <div class="br" data-dom="grtjewels.com"><span class="b-rk">4</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=grtjewels.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">GRT Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,196</div><div class="b-dl neg">&minus;&#8377;15</div></div></div>
+      <div class="br" data-dom="bhima.com"><span class="b-rk">5</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bhima.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Bhima Jewels</span></div><div class="b-pr"><div class="b-rt">&#8377;15,199</div><div class="b-dl neg">&minus;&#8377;12</div></div></div>
+      <div class="br" data-dom="josalukkasonline.com"><span class="b-rk">6</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=josalukkasonline.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Jos Alukkas</span></div><div class="b-pr"><div class="b-rt">&#8377;15,201</div><div class="b-dl neg">&minus;&#8377;10</div></div></div>
+      <div class="br" data-dom="candere.com"><span class="b-rk">7</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=candere.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Candere</span></div><div class="b-pr"><div class="b-rt">&#8377;15,207</div><div class="b-dl neg">&minus;&#8377;4</div></div></div>
+      <div class="br" data-dom="kalyanjewellers.net"><span class="b-rk">8</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=kalyanjewellers.net&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Kalyan Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,216</div><div class="b-dl pos">+&#8377;4</div></div></div>
+      <div class="br" data-dom="orra.co.in"><span class="b-rk">9</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=orra.co.in&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">ORRA</span></div><div class="b-pr"><div class="b-rt">&#8377;15,222</div><div class="b-dl pos">+&#8377;10</div></div></div>
+      <div class="br" data-dom="caratlane.com"><span class="b-rk">10</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">CaratLane</span></div><div class="b-pr"><div class="b-rt">&#8377;15,241</div><div class="b-dl pos">+&#8377;30</div></div></div>
+      <div class="br" data-dom="tanishq.co.in"><span class="b-rk">11</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=tanishq.co.in&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Tanishq</span></div><div class="b-pr"><div class="b-rt">&#8377;15,245</div><div class="b-dl pos">+&#8377;34</div></div></div>
+      <div class="br" data-dom="kisna.com"><span class="b-rk">12</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=kisna.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Kisna</span></div><div class="b-pr"><div class="b-rt">&#8377;15,250</div><div class="b-dl pos">+&#8377;39</div></div></div>
+      <div class="br" data-dom="bluestone.com"><span class="b-rk">13</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">BlueStone</span></div><div class="b-pr"><div class="b-rt">&#8377;15,390</div><div class="b-dl pos">+&#8377;179</div></div></div>
+      <div class="br" data-dom="wamanharipethe.com"><span class="b-rk">14</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=wamanharipethe.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Waman Hari Pethe</span></div><div class="b-pr"><div class="b-rt">&#8377;15,438</div><div class="b-dl pos">+&#8377;227</div></div></div>
     </div>
   </div>
+  <div style="height:28px"></div>
+  </div><!-- /v-rates -->
 
-  <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
-
-  <!-- MARKET -->
-  <div class="sh" id="sec-market"><div class="ic rs">&#9830;</div><h2>Market Pulse</h2></div>
+  <!-- ═══════ MARKET VIEW ═══════ -->
+  <div class="view" id="v-market">
+  <div class="sh"><div class="ic rs">&#9830;</div><h2>Market Pulse</h2></div>
   <div class="mgrid">
     <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r">&#8377;15,106</div><div class="mc-s">999 Fine &middot; National</div><div class="mc-d up">&#9650; +&#8377;42</div></div>
     <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r">&#8377;13,847</div><div class="mc-s">916 &middot; National</div><div class="mc-d up">&#9650; +&#8377;38</div></div>
     <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r">&#8377;75,820</div><div class="mc-s">Per 10g &middot; Futures</div><div class="mc-d dn">&#9660; &minus;&#8377;130</div></div>
     <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r">&#8377;15,140</div><div class="mc-s">24K &middot; Ahmedabad</div><div class="mc-d up">&#9650; +&#8377;55</div></div>
   </div>
+  <div style="height:28px"></div>
+  </div><!-- /v-market -->
 
-  <div class="dv"><div class="ln"></div><div class="gm g"></div><div class="gm r"></div><div class="gm b"></div><div class="ln"></div></div>
-
-  <!-- CALCULATOR -->
-  <div class="sh" id="sec-calc"><div class="ic bl">&#9998;</div><h2>Quick Calculator</h2></div>
+  <!-- ═══════ CALC VIEW ═══════ -->
+  <div class="view" id="v-calc">
+  <div class="sh"><div class="ic bl">&#9998;</div><h2>Calculators</h2></div>
   <div class="qcw">
-    <div class="qcr"><input class="qci" id="qcGrams" type="number" inputmode="decimal" placeholder="Enter grams" value="10"><select class="qcs" id="qcPurity"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
-    <div class="qcres"><div class="qcres-v" id="qcResult">&#8377;1,39,440</div><div class="qcres-l">Estimated value &middot; pre-GST &middot; no making</div></div>
-  </div>
-  <div class="clnks">
-    <div class="clnk"><div class="cl-i rs">&#128176;</div><div class="cl-inf"><div class="cl-t">Gold Loan Calculator</div><div class="cl-d">How much can you borrow?</div></div><div class="cl-ar">&#8250;</div></div>
-    <div class="clnk"><div class="cl-i bl">&#128200;</div><div class="cl-inf"><div class="cl-t">Gold SIP Calculator</div><div class="cl-d">Monthly gold savings plan</div></div><div class="cl-ar">&#8250;</div></div>
-    <div class="clnk"><div class="cl-i gl">&#128142;</div><div class="cl-inf"><div class="cl-t">Making Charges</div><div class="cl-d">Compare across jewellers</div></div><div class="cl-ar">&#8250;</div></div>
-    <div class="clnk"><div class="cl-i mt">&#127991;</div><div class="cl-inf"><div class="cl-t">Budget Gold</div><div class="cl-d">Fix rupees, see grams per brand</div></div><div class="cl-ar">&#8250;</div></div>
+    <div class="qc-tabs" id="calcTabs">
+      <button class="qc-tab active" data-calc="value">Value</button>
+      <button class="qc-tab" data-calc="budget">Budget</button>
+      <button class="qc-tab" data-calc="loan">Loan</button>
+      <button class="qc-tab" data-calc="sip">SIP</button>
+      <button class="qc-tab" data-calc="mc">Making</button>
+    </div>
+
+    <!-- VALUE -->
+    <div class="calc-panel" data-panel="value">
+      <div class="qcr"><input class="qci" id="cvGrams" type="number" inputmode="decimal" placeholder="Grams" value="10"><select class="qcs" id="cvPurity"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+      <div class="qcr"><select class="qci" id="cvBrand"></select></div>
+      <div class="qcres"><div class="qcres-v" id="cvRes">&#8377;1,39,440</div><div class="qcres-l">Metal value &middot; pre-GST &middot; no making</div></div>
+    </div>
+
+    <!-- BUDGET -->
+    <div class="calc-panel" data-panel="budget" style="display:none">
+      <div class="qcr"><input class="qci" id="cbAmt" type="number" inputmode="decimal" placeholder="Budget (&#8377;)" value="100000"><select class="qcs" id="cbPurity"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+      <div class="qcr"><select class="qci" id="cbBrand"></select></div>
+      <div class="qcres"><div class="qcres-v" id="cbRes">7.170 g</div><div class="qcres-l">Grams you can buy &middot; pre-GST</div></div>
+    </div>
+
+    <!-- GOLD LOAN -->
+    <div class="calc-panel" data-panel="loan" style="display:none">
+      <div class="qcr"><input class="qci" id="clG" type="number" inputmode="decimal" placeholder="Grams of gold" value="20"><select class="qcs" id="clP"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+      <div class="qcr"><input class="qci" id="clLtv" type="number" inputmode="decimal" placeholder="LTV %" value="75"><input class="qcs" id="clRate" type="number" inputmode="decimal" placeholder="Interest %" value="9.5" style="min-width:82px"></div>
+      <div class="qcres"><div class="qcres-v" id="clLoan">&#8377;2,09,160</div><div class="qcres-l"><span id="clMonthly">EMI 12m: &#8377;18,347</span></div></div>
+    </div>
+
+    <!-- SIP -->
+    <div class="calc-panel" data-panel="sip" style="display:none">
+      <div class="qcr"><input class="qci" id="csAmt" type="number" inputmode="decimal" placeholder="Monthly &#8377;" value="5000"><input class="qcs" id="csYrs" type="number" inputmode="decimal" placeholder="Years" value="5" style="min-width:72px"></div>
+      <div class="qcr"><input class="qci" id="csRet" type="number" inputmode="decimal" placeholder="Assumed return % p.a." value="10"></div>
+      <div class="qcres"><div class="qcres-v" id="csRes">&#8377;3,87,398</div><div class="qcres-l" id="csDet">Invested &#8377;3,00,000 &middot; Gain &#8377;87,398</div></div>
+    </div>
+
+    <!-- MAKING CHARGES -->
+    <div class="calc-panel" data-panel="mc" style="display:none">
+      <div class="qcr"><input class="qci" id="cmG" type="number" inputmode="decimal" placeholder="Grams" value="10"><select class="qcs" id="cmP"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+      <div class="qcr"><select class="qci" id="cmBrand"></select><input class="qcs" id="cmPct" type="number" inputmode="decimal" placeholder="MC %" value="12" style="min-width:72px"></div>
+      <div class="qcres">
+        <div class="qcres-v" id="cmTotal">&#8377;1,56,173</div>
+        <div class="qcres-l" id="cmBreak">Metal &#8377;1,39,440 &middot; MC &#8377;16,733</div>
+      </div>
+    </div>
   </div>
 
-  <div class="dv"><div class="ln"></div><div class="gm b"></div><div class="gm g"></div><div class="gm r"></div><div class="ln"></div></div>
+  <p class="calc-note">All calculators are estimates for planning. Actual rates, LTV and making charges vary by jeweller and by day.</p>
+  <div style="height:28px"></div>
+  </div><!-- /v-calc -->
 
-  <!-- ALERTS -->
-  <div class="sh" id="sec-alerts"><div class="ic gl">&#128276;</div><h2>Daily Alerts</h2></div>
+  <!-- ═══════ ALERTS VIEW ═══════ -->
+  <div class="view" id="v-alerts">
+  <div class="sh"><div class="ic gl">&#128276;</div><h2>Daily Alerts</h2></div>
   <div class="alcard">
     <div class="al-em">&#128140;</div>
     <div class="al-t">Never miss the cheapest rate</div>
     <div class="al-d">One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</div>
-    <div class="al-row"><input class="al-inp" type="email" placeholder="Your email" inputmode="email"><button class="al-btn">Subscribe</button></div>
+    <div class="al-row"><input class="al-inp" id="alEmail" type="email" placeholder="Your email" inputmode="email"><button class="al-btn" id="alBtn">Subscribe</button></div>
+    <div id="alStatus" style="font-size:11px;color:var(--mint);margin-top:8px;min-height:14px"></div>
   </div>
 
+  <div id="gsiSlot" style="margin:16px 12px 0"></div>
   <div style="height:28px"></div>
+  </div><!-- /v-alerts -->
 </div>
 
 <!-- Bottom nav -->
 <nav class="bnav">
-  <button class="ni active" data-sec="sec-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
-  <button class="ni" data-sec="sec-market"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
-  <button class="ni" data-sec="sec-calc"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
-  <button class="ni" data-sec="sec-alerts"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts</button>
+  <button class="ni active" data-view="v-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
+  <button class="ni" data-view="v-market"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
+  <button class="ni" data-view="v-calc"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
+  <button class="ni" data-view="v-alerts"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts</button>
 </nav>
 </div>
 
 <script>
+// Google One Tap callback (global scope)
+function handleCredentialResponse(resp){
+  try{
+    var payload=JSON.parse(atob(resp.credential.split('.')[1]));
+    var slot=document.getElementById('gsiSlot');
+    if(slot){slot.innerHTML='<div style="background:var(--mint-soft);border:1px solid rgba(92,196,160,0.2);border-radius:12px;padding:12px;font-size:12px;color:var(--text);text-align:center">Signed in as <b>'+(payload.name||payload.email)+'</b></div>'}
+    // TODO: POST resp.credential to /api/auth for server-side verification
+  }catch(e){console.warn('gsi decode',e)}
+}
+
 (function(){
   // ─── BG blur/unblur on scroll ───
   var bg=document.querySelector('.bg-layer');
   var overlay=document.querySelector('.bg-overlay');
   var sections=document.getElementById('sections');
-  var maxScroll=800;
-
   sections.addEventListener('scroll',function(){
-    var s=sections.scrollTop;
-    var pct=Math.min(s/maxScroll,1);
-    var blur=18*(1-pct);
-    var bright=0.5+0.3*pct;
-    bg.style.filter='blur('+blur+'px) brightness('+bright+')';
+    var s=sections.scrollTop,pct=Math.min(s/400,1);
+    bg.style.filter='blur('+(18*(1-pct))+'px) brightness('+(0.5+0.3*pct)+')';
     overlay.style.opacity=1-pct*0.4;
   });
 
-  // ─── Music player (playlist of 90s romantic instrumentals) ───
-  var playlist=[
-    {title:'Gazab Ka Hai Din (Instrumental)',artist:'Qayamat Se Qayamat Tak',dur:'4:28'},
-    {title:'Pehla Nasha (Instrumental)',artist:'Jo Jeeta Wohi Sikandar',dur:'5:12'},
-    {title:'Tujhe Dekha To (Instrumental)',artist:'Dilwale Dulhania Le Jayenge',dur:'5:45'},
-    {title:'Ek Ladki Ko Dekha (Instrumental)',artist:'1942: A Love Story',dur:'5:30'},
-    {title:'Dil To Pagal Hai (Instrumental)',artist:'Dil To Pagal Hai',dur:'6:02'},
-    {title:'Ye Kaali Kaali Aankhen (Instrumental)',artist:'Baazigar',dur:'4:55'},
-    {title:'Meri Mehbooba (Instrumental)',artist:'Pardes',dur:'5:18'},
-    {title:'Chaand Sifarish (Instrumental)',artist:'Fanaa',dur:'4:48'},
-    {title:'Tum Se Hi (Instrumental)',artist:'Jab We Met',dur:'5:22'},
-    {title:'Jaadu Teri Nazar (Instrumental)',artist:'Darr',dur:'4:42'}
+  // ─── Brand catalogue ───
+  var BRANDS=[
+    {n:'PN Gadgil',d:'pngjewellers.com'},{n:'Senco Gold',d:'sencogoldanddiamonds.com'},
+    {n:'Indriya',d:'indriya.com'},{n:'GRT Jewellers',d:'grtjewels.com'},
+    {n:'Bhima Jewels',d:'bhima.com'},{n:'Jos Alukkas',d:'josalukkasonline.com'},
+    {n:'Candere',d:'candere.com'},{n:'Kalyan Jewellers',d:'kalyanjewellers.net'},
+    {n:'ORRA',d:'orra.co.in'},{n:'CaratLane',d:'caratlane.com'},
+    {n:'Tanishq',d:'tanishq.co.in'},{n:'Kisna',d:'kisna.com'},
+    {n:'BlueStone',d:'bluestone.com'},{n:'Waman Hari Pethe',d:'wamanharipethe.com'}
   ];
-  var ci=0,playing=false;
-  var mTitle=document.getElementById('mTitle');
-  var mArtist=document.getElementById('mArtist');
-  var playIcon=document.getElementById('playIcon');
-  var seekFill=document.getElementById('seekFill');
-  var sTime=document.getElementById('sTime');
-  var sTotal=document.getElementById('sTotal');
-  var elapsed=0,interval=null;
-
-  function loadTrack(i){
-    ci=((i%playlist.length)+playlist.length)%playlist.length;
-    var t=playlist[ci];
-    mTitle.textContent=t.title;
-    mArtist.textContent=t.artist;
-    sTotal.textContent=t.dur;
-    elapsed=0;sTime.textContent='0:00';seekFill.style.width='0%';
-  }
-
-  function parseDur(s){var p=s.split(':');return parseInt(p[0])*60+parseInt(p[1])}
-
-  function tick(){
-    if(!playing)return;
-    elapsed++;
-    var total=parseDur(playlist[ci].dur);
-    if(elapsed>=total){loadTrack(ci+1);return}
-    var m=Math.floor(elapsed/60),s=elapsed%60;
-    sTime.textContent=m+':'+(s<10?'0':'')+s;
-    seekFill.style.width=(elapsed/total*100)+'%';
-  }
-
-  document.getElementById('mPlay').addEventListener('click',function(){
-    playing=!playing;
-    playIcon.innerHTML=playing?'<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>':'<path d="M8 5v14l11-7z"/>';
-    if(playing){interval=setInterval(tick,1000)}else{clearInterval(interval)}
-  });
-  document.getElementById('mPrev').addEventListener('click',function(){loadTrack(ci-1);if(playing){elapsed=0}});
-  document.getElementById('mNext').addEventListener('click',function(){loadTrack(ci+1);if(playing){elapsed=0}});
-  document.getElementById('seekTrack').addEventListener('click',function(e){
-    var rect=this.getBoundingClientRect();
-    var pct=(e.clientX-rect.left)/rect.width;
-    var total=parseDur(playlist[ci].dur);
-    elapsed=Math.floor(pct*total);
-    var m=Math.floor(elapsed/60),s=elapsed%60;
-    sTime.textContent=m+':'+(s<10?'0':'')+s;
-    seekFill.style.width=(pct*100)+'%';
-  });
 
   // ─── Karat switcher ───
   var karats=document.querySelectorAll('.karat-pill');
-  var heroBadge=document.querySelector('.hero-badge');
+  var heroBadge=document.getElementById('heroBadge');
   var heroVal=document.getElementById('heroVal');
-  var heroSub=document.querySelector('.hero-sub');
+  var heroBrandSel=document.getElementById('heroBrand');
+  var currentK='24K';
   var DATA={
     '24K':{median:'15,211',ibja:'15,106',rates:['15,075','15,147','15,191','15,196','15,199','15,201','15,207','15,216','15,222','15,241','15,245','15,250','15,390','15,438'],deltas:['-136','-64','-20','-15','-12','-10','-4','+4','+10','+30','+34','+39','+179','+227']},
     '22K':{median:'13,944',ibja:'13,847',rates:['13,819','13,885','13,925','13,930','13,932','13,934','13,940','13,948','13,953','13,971','13,975','13,979','14,108','14,152'],deltas:['-125','-59','-19','-14','-12','-10','-4','+4','+9','+27','+31','+35','+164','+208']},
     '18K':{median:'11,408',ibja:'11,330',rates:['11,306','11,361','11,393','11,397','11,399','11,401','11,405','11,412','11,416','11,431','11,434','11,437','11,543','11,578'],deltas:['-102','-47','-15','-11','-9','-7','-3','+4','+8','+23','+26','+29','+135','+170']}
   };
-  var medianNums={'24K':15211,'22K':13944,'18K':11408};
 
+  function num(s){return parseFloat(String(s).replace(/,/g,''))}
+  function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
+  function fmtG(g){return g.toFixed(3)+' g'}
+  function rateFor(brandIdx,karat){return num(DATA[karat].rates[brandIdx])}
+
+  // ─── Populate brand dropdowns ───
+  var brandHtml=BRANDS.map(function(b,i){return '<option value="'+i+'">'+b.n+'</option>'}).join('');
+  ['heroBrand','cvBrand','cbBrand','cmBrand'].forEach(function(id){
+    var el=document.getElementById(id);if(el)el.innerHTML=brandHtml;
+  });
+
+  // ─── Hero: brand + karat drives the big rate (per 10g) ───
+  var gstOn=false;
+  function paintHero(){
+    var i=parseInt(heroBrandSel.value)||0;
+    var perG=rateFor(i,currentK);
+    var per10=perG*10*(gstOn?1.03:1);
+    heroVal.textContent=Math.round(per10).toLocaleString('en-IN');
+    heroBadge.innerHTML='<div class="dot"></div>'+currentK+' &middot; '+BRANDS[i].n.toUpperCase();
+  }
+  function paintRows(){
+    var d=DATA[currentK];
+    document.querySelectorAll('.br').forEach(function(row,i){
+      var rt=row.querySelector('.b-rt'),base=num(d.rates[i]);
+      rt.dataset.base=base;
+      rt.textContent=fmt(gstOn?base*1.03:base);
+      var dd=row.querySelector('.b-dl'),v=d.deltas[i];
+      dd.textContent=(v.charAt(0)==='+'?'+':'−')+'₹'+v.replace(/[+-]/,'');
+      dd.className='b-dl '+(v.charAt(0)==='+'?'pos':v==='0'?'zero':'neg');
+    });
+    var nums=d.rates.map(num);
+    document.getElementById('saveAmt').innerHTML='₹'+Math.round(Math.max.apply(null,nums)-Math.min.apply(null,nums))+'/g';
+  }
   karats.forEach(function(btn){
     btn.addEventListener('click',function(){
       karats.forEach(function(b){b.classList.remove('active')});
       this.classList.add('active');
-      var k=this.dataset.k,d=DATA[k];
-      heroBadge.innerHTML='<div class="dot"></div>'+k+' GOLD · MEDIAN';
-      heroVal.textContent=d.median;
-      heroSub.innerHTML='Pre-GST · <b>19 jewellers</b> · IBJA ref ₹'+d.ibja;
-      document.querySelectorAll('.br').forEach(function(row,i){
-        row.querySelector('.b-rt').innerHTML='₹'+d.rates[i];
-        var dd=row.querySelector('.b-dl'),v=d.deltas[i];
-        dd.textContent=(v.startsWith('+')?'+':'−')+'₹'+v.replace(/[+-]/,'');
-        dd.className='b-dl '+(v.startsWith('+')?'pos':v==='0'?'zero':'neg');
-      });
-      updateCalc();
+      currentK=this.dataset.k;
+      paintRows();paintHero();recalcAll();
+    });
+  });
+  heroBrandSel.addEventListener('change',paintHero);
+
+  // ─── GST toggle ───
+  var gstBtn=document.getElementById('gstBtn');
+  gstBtn.addEventListener('click',function(){
+    gstOn=!gstOn;
+    gstBtn.classList.toggle('on',gstOn);
+    gstBtn.setAttribute('aria-pressed',String(gstOn));
+    gstBtn.textContent=gstOn?'GST ON':'+3% GST';
+    paintRows();paintHero();
+  });
+
+  // ─── Calc sub-tabs ───
+  document.querySelectorAll('#calcTabs .qc-tab').forEach(function(t){
+    t.addEventListener('click',function(){
+      document.querySelectorAll('#calcTabs .qc-tab').forEach(function(x){x.classList.remove('active')});
+      this.classList.add('active');
+      var k=this.dataset.calc;
+      document.querySelectorAll('.calc-panel').forEach(function(p){p.style.display=p.dataset.panel===k?'block':'none'});
     });
   });
 
-  // ─── Quick calc ───
-  var qcG=document.getElementById('qcGrams'),qcP=document.getElementById('qcPurity'),qcR=document.getElementById('qcResult');
-  function updateCalc(){var g=parseFloat(qcG.value)||0,rate=medianNums[qcP.value]||medianNums['22K'];qcR.innerHTML='₹'+Math.round(g*rate).toLocaleString('en-IN')}
-  qcG.addEventListener('input',updateCalc);qcP.addEventListener('change',updateCalc);
+  // ─── VALUE calc ───
+  function calcValue(){
+    var g=parseFloat(document.getElementById('cvGrams').value)||0;
+    var k=document.getElementById('cvPurity').value;
+    var i=parseInt(document.getElementById('cvBrand').value)||0;
+    document.getElementById('cvRes').textContent=fmt(g*rateFor(i,k));
+  }
+  ['cvGrams','cvPurity','cvBrand'].forEach(function(id){document.getElementById(id).addEventListener('input',calcValue);document.getElementById(id).addEventListener('change',calcValue)});
 
-  // ─── Bottom nav ───
+  // ─── BUDGET calc ───
+  function calcBudget(){
+    var a=parseFloat(document.getElementById('cbAmt').value)||0;
+    var k=document.getElementById('cbPurity').value;
+    var i=parseInt(document.getElementById('cbBrand').value)||0;
+    var r=rateFor(i,k);
+    document.getElementById('cbRes').textContent=r>0?fmtG(a/r):'—';
+  }
+  ['cbAmt','cbPurity','cbBrand'].forEach(function(id){document.getElementById(id).addEventListener('input',calcBudget);document.getElementById(id).addEventListener('change',calcBudget)});
+
+  // ─── LOAN calc: value × LTV%; EMI over 12m at annual rate ───
+  function calcLoan(){
+    var g=parseFloat(document.getElementById('clG').value)||0;
+    var k=document.getElementById('clP').value;
+    var ltv=(parseFloat(document.getElementById('clLtv').value)||0)/100;
+    var apr=(parseFloat(document.getElementById('clRate').value)||0)/100;
+    var value=g*num(DATA[k].median);
+    var loan=value*ltv;
+    var mr=apr/12,n=12;
+    var emi=mr>0?(loan*mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):loan/n;
+    document.getElementById('clLoan').textContent=fmt(loan);
+    document.getElementById('clMonthly').textContent='EMI 12m: '+fmt(emi);
+  }
+  ['clG','clP','clLtv','clRate'].forEach(function(id){document.getElementById(id).addEventListener('input',calcLoan);document.getElementById(id).addEventListener('change',calcLoan)});
+
+  // ─── SIP calc: monthly SIP future value ───
+  function calcSip(){
+    var m=parseFloat(document.getElementById('csAmt').value)||0;
+    var y=parseFloat(document.getElementById('csYrs').value)||0;
+    var r=(parseFloat(document.getElementById('csRet').value)||0)/100/12;
+    var n=y*12;
+    var fv=r>0?m*((Math.pow(1+r,n)-1)/r)*(1+r):m*n;
+    var inv=m*n;
+    document.getElementById('csRes').textContent=fmt(fv);
+    document.getElementById('csDet').textContent='Invested '+fmt(inv)+' · Gain '+fmt(fv-inv);
+  }
+  ['csAmt','csYrs','csRet'].forEach(function(id){document.getElementById(id).addEventListener('input',calcSip)});
+
+  // ─── MAKING CHARGES calc ───
+  function calcMc(){
+    var g=parseFloat(document.getElementById('cmG').value)||0;
+    var k=document.getElementById('cmP').value;
+    var i=parseInt(document.getElementById('cmBrand').value)||0;
+    var pct=(parseFloat(document.getElementById('cmPct').value)||0)/100;
+    var metal=g*rateFor(i,k);
+    var mc=metal*pct;
+    document.getElementById('cmTotal').textContent=fmt(metal+mc);
+    document.getElementById('cmBreak').textContent='Metal '+fmt(metal)+' · MC '+fmt(mc);
+  }
+  ['cmG','cmP','cmBrand','cmPct'].forEach(function(id){document.getElementById(id).addEventListener('input',calcMc);document.getElementById(id).addEventListener('change',calcMc)});
+
+  function recalcAll(){calcValue();calcBudget();calcLoan();calcSip();calcMc()}
+
+  // ─── Bottom nav = view switcher ───
   document.querySelectorAll('.ni').forEach(function(btn){
     btn.addEventListener('click',function(){
       document.querySelectorAll('.ni').forEach(function(b){b.classList.remove('active')});
       this.classList.add('active');
-      var sec=document.getElementById(this.dataset.sec);
-      if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
+      var target=this.dataset.view;
+      document.querySelectorAll('.view').forEach(function(v){v.classList.toggle('active',v.id===target)});
+      sections.scrollTop=0;
     });
   });
+
+  // ─── Alerts subscribe (localStorage stub — replace with real endpoint) ───
+  document.getElementById('alBtn').addEventListener('click',function(){
+    var e=document.getElementById('alEmail').value.trim(),st=document.getElementById('alStatus');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){st.style.color='var(--rose)';st.textContent='Enter a valid email';return}
+    try{localStorage.setItem('mgr_email',e)}catch(_){}
+    st.style.color='var(--mint)';st.textContent='✓ Subscribed — check your inbox tomorrow morning.';
+    // TODO: fetch('/api/subscribe',{method:'POST',body:JSON.stringify({email:e})})
+  });
+
+  // ─── init ───
+  paintRows();paintHero();recalcAll();
 })();
 </script>
