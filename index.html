@@ -1,3 +1,4 @@
+<meta charset="UTF-8">
 <title>Gold Rate Today in India - Compare 14+ Jewellers | MyGoldRates</title>
 <meta name="description" content="Live 24K, 22K & 18K gold rates from 14+ Indian jewellers, updated daily. Pre-GST prices, calculators (loan, SIP, making charges, budget) and market pulse — MyGoldRates.">
 <meta name="keywords" content="gold rate today, gold rate India, 24k gold rate, 22k gold rate, 18k gold rate, gold price today, jeweller gold rates, IBJA rate, MCX gold, gold calculator">
@@ -113,7 +114,7 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .sections::-webkit-scrollbar{display:none}
 
 /* ─── Hero ─── */
-.hero{text-align:center;padding:20px 16px 10px}
+.hero{text-align:center;padding:16px 16px 10px;position:sticky;top:0;z-index:6;background:linear-gradient(180deg,rgba(10,8,4,0.94) 0%,rgba(10,8,4,0.94) 78%,rgba(10,8,4,0) 100%)}
 .hero-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);backdrop-filter:blur(12px);border:1px solid var(--glass-border2);border-radius:99px;padding:4px 12px;margin-bottom:8px}
 .hero-badge .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
 .hero-rate{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:800;line-height:1;color:var(--text);position:relative;display:inline-block;text-shadow:0 2px 20px rgba(0,0,0,0.4)}
@@ -236,7 +237,115 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .ni svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .ni:active{transform:scale(.88)}
 
-@media(min-width:431px){.app{border-left:1px solid rgba(200,160,60,0.08);border-right:1px solid rgba(200,160,60,0.08)}}
+@media(min-width:431px) and (max-width:899px){.app{border-left:1px solid rgba(200,160,60,0.08);border-right:1px solid rgba(200,160,60,0.08)}}
+
+/* Auto-switch: phone app below 900px, desktop website at/above it */
+@media(min-width:900px){ .app{display:none} html,body{overflow:auto;height:auto} }
+@media(max-width:899.98px){ .site{display:none} }
+
+/* ═══════════════════════════════════════════════════════════
+   DESKTOP WEBSITE (≥900px) — a real site layout, not the app
+   ═══════════════════════════════════════════════════════════ */
+.site{position:relative;min-height:100vh}
+.site,.site *{color:var(--text)}
+.site-container{max-width:1180px;margin:0 auto;padding:0 40px}
+
+/* fixed bg, shared image, less blur than the app */
+.site-bg{position:fixed;inset:0;z-index:0;background:url('bg.png') center 30%/cover no-repeat}
+.site-scrim{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(8,6,3,0.55) 0%,rgba(8,6,3,0.72) 40%,#0a0804 88%)}
+.site>*:not(.site-bg):not(.site-scrim){position:relative;z-index:1}
+
+/* Nav */
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(10,8,4,0.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-border)}
+.site-nav-inner{max-width:1180px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
+.site-logo{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700}
+.site-logo span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.site-links{display:flex;gap:32px}
+.site-links a{color:var(--text2);text-decoration:none;font-size:13.5px;font-weight:500;transition:color .2s}
+.site-links a:hover{color:var(--gold-light)}
+.site-nav-cta{display:flex;align-items:center;gap:14px}
+.site-nav-cta .live-chip{padding:6px 12px}
+.site-signin{background:var(--glass2);border:1px solid var(--glass-border2);color:var(--text);font-size:12.5px;font-weight:600;border-radius:99px;padding:7px 16px;cursor:pointer;font-family:inherit}
+.site-signin:hover{border-color:var(--gold)}
+
+/* Hero */
+.site-hero{padding:72px 0 56px;text-align:center}
+.site-eyebrow{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px}
+.site-hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,4.6vw,56px);font-weight:800;line-height:1.08;text-shadow:0 2px 24px rgba(0,0,0,0.5)}
+.site-hero .sub{max-width:600px;margin:16px auto 0;font-size:16px;color:var(--text2);line-height:1.6}
+
+.site-rate-card{max-width:820px;margin:40px auto 0;background:var(--glass2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:22px;padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;text-align:left}
+.site-rate-val{font-family:'Playfair Display',Georgia,serif;font-size:56px;font-weight:800;line-height:1}
+.site-rate-val .sym{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:36px;vertical-align:6px}
+.site-rate-val .per{font-size:15px;font-weight:400;color:var(--text3);margin-left:4px}
+.site-rate-hint{font-size:12.5px;color:var(--text3);margin-top:8px}
+.site-rate-side{display:flex;flex-direction:column;gap:10px;align-items:flex-end}
+.site-rate-side .karat-row{margin:0;justify-content:flex-end}
+.site-rate-side .savings{padding:8px 14px}
+.site-rate-side .gst-btn{padding:8px 16px}
+
+/* Sections */
+.site-section{padding:64px 0}
+.site-section.alt{background:rgba(0,0,0,0.18);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+.site-section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px}
+.site-section-head h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700}
+.site-section-head p{color:var(--text3);font-size:13.5px;margin-top:4px}
+.site-eyebrow-sm{font-size:10.5px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:var(--gold);margin-bottom:6px;display:block}
+
+/* Table */
+.site-table-wrap{background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:18px;overflow:hidden}
+.site-table{width:100%;border-collapse:collapse}
+.site-table thead th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);padding:16px 24px;border-bottom:1px solid var(--glass-border2);background:rgba(0,0,0,0.2)}
+.site-table thead th.num{text-align:right}
+.site-table tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
+.site-table tbody tr:last-child{border-bottom:none}
+.site-table tbody tr:hover{background:var(--card-hover)}
+.site-table tbody tr.best{background:var(--mint-soft)}
+.site-table tbody tr.selected{box-shadow:inset 3px 0 0 var(--gold)}
+.site-table td{padding:14px 24px;font-size:14.5px}
+.site-table td.num{text-align:right;font-weight:600;font-variant-numeric:tabular-nums}
+.site-td-brand{display:flex;align-items:center;gap:12px}
+.site-td-brand img{width:24px;height:24px;border-radius:6px;object-fit:contain;opacity:.92}
+.site-td-brand .rk{width:20px;color:var(--text3);font-size:12px;font-weight:700}
+.site-tg{margin-left:8px;font-size:9px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:var(--mint);color:#0a1a0e;padding:2px 6px;border-radius:3px}
+.site-delta{font-size:12px;font-weight:600;display:block;margin-top:2px}
+.site-delta.neg{color:var(--mint)}.site-delta.pos{color:var(--rose)}.site-delta.zero{color:var(--text3)}
+
+/* Market grid */
+.site-mgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.site-mgrid .mcard{padding:20px}
+.site-mgrid .mc-r{font-size:24px}
+
+/* Calculators */
+.site-calc-card{background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:18px;padding:28px;max-width:760px;margin:0 auto}
+.site-calc-card .qc-tabs{max-width:460px;margin:0 auto 20px}
+.site-calc-body{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center}
+.site-calc-body .qcr{flex-direction:column}
+.site-calc-body .qcres{padding:24px}
+.site-calc-body .qcres-v{font-size:34px}
+
+/* Alerts */
+.site-alerts{padding:72px 0}
+.site-alerts-inner{max-width:560px;margin:0 auto;text-align:center}
+.site-alerts-inner h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700}
+.site-alerts-inner p{color:var(--text2);margin:12px 0 24px;line-height:1.6}
+.site-alerts-form{display:flex;gap:10px;max-width:400px;margin:0 auto}
+.site-alerts-form input{flex:1;background:rgba(0,0,0,0.28);border:1px solid var(--glass-border2);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none}
+.site-alerts-form input:focus{border-color:var(--gold)}
+.site-alerts-form button{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border:none;border-radius:10px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap}
+.site-alerts-form button:hover{filter:brightness(1.08)}
+.site-alerts-status{font-size:12px;color:var(--mint);margin-top:12px;min-height:16px}
+#gsiSlotS{max-width:400px;margin:16px auto 0}
+
+/* Footer */
+.site-footer{border-top:1px solid var(--glass-border);padding:28px 0;text-align:center;font-size:12px;color:var(--text3)}
+
+@media(max-width:1100px){
+  .site-rate-card{grid-template-columns:1fr}
+  .site-rate-side{align-items:flex-start}
+  .site-mgrid{grid-template-columns:1fr 1fr}
+  .site-calc-body{grid-template-columns:1fr}
+}
 </style>
 
 <div class="app">
@@ -375,7 +484,6 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div style="height:28px"></div>
   </div><!-- /v-calc -->
 
-
 </div>
 
 <!-- Bottom nav -->
@@ -386,27 +494,184 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 </nav>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════
+     DESKTOP WEBSITE — shown ≥900px instead of the phone app.
+     Separate markup/design, not a repositioned app.
+     ═══════════════════════════════════════════════════════════ -->
+<div class="site" id="site">
+  <div class="site-bg"></div>
+  <div class="site-scrim"></div>
+
+  <header class="site-nav">
+    <div class="site-nav-inner">
+      <div class="site-logo">My<span>Gold</span>Rates</div>
+      <nav class="site-links">
+        <a href="#s-rates">Rates</a>
+        <a href="#s-market">Market</a>
+        <a href="#s-calc">Calculators</a>
+        <a href="#s-alerts">Alerts</a>
+      </nav>
+      <div class="site-nav-cta">
+        <div class="live-chip"><div class="live-dot"></div>LIVE &middot; 10 Aug</div>
+        <button class="site-signin" id="siteSignin">Sign in</button>
+      </div>
+    </div>
+  </header>
+
+  <section class="site-hero" id="s-rates">
+    <div class="site-container">
+      <p class="site-eyebrow">Live Gold Rate Comparison &middot; India</p>
+      <h1>Gold Rate Today in India</h1>
+      <p class="sub">Compare 24K, 22K and 18K gold rates across 14+ trusted Indian jewellers, updated daily &mdash; pre-GST, side by side.</p>
+
+      <div class="site-rate-card">
+        <div>
+          <div class="site-rate-val"><span class="sym">&#8377;</span><span id="heroValS">1,50,750</span><span class="per">/10g</span></div>
+          <div class="site-rate-hint" id="heroHintS">PN Gadgil &middot; 24K &middot; today's lowest</div>
+        </div>
+        <div class="site-rate-side">
+          <div class="karat-row" id="karatRowS">
+            <button class="karat-pill active" data-k="24K">24K</button>
+            <button class="karat-pill" data-k="22K">22K</button>
+            <button class="karat-pill" data-k="18K">18K</button>
+          </div>
+          <div class="savings"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Save up to <strong id="saveAmtS">&#8377;363/g</strong></span></div>
+          <button class="gst-btn" id="gstBtnS" aria-pressed="false">+3% GST</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-section" id="s-table">
+    <div class="site-container">
+      <div class="site-section-head">
+        <div>
+          <span class="site-eyebrow-sm">Today's Board</span>
+          <h2>Compare Every Jeweller</h2>
+          <p id="brandsCountS">14 national brands</p>
+        </div>
+        <button class="rc" id="nearBtnS"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Include brands near me</button>
+      </div>
+      <div class="site-table-wrap">
+        <table class="site-table">
+          <thead><tr><th style="width:44px"></th><th>Jeweller</th><th class="num">Rate /10g</th></tr></thead>
+          <tbody id="brandTableS"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-section alt" id="s-market">
+    <div class="site-container">
+      <div class="site-section-head">
+        <div><span class="site-eyebrow-sm">Reference Rates</span><h2>Market Pulse</h2></div>
+      </div>
+      <div class="site-mgrid">
+        <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r">&#8377;15,106</div><div class="mc-s">999 Fine &middot; National</div><div class="mc-d up">&#9650; +&#8377;42</div></div>
+        <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r">&#8377;13,847</div><div class="mc-s">916 &middot; National</div><div class="mc-d up">&#9650; +&#8377;38</div></div>
+        <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r">&#8377;75,820</div><div class="mc-s">Per 10g &middot; Futures</div><div class="mc-d dn">&#9660; &minus;&#8377;130</div></div>
+        <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r">&#8377;15,140</div><div class="mc-s">24K &middot; Ahmedabad</div><div class="mc-d up">&#9650; +&#8377;55</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-section" id="s-calc">
+    <div class="site-container">
+      <div class="site-section-head">
+        <div><span class="site-eyebrow-sm">Plan Ahead</span><h2>Calculators</h2></div>
+      </div>
+      <div class="site-calc-card">
+        <div class="qc-tabs" id="calcTabsS">
+          <button class="qc-tab active" data-calc="value">Value</button>
+          <button class="qc-tab" data-calc="budget">Budget</button>
+          <button class="qc-tab" data-calc="loan">Loan</button>
+          <button class="qc-tab" data-calc="sip">SIP</button>
+          <button class="qc-tab" data-calc="mc">Making</button>
+        </div>
+
+        <div class="calc-panel site-calc-body" data-panel="value">
+          <div>
+            <div class="qcr"><input class="qci" id="cvGramsS" type="number" inputmode="decimal" placeholder="Grams" value="10"><select class="qcs" id="cvPurityS"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+            <div class="qcr"><select class="qci" id="cvBrandS"></select></div>
+          </div>
+          <div class="qcres"><div class="qcres-v" id="cvResS">&#8377;1,39,440</div><div class="qcres-l">Metal value &middot; pre-GST &middot; no making</div></div>
+        </div>
+
+        <div class="calc-panel site-calc-body" data-panel="budget" style="display:none">
+          <div>
+            <div class="qcr"><input class="qci" id="cbAmtS" type="number" inputmode="decimal" placeholder="Budget (&#8377;)" value="100000"><select class="qcs" id="cbPurityS"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+            <div class="qcr"><select class="qci" id="cbBrandS"></select></div>
+          </div>
+          <div class="qcres"><div class="qcres-v" id="cbResS">7.170 g</div><div class="qcres-l">Grams you can buy &middot; pre-GST</div></div>
+        </div>
+
+        <div class="calc-panel site-calc-body" data-panel="loan" style="display:none">
+          <div>
+            <div class="qcr"><input class="qci" id="clGS" type="number" inputmode="decimal" placeholder="Grams of gold" value="20"><select class="qcs" id="clPS"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+            <div class="qcr"><input class="qci" id="clLtvS" type="number" inputmode="decimal" placeholder="LTV %" value="75"><input class="qcs" id="clRateS" type="number" inputmode="decimal" placeholder="Interest %" value="9.5" style="min-width:82px"></div>
+          </div>
+          <div class="qcres"><div class="qcres-v" id="clLoanS">&#8377;2,09,160</div><div class="qcres-l"><span id="clMonthlyS">EMI 12m: &#8377;18,347</span></div></div>
+        </div>
+
+        <div class="calc-panel site-calc-body" data-panel="sip" style="display:none">
+          <div>
+            <div class="qcr"><input class="qci" id="csAmtS" type="number" inputmode="decimal" placeholder="Monthly &#8377;" value="5000"><input class="qcs" id="csYrsS" type="number" inputmode="decimal" placeholder="Years" value="5" style="min-width:72px"></div>
+            <div class="qcr"><input class="qci" id="csRetS" type="number" inputmode="decimal" placeholder="Assumed return % p.a." value="10"></div>
+          </div>
+          <div class="qcres"><div class="qcres-v" id="csResS">&#8377;3,87,398</div><div class="qcres-l" id="csDetS">Invested &#8377;3,00,000 &middot; Gain &#8377;87,398</div></div>
+        </div>
+
+        <div class="calc-panel site-calc-body" data-panel="mc" style="display:none">
+          <div>
+            <div class="qcr"><input class="qci" id="cmGS" type="number" inputmode="decimal" placeholder="Grams" value="10"><select class="qcs" id="cmPS"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+            <div class="qcr"><select class="qci" id="cmBrandS"></select><input class="qcs" id="cmPctS" type="number" inputmode="decimal" placeholder="MC %" value="12" style="min-width:72px"></div>
+          </div>
+          <div class="qcres"><div class="qcres-v" id="cmTotalS">&#8377;1,56,173</div><div class="qcres-l" id="cmBreakS">Metal &#8377;1,39,440 &middot; MC &#8377;16,733</div></div>
+        </div>
+      </div>
+      <p class="calc-note">All calculators are estimates for planning. Actual rates, LTV and making charges vary by jeweller and by day.</p>
+    </div>
+  </section>
+
+  <section class="site-alerts" id="s-alerts">
+    <div class="site-container site-alerts-inner">
+      <h2>Never Miss the Cheapest Rate</h2>
+      <p>One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</p>
+      <div class="site-alerts-form"><input id="alEmailS" type="email" placeholder="Your email"><button id="alBtnS">Subscribe</button></div>
+      <div class="site-alerts-status" id="alStatusS"></div>
+      <div id="gsiSlotS"></div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="site-container">&copy; MyGoldRates &middot; Rates are indicative, updated daily &middot; Not investment advice</div>
+  </footer>
+</div>
+
 <script>
 // Google One Tap callback (global scope)
 function handleCredentialResponse(resp){
   try{
     var payload=JSON.parse(atob(resp.credential.split('.')[1]));
-    var slot=document.getElementById('gsiSlot');
-    if(slot){slot.innerHTML='<div style="background:var(--mint-soft);border:1px solid rgba(92,196,160,0.2);border-radius:12px;padding:12px;font-size:12px;color:var(--text);text-align:center">Signed in as <b>'+(payload.name||payload.email)+'</b></div>'}
+    var msg='<div style="background:var(--mint-soft);border:1px solid rgba(92,196,160,0.2);border-radius:12px;padding:12px;font-size:12px;color:var(--text);text-align:center">Signed in as <b>'+(payload.name||payload.email)+'</b></div>';
+    ['gsiSlot','gsiSlotS'].forEach(function(id){var slot=document.getElementById(id);if(slot)slot.innerHTML=msg});
     // TODO: POST resp.credential to /api/auth for server-side verification
   }catch(e){console.warn('gsi decode',e)}
 }
 
 (function(){
-  // ─── BG blur/unblur on scroll ───
+  // ─── BG blur/unblur on scroll (works whether #sections or the window scrolls) ───
   var bg=document.querySelector('.bg-layer');
   var overlay=document.querySelector('.bg-overlay');
   var sections=document.getElementById('sections');
-  sections.addEventListener('scroll',function(){
-    var s=sections.scrollTop,pct=Math.min(s/400,1);
+  function onScroll(){
+    var s=Math.max(sections.scrollTop,window.scrollY||document.documentElement.scrollTop||0);
+    var pct=Math.min(s/400,1);
     bg.style.filter='blur('+(18*(1-pct))+'px) brightness('+(0.5+0.3*pct)+')';
     overlay.style.opacity=1-pct*0.4;
-  });
+  }
+  sections.addEventListener('scroll',onScroll);
+  window.addEventListener('scroll',onScroll);
 
   // ─── Brand catalogue: national vs regional (region only used for Near-me matching) ───
   var BRANDS=[
@@ -439,28 +704,31 @@ function handleCredentialResponse(resp){
   ];
   var PURITY={'24K':1,'22K':22/24,'18K':18/24};
 
-  var karats=document.querySelectorAll('.karat-pill');
-  var heroVal=document.getElementById('heroVal');
-  var heroHint=document.getElementById('heroHint');
+  // Shared state — the phone app (ids as-is) and the desktop site (ids +'S')
+  // both read/write this, so switching breakpoints never desyncs them.
   var currentK='24K';
-  var nearMe=false;         // when true, add regional brands from nearRegion
-  var nearRegion=null;      // geo-detected region (south/west/north/east)
+  var nearMe=false;
+  var nearRegion=null;
   var selectedBrand=null;
   var gstOn=false;
+  var SCOPES=['','S'];
 
+  function $(id,suf){return document.getElementById(id+suf)}
   function num(s){return parseFloat(String(s).replace(/,/g,''))}
   function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
   function fmtG(g){return g.toFixed(3)+' g'}
   function perG(brand){return brand.rate*PURITY[currentK]}
   function rateFor(brandIdx,karat){return BRANDS[brandIdx].rate*PURITY[karat]}
 
-  // ─── Populate calc brand dropdowns (uses all brands) ───
+  // ─── Populate calc brand dropdowns (both scopes) ───
   var brandHtml=BRANDS.map(function(b,i){return '<option value="'+i+'">'+b.n+'</option>'}).join('');
-  ['cvBrand','cbBrand','cmBrand'].forEach(function(id){
-    var el=document.getElementById(id);if(el)el.innerHTML=brandHtml;
+  SCOPES.forEach(function(suf){
+    ['cvBrand','cbBrand','cmBrand'].forEach(function(id){
+      var el=$(id,suf);if(el)el.innerHTML=brandHtml;
+    });
   });
 
-  // ─── Filter + render brand list ───
+  // ─── Brand filtering (shared) ───
   function visibleBrands(){
     return BRANDS
       .map(function(b,i){return {b:b,i:i}})
@@ -470,177 +738,220 @@ function handleCredentialResponse(resp){
       })
       .sort(function(a,b){return a.b.rate-b.b.rate});
   }
-  function renderList(){
-    var vis=visibleBrands();
-    if(!vis.length){document.getElementById('brandList').innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--text3)">No jewellers listed for this region yet.</div>';document.getElementById('brandsCount').textContent='0 brands';document.getElementById('saveAmt').innerHTML='—';return}
-    var rates=vis.map(function(x){return perG(x.b)});
-    var min=Math.min.apply(null,rates),max=Math.max.apply(null,rates);
-    var median=rates.slice().sort(function(a,b){return a-b})[Math.floor(rates.length/2)];
-    var html=vis.map(function(x,rank){
+
+  // ─── Render mobile card list ───
+  function renderMobileList(vis,min,max,median){
+    var list=$('brandList','');if(!list)return;
+    if(!vis.length){list.innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--text3)">No jewellers listed for this region yet.</div>';$('brandsCount','').textContent='0 brands';return}
+    list.innerHTML=vis.map(function(x,rank){
       var r=perG(x.b),shown=r*(gstOn?1.03:1),delta=Math.round(r-median);
       var isBest=x.i===vis[0].i,isSel=selectedBrand===x.i;
       var dcls=delta<0?'neg':delta>0?'pos':'zero';
       var dtxt=delta===0?'±0':(delta<0?'−':'+')+'₹'+Math.abs(delta);
-      return '<div class="br'+(isBest?' best':'')+(isSel?' selected':'')+'" data-bi="'+x.i+'" data-dom="'+x.b.d+'">'+
+      return '<div class="br'+(isBest?' best':'')+(isSel?' selected':'')+'" data-bi="'+x.i+'">'+
         '<span class="b-rk">'+(rank+1)+'</span>'+
         '<img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+x.b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'">'+
         '<div class="b-inf"><span class="b-nm">'+x.b.n+'</span>'+(isBest?'<span class="b-tg">Lowest</span>':'')+'</div>'+
         '<div class="b-pr"><div class="b-rt">'+fmt(shown)+'</div><div class="b-dl '+dcls+'">'+dtxt+'</div></div>'+
         '</div>';
     }).join('');
-    document.getElementById('brandList').innerHTML=html;
-    document.getElementById('brandsCount').textContent=vis.length+' brands';
-    document.getElementById('saveAmt').innerHTML='₹'+Math.round(max-min)+'/g';
-    // wire clicks
+    $('brandsCount','').textContent=vis.length+' brands';
     document.querySelectorAll('#brandList .br').forEach(function(row){
-      row.addEventListener('click',function(){
-        selectedBrand=parseInt(this.dataset.bi);
-        renderList();paintHero();
-      });
+      row.addEventListener('click',function(){selectedBrand=parseInt(this.dataset.bi);renderAll()});
     });
-    // default = lowest if nothing selected or selection filtered out
-    if(selectedBrand===null||!vis.some(function(x){return x.i===selectedBrand})){
-      selectedBrand=vis[0].i;
-    }
   }
+
+  // ─── Render desktop table ───
+  function renderSiteTable(vis,min,max,median){
+    var body=$('brandTable','S');if(!body)return;
+    var countEl=$('brandsCount','S');
+    if(!vis.length){body.innerHTML='<tr><td colspan="3" style="padding:24px;text-align:center;color:var(--text3)">No jewellers listed for this region yet.</td></tr>';if(countEl)countEl.textContent='0 brands';return}
+    body.innerHTML=vis.map(function(x,rank){
+      var r=perG(x.b),shown=r*(gstOn?1.03:1),delta=Math.round(r-median);
+      var isBest=x.i===vis[0].i,isSel=selectedBrand===x.i;
+      var dcls=delta<0?'neg':delta>0?'pos':'zero';
+      var dtxt=delta===0?'±0':(delta<0?'−':'+')+'₹'+Math.abs(delta);
+      return '<tr class="'+(isBest?'best ':'')+(isSel?'selected':'')+'" data-bi="'+x.i+'">'+
+        '<td><span class="rk">'+(rank+1)+'</span></td>'+
+        '<td><div class="site-td-brand"><img alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+x.b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'"><span>'+x.b.n+'</span>'+(isBest?'<span class="site-tg">Lowest</span>':'')+'</div></td>'+
+        '<td class="num">'+fmt(shown)+'<span class="site-delta '+dcls+'">'+dtxt+'</span></td>'+
+        '</tr>';
+    }).join('');
+    if(countEl)countEl.textContent=(nearMe?vis.length+' brands (incl. regional)':vis.length+' national brands');
+    document.querySelectorAll('#brandTableS tr[data-bi]').forEach(function(row){
+      row.addEventListener('click',function(){selectedBrand=parseInt(this.dataset.bi);renderAll()});
+    });
+  }
+
+  function renderBrands(){
+    var vis=visibleBrands();
+    if(!vis.length){
+      renderMobileList(vis);renderSiteTable(vis);
+      SCOPES.forEach(function(suf){var s=$('saveAmt',suf);if(s)s.innerHTML='—'});
+      return;
+    }
+    if(selectedBrand===null||!vis.some(function(x){return x.i===selectedBrand})){selectedBrand=vis[0].i}
+    var rates=vis.map(function(x){return perG(x.b)});
+    var min=Math.min.apply(null,rates),max=Math.max.apply(null,rates);
+    var median=rates.slice().sort(function(a,b){return a-b})[Math.floor(rates.length/2)];
+    renderMobileList(vis,min,max,median);
+    renderSiteTable(vis,min,max,median);
+    SCOPES.forEach(function(suf){var s=$('saveAmt',suf);if(s)s.innerHTML='₹'+Math.round(max-min)+'/g'});
+  }
+
   function paintHero(){
     var v=visibleBrands();
     if(selectedBrand===null||!v.some(function(x){return x.i===selectedBrand})){
-      if(!v.length){heroVal.textContent='—';heroHint.textContent='';return}
+      if(!v.length){SCOPES.forEach(function(suf){var hv=$('heroVal',suf),hh=$('heroHint',suf);if(hv)hv.textContent='—';if(hh)hh.textContent=''});return}
       selectedBrand=v[0].i;
     }
     var b=BRANDS[selectedBrand];
     var per10=perG(b)*10*(gstOn?1.03:1);
-    heroVal.textContent=Math.round(per10).toLocaleString('en-IN');
     var isLow=v[0].i===selectedBrand;
-    heroHint.textContent=b.n+' · '+currentK+(isLow?" · today's lowest":'');
+    var hintText=b.n+' · '+currentK+(isLow?" · today's lowest":'');
+    SCOPES.forEach(function(suf){
+      var hv=$('heroVal',suf),hh=$('heroHint',suf);
+      if(hv)hv.textContent=Math.round(per10).toLocaleString('en-IN');
+      if(hh)hh.textContent=hintText;
+    });
   }
 
-  karats.forEach(function(btn){
-    btn.addEventListener('click',function(){
-      karats.forEach(function(b){b.classList.remove('active')});
-      this.classList.add('active');
-      currentK=this.dataset.k;
-      renderList();paintHero();recalcAll();
-    });
-  });
+  function renderAll(){renderBrands();paintHero();recalcAll()}
 
-  // ─── Near-me toggle (adds regional brands from your geo region) ───
+  // ─── Karat pills (both scopes, kept in sync) ───
+  function wireKarats(containerId){
+    var el=document.getElementById(containerId);if(!el)return;
+    el.querySelectorAll('.karat-pill').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        currentK=btn.dataset.k;
+        document.querySelectorAll('.karat-pill').forEach(function(b){b.classList.toggle('active',b.dataset.k===currentK)});
+        renderAll();
+      });
+    });
+  }
+  wireKarats('karatRow');wireKarats('karatRowS');
+
+  // ─── Near-me toggle (both scopes, shared state) ───
   function nearestRegion(lat,lon){
     if(lat<=17) return 'south';
     if(lat>=27) return 'north';
     if(lon<=77) return 'west';
     if(lon>=85) return 'east';
-    return 'south'; // fallback for central India
+    return 'south';
   }
   var pinSvg='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
-  var nearBtn=document.getElementById('nearBtn');
   var REGION_LABEL={south:'South',west:'West',north:'North',east:'East'};
+  function paintNearBtns(locating){
+    SCOPES.forEach(function(suf){
+      var btn=$('nearBtn',suf);if(!btn)return;
+      btn.classList.toggle('active',nearMe);
+      btn.innerHTML=pinSvg+(locating?'Locating…':nearMe?('Showing brands near you · '+REGION_LABEL[nearRegion]+' (tap to hide)'):'Include brands near me');
+    });
+  }
   function setNear(on,reg){
     nearMe=on;nearRegion=reg||nearRegion;
-    nearBtn.classList.toggle('active',on);
-    nearBtn.innerHTML=pinSvg+(on?('Showing brands near you · '+REGION_LABEL[nearRegion]+' (tap to hide)'):'Include brands near me');
+    paintNearBtns(false);
     selectedBrand=null;
-    renderList();paintHero();
+    renderAll();
   }
-  nearBtn.addEventListener('click',function(){
+  function onNearClick(){
     if(nearMe){setNear(false);return}
     if(nearRegion){setNear(true);return}
     if(!navigator.geolocation){alert('Geolocation not available');return}
-    nearBtn.innerHTML=pinSvg+'Locating…';
+    paintNearBtns(true);
     navigator.geolocation.getCurrentPosition(function(p){
       setNear(true,nearestRegion(p.coords.latitude,p.coords.longitude));
     },function(){
-      nearBtn.innerHTML=pinSvg+'Include brands near me';
+      paintNearBtns(false);
       alert('Location permission denied');
     },{timeout:6000});
-  });
+  }
+  SCOPES.forEach(function(suf){var b=$('nearBtn',suf);if(b)b.addEventListener('click',onNearClick)});
 
-  // ─── GST toggle ───
-  var gstBtn=document.getElementById('gstBtn');
-  gstBtn.addEventListener('click',function(){
+  // ─── GST toggle (both scopes, shared state) ───
+  function onGstClick(){
     gstOn=!gstOn;
-    gstBtn.classList.toggle('on',gstOn);
-    gstBtn.setAttribute('aria-pressed',String(gstOn));
-    gstBtn.textContent=gstOn?'GST ON':'+3% GST';
-    renderList();paintHero();
-  });
+    SCOPES.forEach(function(suf){
+      var b=$('gstBtn',suf);if(!b)return;
+      b.classList.toggle('on',gstOn);
+      b.setAttribute('aria-pressed',String(gstOn));
+      b.textContent=gstOn?'GST ON':'+3% GST';
+    });
+    renderAll();
+  }
+  SCOPES.forEach(function(suf){var b=$('gstBtn',suf);if(b)b.addEventListener('click',onGstClick)});
 
-  // ─── Calc sub-tabs ───
-  document.querySelectorAll('#calcTabs .qc-tab').forEach(function(t){
-    t.addEventListener('click',function(){
-      document.querySelectorAll('#calcTabs .qc-tab').forEach(function(x){x.classList.remove('active')});
-      this.classList.add('active');
-      var k=this.dataset.calc;
-      document.querySelectorAll('.calc-panel').forEach(function(p){p.style.display=p.dataset.panel===k?'block':'none'});
+  // ─── Calc sub-tabs (independent per scope) ───
+  function wireCalcTabs(containerId){
+    var el=document.getElementById(containerId);if(!el)return;
+    var suf=containerId==='calcTabsS'?'S':'';
+    el.querySelectorAll('.qc-tab').forEach(function(t){
+      t.addEventListener('click',function(){
+        el.querySelectorAll('.qc-tab').forEach(function(x){x.classList.remove('active')});
+        t.classList.add('active');
+        var k=t.dataset.calc;
+        // panels for this scope live in the same parent card as the tab bar
+        var scopeRoot=el.parentElement;
+        scopeRoot.querySelectorAll('.calc-panel').forEach(function(p){p.style.display=p.dataset.panel===k?(suf==='S'?'grid':'block'):'none'});
+      });
+    });
+  }
+  wireCalcTabs('calcTabs');wireCalcTabs('calcTabsS');
+
+  // ─── Calculators (independent per scope) ───
+  function calcValue(suf){
+    var g=parseFloat($('cvGrams',suf).value)||0,k=$('cvPurity',suf).value,i=parseInt($('cvBrand',suf).value)||0;
+    $('cvRes',suf).textContent=fmt(g*rateFor(i,k));
+  }
+  function calcBudget(suf){
+    var a=parseFloat($('cbAmt',suf).value)||0,k=$('cbPurity',suf).value,i=parseInt($('cbBrand',suf).value)||0,r=rateFor(i,k);
+    $('cbRes',suf).textContent=r>0?fmtG(a/r):'—';
+  }
+  function calcLoan(suf){
+    var g=parseFloat($('clG',suf).value)||0,k=$('clP',suf).value;
+    var ltv=(parseFloat($('clLtv',suf).value)||0)/100,apr=(parseFloat($('clRate',suf).value)||0)/100;
+    var rates=BRANDS.map(function(b){return b.rate*PURITY[k]}).sort(function(a,b){return a-b});
+    var median=rates[Math.floor(rates.length/2)];
+    var value=g*median,loan=value*ltv,mr=apr/12,n=12;
+    var emi=mr>0?(loan*mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):loan/n;
+    $('clLoan',suf).textContent=fmt(loan);
+    $('clMonthly',suf).textContent='EMI 12m: '+fmt(emi);
+  }
+  function calcSip(suf){
+    var m=parseFloat($('csAmt',suf).value)||0,y=parseFloat($('csYrs',suf).value)||0;
+    var r=(parseFloat($('csRet',suf).value)||0)/100/12,n=y*12;
+    var fv=r>0?m*((Math.pow(1+r,n)-1)/r)*(1+r):m*n,inv=m*n;
+    $('csRes',suf).textContent=fmt(fv);
+    $('csDet',suf).textContent='Invested '+fmt(inv)+' · Gain '+fmt(fv-inv);
+  }
+  function calcMc(suf){
+    var g=parseFloat($('cmG',suf).value)||0,k=$('cmP',suf).value,i=parseInt($('cmBrand',suf).value)||0;
+    var pct=(parseFloat($('cmPct',suf).value)||0)/100;
+    var metal=g*rateFor(i,k),mc=metal*pct;
+    $('cmTotal',suf).textContent=fmt(metal+mc);
+    $('cmBreak',suf).textContent='Metal '+fmt(metal)+' · MC '+fmt(mc);
+  }
+  function recalcAll(){
+    SCOPES.forEach(function(suf){
+      if(!$('cvGrams',suf))return;
+      calcValue(suf);calcBudget(suf);calcLoan(suf);calcSip(suf);calcMc(suf);
+    });
+  }
+  SCOPES.forEach(function(suf){
+    if(!$('cvGrams',suf))return;
+    [['cvGrams',calcValue],['cvPurity',calcValue],['cvBrand',calcValue],
+     ['cbAmt',calcBudget],['cbPurity',calcBudget],['cbBrand',calcBudget],
+     ['clG',calcLoan],['clP',calcLoan],['clLtv',calcLoan],['clRate',calcLoan],
+     ['csAmt',calcSip],['csYrs',calcSip],['csRet',calcSip],
+     ['cmG',calcMc],['cmP',calcMc],['cmBrand',calcMc],['cmPct',calcMc]
+    ].forEach(function(pair){
+      var el=$(pair[0],suf);
+      el.addEventListener('input',function(){pair[1](suf)});
+      el.addEventListener('change',function(){pair[1](suf)});
     });
   });
 
-  // ─── VALUE calc ───
-  function calcValue(){
-    var g=parseFloat(document.getElementById('cvGrams').value)||0;
-    var k=document.getElementById('cvPurity').value;
-    var i=parseInt(document.getElementById('cvBrand').value)||0;
-    document.getElementById('cvRes').textContent=fmt(g*rateFor(i,k));
-  }
-  ['cvGrams','cvPurity','cvBrand'].forEach(function(id){document.getElementById(id).addEventListener('input',calcValue);document.getElementById(id).addEventListener('change',calcValue)});
-
-  // ─── BUDGET calc ───
-  function calcBudget(){
-    var a=parseFloat(document.getElementById('cbAmt').value)||0;
-    var k=document.getElementById('cbPurity').value;
-    var i=parseInt(document.getElementById('cbBrand').value)||0;
-    var r=rateFor(i,k);
-    document.getElementById('cbRes').textContent=r>0?fmtG(a/r):'—';
-  }
-  ['cbAmt','cbPurity','cbBrand'].forEach(function(id){document.getElementById(id).addEventListener('input',calcBudget);document.getElementById(id).addEventListener('change',calcBudget)});
-
-  // ─── LOAN calc: value × LTV%; EMI over 12m at annual rate ───
-  function calcLoan(){
-    var g=parseFloat(document.getElementById('clG').value)||0;
-    var k=document.getElementById('clP').value;
-    var ltv=(parseFloat(document.getElementById('clLtv').value)||0)/100;
-    var apr=(parseFloat(document.getElementById('clRate').value)||0)/100;
-    var rates=BRANDS.map(function(b){return b.rate*PURITY[k]}).sort(function(a,b){return a-b});
-    var median=rates[Math.floor(rates.length/2)];
-    var value=g*median;
-    var loan=value*ltv;
-    var mr=apr/12,n=12;
-    var emi=mr>0?(loan*mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):loan/n;
-    document.getElementById('clLoan').textContent=fmt(loan);
-    document.getElementById('clMonthly').textContent='EMI 12m: '+fmt(emi);
-  }
-  ['clG','clP','clLtv','clRate'].forEach(function(id){document.getElementById(id).addEventListener('input',calcLoan);document.getElementById(id).addEventListener('change',calcLoan)});
-
-  // ─── SIP calc: monthly SIP future value ───
-  function calcSip(){
-    var m=parseFloat(document.getElementById('csAmt').value)||0;
-    var y=parseFloat(document.getElementById('csYrs').value)||0;
-    var r=(parseFloat(document.getElementById('csRet').value)||0)/100/12;
-    var n=y*12;
-    var fv=r>0?m*((Math.pow(1+r,n)-1)/r)*(1+r):m*n;
-    var inv=m*n;
-    document.getElementById('csRes').textContent=fmt(fv);
-    document.getElementById('csDet').textContent='Invested '+fmt(inv)+' · Gain '+fmt(fv-inv);
-  }
-  ['csAmt','csYrs','csRet'].forEach(function(id){document.getElementById(id).addEventListener('input',calcSip)});
-
-  // ─── MAKING CHARGES calc ───
-  function calcMc(){
-    var g=parseFloat(document.getElementById('cmG').value)||0;
-    var k=document.getElementById('cmP').value;
-    var i=parseInt(document.getElementById('cmBrand').value)||0;
-    var pct=(parseFloat(document.getElementById('cmPct').value)||0)/100;
-    var metal=g*rateFor(i,k);
-    var mc=metal*pct;
-    document.getElementById('cmTotal').textContent=fmt(metal+mc);
-    document.getElementById('cmBreak').textContent='Metal '+fmt(metal)+' · MC '+fmt(mc);
-  }
-  ['cmG','cmP','cmBrand','cmPct'].forEach(function(id){document.getElementById(id).addEventListener('input',calcMc);document.getElementById(id).addEventListener('change',calcMc)});
-
-  function recalcAll(){calcValue();calcBudget();calcLoan();calcSip();calcMc()}
-
-  // ─── Bottom nav = view switcher ───
+  // ─── Bottom nav = mobile view switcher ───
   document.querySelectorAll('.ni').forEach(function(btn){
     btn.addEventListener('click',function(){
       document.querySelectorAll('.ni').forEach(function(b){b.classList.remove('active')});
@@ -651,16 +962,26 @@ function handleCredentialResponse(resp){
     });
   });
 
-  // ─── Alerts subscribe (localStorage stub — replace with real endpoint) ───
-  document.getElementById('alBtn').addEventListener('click',function(){
-    var e=document.getElementById('alEmail').value.trim(),st=document.getElementById('alStatus');
-    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){st.style.color='var(--rose)';st.textContent='Enter a valid email';return}
-    try{localStorage.setItem('mgr_email',e)}catch(_){}
-    st.style.color='var(--mint)';st.textContent='✓ Subscribed — check your inbox tomorrow morning.';
-    // TODO: fetch('/api/subscribe',{method:'POST',body:JSON.stringify({email:e})})
+  // ─── Alerts subscribe (both scopes, localStorage stub) ───
+  function wireSubscribe(suf){
+    var btn=$('alBtn',suf);if(!btn)return;
+    btn.addEventListener('click',function(){
+      var e=$('alEmail',suf).value.trim(),st=$('alStatus',suf);
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){st.style.color='var(--rose)';st.textContent='Enter a valid email';return}
+      try{localStorage.setItem('mgr_email',e)}catch(_){}
+      st.style.color='var(--mint)';st.textContent='✓ Subscribed — check your inbox tomorrow morning.';
+      // TODO: fetch('/api/subscribe',{method:'POST',body:JSON.stringify({email:e})})
+    });
+  }
+  wireSubscribe('');wireSubscribe('S');
+
+  // ─── Site nav "Sign in" — nudges Google One Tap ───
+  var siteSignin=document.getElementById('siteSignin');
+  if(siteSignin)siteSignin.addEventListener('click',function(){
+    if(window.google&&google.accounts&&google.accounts.id){google.accounts.id.prompt()}
   });
 
   // ─── init ───
-  renderList();paintHero();recalcAll();
+  renderAll();
 })();
 </script>
