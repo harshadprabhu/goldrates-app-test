@@ -148,7 +148,7 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .br.best{background:var(--mint-soft)}
 .b-rk{width:18px;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0}
 .br.best .b-rk{color:var(--mint)}
-.b-logo{width:22px;height:22px;border-radius:6px;background:rgba(255,255,255,0.92);border:1px solid var(--glass-border);flex-shrink:0;padding:2px;object-fit:contain;margin-right:8px}
+.b-logo{width:20px;height:20px;border-radius:5px;flex-shrink:0;object-fit:contain;margin-right:8px;opacity:.9}
 .b-inf{flex:1;min-width:0;display:flex;align-items:center;gap:5px}
 .b-nm{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .br.best .b-nm{color:var(--mint);font-weight:600}
@@ -266,12 +266,11 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <!-- ═══════ RATES VIEW ═══════ -->
   <div class="view active" id="v-rates">
   <section class="hero">
-    <div class="hero-badge"><div class="dot"></div><span id="heroBadge">24K &middot; PN GADGIL</span></div>
     <div class="hero-rate">
       <span class="sym">&#8377;</span><span id="heroVal">1,50,750</span><span class="per">/10g</span>
       <div class="hero-sparkle"></div>
     </div>
-    <div class="hero-hint">Tap any jeweller below to switch &middot; default is today's lowest</div>
+    <div class="hero-hint" id="heroHint">PN Gadgil &middot; 24K &middot; today's lowest</div>
   </section>
 
   <div class="karat-row" id="karatRow">
@@ -285,14 +284,9 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <button class="gst-btn" id="gstBtn" aria-pressed="false">+3% GST</button>
   </div>
 
-  <!-- Region filter (Brands Near Me) -->
+  <!-- Near Me toggle (adds regional jewellers from your area) -->
   <div class="region-row" id="regionRow">
-    <button class="rc" data-r="near"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me</button>
-    <button class="rc active" data-r="all">All India</button>
-    <button class="rc" data-r="south">South</button>
-    <button class="rc" data-r="west">West</button>
-    <button class="rc" data-r="north">North</button>
-    <button class="rc" data-r="east">East</button>
+    <button class="rc" id="nearBtn" data-r="near"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Include brands near me</button>
   </div>
 
   <!-- Brands -->
@@ -414,42 +408,43 @@ function handleCredentialResponse(resp){
     overlay.style.opacity=1-pct*0.4;
   });
 
-  // ─── Brand catalogue with region + per-gram 24K rate ───
+  // ─── Brand catalogue: national vs regional (region only used for Near-me matching) ───
   var BRANDS=[
-    // National
-    {n:'PN Gadgil',d:'pngjewellers.com',r:'north',rate:15075},
-    {n:'Senco Gold',d:'sencogoldanddiamonds.com',r:'east',rate:15147},
-    {n:'Indriya',d:'indriya.com',r:'all',rate:15191},
-    {n:'GRT Jewellers',d:'grtjewels.com',r:'south',rate:15196},
-    {n:'Bhima Jewels',d:'bhima.com',r:'south',rate:15199},
-    {n:'Jos Alukkas',d:'josalukkasonline.com',r:'south',rate:15201},
-    {n:'Candere',d:'candere.com',r:'all',rate:15207},
-    {n:'Kalyan Jewellers',d:'kalyanjewellers.net',r:'south',rate:15216},
-    {n:'ORRA',d:'orra.co.in',r:'west',rate:15222},
-    {n:'CaratLane',d:'caratlane.com',r:'all',rate:15241},
-    {n:'Tanishq',d:'tanishq.co.in',r:'all',rate:15245},
-    {n:'Kisna',d:'kisna.com',r:'all',rate:15250},
-    {n:'BlueStone',d:'bluestone.com',r:'all',rate:15390},
-    {n:'Waman Hari Pethe',d:'wamanharipethe.com',r:'west',rate:15438},
-    // Regional
-    {n:'Vaibhav Jewellers',d:'vaibhavjewellers.com',r:'south',rate:15098},
-    {n:'PN Gadgil & Sons',d:'pngadgilandsons.com',r:'west',rate:15112},
-    {n:'Vummidi Bangaru',d:'vummidi.com',r:'south',rate:15165},
-    {n:'Ranka Jewellers',d:'rankajewellers.in',r:'west',rate:15185},
-    {n:'Joyalukkas',d:'joyalukkas.in',r:'south',rate:15188},
-    {n:'C Krishniah Chetty',d:'ckcjewellers.com',r:'south',rate:15210},
-    {n:'Chandukaka Saraf',d:'chandukakasaraf.in',r:'west',rate:15220},
-    {n:'Malabar Gold',d:'malabargoldanddiamonds.com',r:'south',rate:15228},
-    {n:'Josco Jewellers',d:'joscogroup.com',r:'south',rate:15234},
-    {n:'Bhindi Jewellers',d:'bhindi.com',r:'west',rate:15268}
+    // National (default view)
+    {n:'PN Gadgil',d:'pngjewellers.com',nat:true,r:'north',rate:15075},
+    {n:'Senco Gold',d:'sencogoldanddiamonds.com',nat:true,r:'east',rate:15147},
+    {n:'Indriya',d:'indriya.com',nat:true,r:'all',rate:15191},
+    {n:'GRT Jewellers',d:'grtjewels.com',nat:true,r:'south',rate:15196},
+    {n:'Bhima Jewels',d:'bhima.com',nat:true,r:'south',rate:15199},
+    {n:'Jos Alukkas',d:'josalukkasonline.com',nat:true,r:'south',rate:15201},
+    {n:'Candere',d:'candere.com',nat:true,r:'all',rate:15207},
+    {n:'Kalyan Jewellers',d:'kalyanjewellers.net',nat:true,r:'south',rate:15216},
+    {n:'ORRA',d:'orra.co.in',nat:true,r:'west',rate:15222},
+    {n:'CaratLane',d:'caratlane.com',nat:true,r:'all',rate:15241},
+    {n:'Tanishq',d:'tanishq.co.in',nat:true,r:'all',rate:15245},
+    {n:'Kisna',d:'kisna.com',nat:true,r:'all',rate:15250},
+    {n:'BlueStone',d:'bluestone.com',nat:true,r:'all',rate:15390},
+    {n:'Waman Hari Pethe',d:'wamanharipethe.com',nat:true,r:'west',rate:15438},
+    // Regional (only shown when Near me is on + region matches)
+    {n:'Vaibhav Jewellers',d:'vaibhavjewellers.com',nat:false,r:'south',rate:15098},
+    {n:'PN Gadgil & Sons',d:'pngadgilandsons.com',nat:false,r:'west',rate:15112},
+    {n:'Vummidi Bangaru',d:'vummidi.com',nat:false,r:'south',rate:15165},
+    {n:'Ranka Jewellers',d:'rankajewellers.in',nat:false,r:'west',rate:15185},
+    {n:'Joyalukkas',d:'joyalukkas.in',nat:false,r:'south',rate:15188},
+    {n:'C Krishniah Chetty',d:'ckcjewellers.com',nat:false,r:'south',rate:15210},
+    {n:'Chandukaka Saraf',d:'chandukakasaraf.in',nat:false,r:'west',rate:15220},
+    {n:'Malabar Gold',d:'malabargoldanddiamonds.com',nat:false,r:'south',rate:15228},
+    {n:'Josco Jewellers',d:'joscogroup.com',nat:false,r:'south',rate:15234},
+    {n:'Bhindi Jewellers',d:'bhindi.com',nat:false,r:'west',rate:15268}
   ];
   var PURITY={'24K':1,'22K':22/24,'18K':18/24};
 
   var karats=document.querySelectorAll('.karat-pill');
-  var heroBadge=document.getElementById('heroBadge');
   var heroVal=document.getElementById('heroVal');
+  var heroHint=document.getElementById('heroHint');
   var currentK='24K';
-  var currentRegion='all';
+  var nearMe=false;         // when true, add regional brands from nearRegion
+  var nearRegion=null;      // geo-detected region (south/west/north/east)
   var selectedBrand=null;
   var gstOn=false;
 
@@ -469,7 +464,10 @@ function handleCredentialResponse(resp){
   function visibleBrands(){
     return BRANDS
       .map(function(b,i){return {b:b,i:i}})
-      .filter(function(x){return currentRegion==='all'||x.b.r===currentRegion||x.b.r==='all'})
+      .filter(function(x){
+        if(x.b.nat)return true;
+        return nearMe && nearRegion && x.b.r===nearRegion;
+      })
       .sort(function(a,b){return a.b.rate-b.b.rate});
   }
   function renderList(){
@@ -506,11 +504,16 @@ function handleCredentialResponse(resp){
     }
   }
   function paintHero(){
-    if(selectedBrand===null){var v=visibleBrands();if(!v.length){heroVal.textContent='—';return}selectedBrand=v[0].i}
+    var v=visibleBrands();
+    if(selectedBrand===null||!v.some(function(x){return x.i===selectedBrand})){
+      if(!v.length){heroVal.textContent='—';heroHint.textContent='';return}
+      selectedBrand=v[0].i;
+    }
     var b=BRANDS[selectedBrand];
     var per10=perG(b)*10*(gstOn?1.03:1);
     heroVal.textContent=Math.round(per10).toLocaleString('en-IN');
-    heroBadge.innerHTML='<div class="dot"></div>'+currentK+' &middot; '+b.n.toUpperCase();
+    var isLow=v[0].i===selectedBrand;
+    heroHint.textContent=b.n+' · '+currentK+(isLow?" · today's lowest":'');
   }
 
   karats.forEach(function(btn){
@@ -522,36 +525,35 @@ function handleCredentialResponse(resp){
     });
   });
 
-  // ─── Region chips + Near-me geolocation ───
-  function setRegion(r){
-    currentRegion=r;
-    document.querySelectorAll('.rc').forEach(function(c){c.classList.toggle('active',c.dataset.r===r)});
-    selectedBrand=null; // reset -> defaults to lowest of new region
-    renderList();paintHero();
-  }
+  // ─── Near-me toggle (adds regional brands from your geo region) ───
   function nearestRegion(lat,lon){
-    // very rough India region mapping
     if(lat<=17) return 'south';
     if(lat>=27) return 'north';
     if(lon<=77) return 'west';
     if(lon>=85) return 'east';
-    return 'all';
+    return 'south'; // fallback for central India
   }
-  document.querySelectorAll('.rc').forEach(function(c){
-    c.addEventListener('click',function(){
-      var r=this.dataset.r;
-      if(r==='near'){
-        if(!navigator.geolocation){alert('Geolocation not available');return}
-        var btn=this;btn.textContent='Locating…';
-        navigator.geolocation.getCurrentPosition(function(p){
-          var reg=nearestRegion(p.coords.latitude,p.coords.longitude);
-          btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me';
-          setRegion(reg);
-        },function(){btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me';alert('Location permission denied')},{timeout:6000});
-        return;
-      }
-      setRegion(r);
-    });
+  var pinSvg='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>';
+  var nearBtn=document.getElementById('nearBtn');
+  var REGION_LABEL={south:'South',west:'West',north:'North',east:'East'};
+  function setNear(on,reg){
+    nearMe=on;nearRegion=reg||nearRegion;
+    nearBtn.classList.toggle('active',on);
+    nearBtn.innerHTML=pinSvg+(on?('Showing brands near you · '+REGION_LABEL[nearRegion]+' (tap to hide)'):'Include brands near me');
+    selectedBrand=null;
+    renderList();paintHero();
+  }
+  nearBtn.addEventListener('click',function(){
+    if(nearMe){setNear(false);return}
+    if(nearRegion){setNear(true);return}
+    if(!navigator.geolocation){alert('Geolocation not available');return}
+    nearBtn.innerHTML=pinSvg+'Locating…';
+    navigator.geolocation.getCurrentPosition(function(p){
+      setNear(true,nearestRegion(p.coords.latitude,p.coords.longitude));
+    },function(){
+      nearBtn.innerHTML=pinSvg+'Include brands near me';
+      alert('Location permission denied');
+    },{timeout:6000});
   });
 
   // ─── GST toggle ───
