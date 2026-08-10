@@ -95,11 +95,18 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .view.active{display:block}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
 
-/* ─── Brand selector on hero ─── */
-.brand-sel-wrap{display:flex;justify-content:center;margin:8px 16px 0}
-.brand-sel{background:var(--glass2);backdrop-filter:blur(16px);border:1px solid var(--glass-border2);border-radius:99px;padding:6px 32px 6px 14px;color:var(--text);font-size:12px;font-weight:600;font-family:inherit;outline:none;cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 10px center}
-.brand-sel:focus{border-color:var(--gold)}
 .hero-rate .per{font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;color:var(--text3);-webkit-text-fill-color:var(--text3);margin-left:4px}
+.hero-hint{font-size:10px;color:var(--text3);margin-top:6px;letter-spacing:.3px}
+.br{cursor:pointer}
+.br.selected{background:var(--gold-soft);box-shadow:inset 3px 0 0 var(--gold)}
+
+/* ─── Region chips (Brands Near Me) ─── */
+.region-row{display:flex;gap:6px;padding:8px 12px 4px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.region-row::-webkit-scrollbar{display:none}
+.rc{background:var(--glass);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:99px;padding:6px 12px;color:var(--text2);font-size:11px;font-weight:600;font-family:inherit;cursor:pointer;white-space:nowrap;transition:all .2s;flex-shrink:0;display:inline-flex;align-items:center;gap:5px}
+.rc.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 2px 10px rgba(212,166,60,0.3)}
+.rc:active{transform:scale(.94)}
+.rc svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2}
 
 /* ─── Sections container ─── */
 .sections{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
@@ -264,9 +271,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       <span class="sym">&#8377;</span><span id="heroVal">1,50,750</span><span class="per">/10g</span>
       <div class="hero-sparkle"></div>
     </div>
-    <div class="brand-sel-wrap">
-      <select class="brand-sel" id="heroBrand"></select>
-    </div>
+    <div class="hero-hint">Tap any jeweller below to switch &middot; default is today's lowest</div>
   </section>
 
   <div class="karat-row" id="karatRow">
@@ -280,26 +285,32 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <button class="gst-btn" id="gstBtn" aria-pressed="false">+3% GST</button>
   </div>
 
+  <!-- Region filter (Brands Near Me) -->
+  <div class="region-row" id="regionRow">
+    <button class="rc" data-r="near"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me</button>
+    <button class="rc active" data-r="all">All India</button>
+    <button class="rc" data-r="south">South</button>
+    <button class="rc" data-r="west">West</button>
+    <button class="rc" data-r="north">North</button>
+    <button class="rc" data-r="east">East</button>
+  </div>
+
   <!-- Brands -->
   <div class="brands-wrap">
-    <div class="brands-head"><span class="t">Today's Board</span><span class="c">19 brands</span></div>
-    <div id="brandList">
-      <div class="br best" data-dom="pngjewellers.com"><span class="b-rk">1</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=pngjewellers.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">PN Gadgil</span><span class="b-tg">Lowest</span></div><div class="b-pr"><div class="b-rt">&#8377;15,075</div><div class="b-dl neg">&minus;&#8377;136</div></div></div>
-      <div class="br" data-dom="sencogoldanddiamonds.com"><span class="b-rk">2</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Senco Gold</span></div><div class="b-pr"><div class="b-rt">&#8377;15,147</div><div class="b-dl neg">&minus;&#8377;64</div></div></div>
-      <div class="br" data-dom="indriya.com"><span class="b-rk">3</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=indriya.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Indriya</span></div><div class="b-pr"><div class="b-rt">&#8377;15,191</div><div class="b-dl neg">&minus;&#8377;20</div></div></div>
-      <div class="br" data-dom="grtjewels.com"><span class="b-rk">4</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=grtjewels.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">GRT Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,196</div><div class="b-dl neg">&minus;&#8377;15</div></div></div>
-      <div class="br" data-dom="bhima.com"><span class="b-rk">5</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bhima.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Bhima Jewels</span></div><div class="b-pr"><div class="b-rt">&#8377;15,199</div><div class="b-dl neg">&minus;&#8377;12</div></div></div>
-      <div class="br" data-dom="josalukkasonline.com"><span class="b-rk">6</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=josalukkasonline.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Jos Alukkas</span></div><div class="b-pr"><div class="b-rt">&#8377;15,201</div><div class="b-dl neg">&minus;&#8377;10</div></div></div>
-      <div class="br" data-dom="candere.com"><span class="b-rk">7</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=candere.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Candere</span></div><div class="b-pr"><div class="b-rt">&#8377;15,207</div><div class="b-dl neg">&minus;&#8377;4</div></div></div>
-      <div class="br" data-dom="kalyanjewellers.net"><span class="b-rk">8</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=kalyanjewellers.net&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Kalyan Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,216</div><div class="b-dl pos">+&#8377;4</div></div></div>
-      <div class="br" data-dom="orra.co.in"><span class="b-rk">9</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=orra.co.in&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">ORRA</span></div><div class="b-pr"><div class="b-rt">&#8377;15,222</div><div class="b-dl pos">+&#8377;10</div></div></div>
-      <div class="br" data-dom="caratlane.com"><span class="b-rk">10</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">CaratLane</span></div><div class="b-pr"><div class="b-rt">&#8377;15,241</div><div class="b-dl pos">+&#8377;30</div></div></div>
-      <div class="br" data-dom="tanishq.co.in"><span class="b-rk">11</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=tanishq.co.in&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Tanishq</span></div><div class="b-pr"><div class="b-rt">&#8377;15,245</div><div class="b-dl pos">+&#8377;34</div></div></div>
-      <div class="br" data-dom="kisna.com"><span class="b-rk">12</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=kisna.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Kisna</span></div><div class="b-pr"><div class="b-rt">&#8377;15,250</div><div class="b-dl pos">+&#8377;39</div></div></div>
-      <div class="br" data-dom="bluestone.com"><span class="b-rk">13</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">BlueStone</span></div><div class="b-pr"><div class="b-rt">&#8377;15,390</div><div class="b-dl pos">+&#8377;179</div></div></div>
-      <div class="br" data-dom="wamanharipethe.com"><span class="b-rk">14</span><img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=wamanharipethe.com&sz=64" onerror="this.style.visibility='hidden'"><div class="b-inf"><span class="b-nm">Waman Hari Pethe</span></div><div class="b-pr"><div class="b-rt">&#8377;15,438</div><div class="b-dl pos">+&#8377;227</div></div></div>
-    </div>
+    <div class="brands-head"><span class="t" id="brandsTitle">Today's Board</span><span class="c" id="brandsCount">— brands</span></div>
+    <div id="brandList"></div>
   </div>
+
+  <!-- Alerts at bottom of main -->
+  <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
+  <div class="alcard" style="margin:0 12px">
+    <div class="al-em">&#128140;</div>
+    <div class="al-t">Never miss the cheapest rate</div>
+    <div class="al-d">One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</div>
+    <div class="al-row"><input class="al-inp" id="alEmail" type="email" placeholder="Your email" inputmode="email"><button class="al-btn" id="alBtn">Subscribe</button></div>
+    <div id="alStatus" style="font-size:11px;color:var(--mint);margin-top:8px;min-height:14px"></div>
+  </div>
+  <div id="gsiSlot" style="margin:16px 12px 0"></div>
   <div style="height:28px"></div>
   </div><!-- /v-rates -->
 
@@ -370,20 +381,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div style="height:28px"></div>
   </div><!-- /v-calc -->
 
-  <!-- ═══════ ALERTS VIEW ═══════ -->
-  <div class="view" id="v-alerts">
-  <div class="sh"><div class="ic gl">&#128276;</div><h2>Daily Alerts</h2></div>
-  <div class="alcard">
-    <div class="al-em">&#128140;</div>
-    <div class="al-t">Never miss the cheapest rate</div>
-    <div class="al-d">One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</div>
-    <div class="al-row"><input class="al-inp" id="alEmail" type="email" placeholder="Your email" inputmode="email"><button class="al-btn" id="alBtn">Subscribe</button></div>
-    <div id="alStatus" style="font-size:11px;color:var(--mint);margin-top:8px;min-height:14px"></div>
-  </div>
 
-  <div id="gsiSlot" style="margin:16px 12px 0"></div>
-  <div style="height:28px"></div>
-  </div><!-- /v-alerts -->
 </div>
 
 <!-- Bottom nav -->
@@ -391,7 +389,6 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <button class="ni active" data-view="v-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
   <button class="ni" data-view="v-market"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
   <button class="ni" data-view="v-calc"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
-  <button class="ni" data-view="v-alerts"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts</button>
 </nav>
 </div>
 
@@ -417,71 +414,145 @@ function handleCredentialResponse(resp){
     overlay.style.opacity=1-pct*0.4;
   });
 
-  // ─── Brand catalogue ───
+  // ─── Brand catalogue with region + per-gram 24K rate ───
   var BRANDS=[
-    {n:'PN Gadgil',d:'pngjewellers.com'},{n:'Senco Gold',d:'sencogoldanddiamonds.com'},
-    {n:'Indriya',d:'indriya.com'},{n:'GRT Jewellers',d:'grtjewels.com'},
-    {n:'Bhima Jewels',d:'bhima.com'},{n:'Jos Alukkas',d:'josalukkasonline.com'},
-    {n:'Candere',d:'candere.com'},{n:'Kalyan Jewellers',d:'kalyanjewellers.net'},
-    {n:'ORRA',d:'orra.co.in'},{n:'CaratLane',d:'caratlane.com'},
-    {n:'Tanishq',d:'tanishq.co.in'},{n:'Kisna',d:'kisna.com'},
-    {n:'BlueStone',d:'bluestone.com'},{n:'Waman Hari Pethe',d:'wamanharipethe.com'}
+    // National
+    {n:'PN Gadgil',d:'pngjewellers.com',r:'north',rate:15075},
+    {n:'Senco Gold',d:'sencogoldanddiamonds.com',r:'east',rate:15147},
+    {n:'Indriya',d:'indriya.com',r:'all',rate:15191},
+    {n:'GRT Jewellers',d:'grtjewels.com',r:'south',rate:15196},
+    {n:'Bhima Jewels',d:'bhima.com',r:'south',rate:15199},
+    {n:'Jos Alukkas',d:'josalukkasonline.com',r:'south',rate:15201},
+    {n:'Candere',d:'candere.com',r:'all',rate:15207},
+    {n:'Kalyan Jewellers',d:'kalyanjewellers.net',r:'south',rate:15216},
+    {n:'ORRA',d:'orra.co.in',r:'west',rate:15222},
+    {n:'CaratLane',d:'caratlane.com',r:'all',rate:15241},
+    {n:'Tanishq',d:'tanishq.co.in',r:'all',rate:15245},
+    {n:'Kisna',d:'kisna.com',r:'all',rate:15250},
+    {n:'BlueStone',d:'bluestone.com',r:'all',rate:15390},
+    {n:'Waman Hari Pethe',d:'wamanharipethe.com',r:'west',rate:15438},
+    // Regional
+    {n:'Vaibhav Jewellers',d:'vaibhavjewellers.com',r:'south',rate:15098},
+    {n:'PN Gadgil & Sons',d:'pngadgilandsons.com',r:'west',rate:15112},
+    {n:'Vummidi Bangaru',d:'vummidi.com',r:'south',rate:15165},
+    {n:'Ranka Jewellers',d:'rankajewellers.in',r:'west',rate:15185},
+    {n:'Joyalukkas',d:'joyalukkas.in',r:'south',rate:15188},
+    {n:'C Krishniah Chetty',d:'ckcjewellers.com',r:'south',rate:15210},
+    {n:'Chandukaka Saraf',d:'chandukakasaraf.in',r:'west',rate:15220},
+    {n:'Malabar Gold',d:'malabargoldanddiamonds.com',r:'south',rate:15228},
+    {n:'Josco Jewellers',d:'joscogroup.com',r:'south',rate:15234},
+    {n:'Bhindi Jewellers',d:'bhindi.com',r:'west',rate:15268}
   ];
+  var PURITY={'24K':1,'22K':22/24,'18K':18/24};
 
-  // ─── Karat switcher ───
   var karats=document.querySelectorAll('.karat-pill');
   var heroBadge=document.getElementById('heroBadge');
   var heroVal=document.getElementById('heroVal');
-  var heroBrandSel=document.getElementById('heroBrand');
   var currentK='24K';
-  var DATA={
-    '24K':{median:'15,211',ibja:'15,106',rates:['15,075','15,147','15,191','15,196','15,199','15,201','15,207','15,216','15,222','15,241','15,245','15,250','15,390','15,438'],deltas:['-136','-64','-20','-15','-12','-10','-4','+4','+10','+30','+34','+39','+179','+227']},
-    '22K':{median:'13,944',ibja:'13,847',rates:['13,819','13,885','13,925','13,930','13,932','13,934','13,940','13,948','13,953','13,971','13,975','13,979','14,108','14,152'],deltas:['-125','-59','-19','-14','-12','-10','-4','+4','+9','+27','+31','+35','+164','+208']},
-    '18K':{median:'11,408',ibja:'11,330',rates:['11,306','11,361','11,393','11,397','11,399','11,401','11,405','11,412','11,416','11,431','11,434','11,437','11,543','11,578'],deltas:['-102','-47','-15','-11','-9','-7','-3','+4','+8','+23','+26','+29','+135','+170']}
-  };
+  var currentRegion='all';
+  var selectedBrand=null;
+  var gstOn=false;
 
   function num(s){return parseFloat(String(s).replace(/,/g,''))}
   function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
   function fmtG(g){return g.toFixed(3)+' g'}
-  function rateFor(brandIdx,karat){return num(DATA[karat].rates[brandIdx])}
+  function perG(brand){return brand.rate*PURITY[currentK]}
+  function rateFor(brandIdx,karat){return BRANDS[brandIdx].rate*PURITY[karat]}
 
-  // ─── Populate brand dropdowns ───
+  // ─── Populate calc brand dropdowns (uses all brands) ───
   var brandHtml=BRANDS.map(function(b,i){return '<option value="'+i+'">'+b.n+'</option>'}).join('');
-  ['heroBrand','cvBrand','cbBrand','cmBrand'].forEach(function(id){
+  ['cvBrand','cbBrand','cmBrand'].forEach(function(id){
     var el=document.getElementById(id);if(el)el.innerHTML=brandHtml;
   });
 
-  // ─── Hero: brand + karat drives the big rate (per 10g) ───
-  var gstOn=false;
-  function paintHero(){
-    var i=parseInt(heroBrandSel.value)||0;
-    var perG=rateFor(i,currentK);
-    var per10=perG*10*(gstOn?1.03:1);
-    heroVal.textContent=Math.round(per10).toLocaleString('en-IN');
-    heroBadge.innerHTML='<div class="dot"></div>'+currentK+' &middot; '+BRANDS[i].n.toUpperCase();
+  // ─── Filter + render brand list ───
+  function visibleBrands(){
+    return BRANDS
+      .map(function(b,i){return {b:b,i:i}})
+      .filter(function(x){return currentRegion==='all'||x.b.r===currentRegion||x.b.r==='all'})
+      .sort(function(a,b){return a.b.rate-b.b.rate});
   }
-  function paintRows(){
-    var d=DATA[currentK];
-    document.querySelectorAll('.br').forEach(function(row,i){
-      var rt=row.querySelector('.b-rt'),base=num(d.rates[i]);
-      rt.dataset.base=base;
-      rt.textContent=fmt(gstOn?base*1.03:base);
-      var dd=row.querySelector('.b-dl'),v=d.deltas[i];
-      dd.textContent=(v.charAt(0)==='+'?'+':'−')+'₹'+v.replace(/[+-]/,'');
-      dd.className='b-dl '+(v.charAt(0)==='+'?'pos':v==='0'?'zero':'neg');
+  function renderList(){
+    var vis=visibleBrands();
+    if(!vis.length){document.getElementById('brandList').innerHTML='<div style="padding:20px;text-align:center;font-size:11px;color:var(--text3)">No jewellers listed for this region yet.</div>';document.getElementById('brandsCount').textContent='0 brands';document.getElementById('saveAmt').innerHTML='—';return}
+    var rates=vis.map(function(x){return perG(x.b)});
+    var min=Math.min.apply(null,rates),max=Math.max.apply(null,rates);
+    var median=rates.slice().sort(function(a,b){return a-b})[Math.floor(rates.length/2)];
+    var html=vis.map(function(x,rank){
+      var r=perG(x.b),shown=r*(gstOn?1.03:1),delta=Math.round(r-median);
+      var isBest=x.i===vis[0].i,isSel=selectedBrand===x.i;
+      var dcls=delta<0?'neg':delta>0?'pos':'zero';
+      var dtxt=delta===0?'±0':(delta<0?'−':'+')+'₹'+Math.abs(delta);
+      return '<div class="br'+(isBest?' best':'')+(isSel?' selected':'')+'" data-bi="'+x.i+'" data-dom="'+x.b.d+'">'+
+        '<span class="b-rk">'+(rank+1)+'</span>'+
+        '<img class="b-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+x.b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'">'+
+        '<div class="b-inf"><span class="b-nm">'+x.b.n+'</span>'+(isBest?'<span class="b-tg">Lowest</span>':'')+'</div>'+
+        '<div class="b-pr"><div class="b-rt">'+fmt(shown)+'</div><div class="b-dl '+dcls+'">'+dtxt+'</div></div>'+
+        '</div>';
+    }).join('');
+    document.getElementById('brandList').innerHTML=html;
+    document.getElementById('brandsCount').textContent=vis.length+' brands';
+    document.getElementById('saveAmt').innerHTML='₹'+Math.round(max-min)+'/g';
+    // wire clicks
+    document.querySelectorAll('#brandList .br').forEach(function(row){
+      row.addEventListener('click',function(){
+        selectedBrand=parseInt(this.dataset.bi);
+        renderList();paintHero();
+      });
     });
-    var nums=d.rates.map(num);
-    document.getElementById('saveAmt').innerHTML='₹'+Math.round(Math.max.apply(null,nums)-Math.min.apply(null,nums))+'/g';
+    // default = lowest if nothing selected or selection filtered out
+    if(selectedBrand===null||!vis.some(function(x){return x.i===selectedBrand})){
+      selectedBrand=vis[0].i;
+    }
   }
+  function paintHero(){
+    if(selectedBrand===null){var v=visibleBrands();if(!v.length){heroVal.textContent='—';return}selectedBrand=v[0].i}
+    var b=BRANDS[selectedBrand];
+    var per10=perG(b)*10*(gstOn?1.03:1);
+    heroVal.textContent=Math.round(per10).toLocaleString('en-IN');
+    heroBadge.innerHTML='<div class="dot"></div>'+currentK+' &middot; '+b.n.toUpperCase();
+  }
+
   karats.forEach(function(btn){
     btn.addEventListener('click',function(){
       karats.forEach(function(b){b.classList.remove('active')});
       this.classList.add('active');
       currentK=this.dataset.k;
-      paintRows();paintHero();recalcAll();
+      renderList();paintHero();recalcAll();
     });
   });
-  heroBrandSel.addEventListener('change',paintHero);
+
+  // ─── Region chips + Near-me geolocation ───
+  function setRegion(r){
+    currentRegion=r;
+    document.querySelectorAll('.rc').forEach(function(c){c.classList.toggle('active',c.dataset.r===r)});
+    selectedBrand=null; // reset -> defaults to lowest of new region
+    renderList();paintHero();
+  }
+  function nearestRegion(lat,lon){
+    // very rough India region mapping
+    if(lat<=17) return 'south';
+    if(lat>=27) return 'north';
+    if(lon<=77) return 'west';
+    if(lon>=85) return 'east';
+    return 'all';
+  }
+  document.querySelectorAll('.rc').forEach(function(c){
+    c.addEventListener('click',function(){
+      var r=this.dataset.r;
+      if(r==='near'){
+        if(!navigator.geolocation){alert('Geolocation not available');return}
+        var btn=this;btn.textContent='Locating…';
+        navigator.geolocation.getCurrentPosition(function(p){
+          var reg=nearestRegion(p.coords.latitude,p.coords.longitude);
+          btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me';
+          setRegion(reg);
+        },function(){btn.innerHTML='<svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>Near me';alert('Location permission denied')},{timeout:6000});
+        return;
+      }
+      setRegion(r);
+    });
+  });
 
   // ─── GST toggle ───
   var gstBtn=document.getElementById('gstBtn');
@@ -490,7 +561,7 @@ function handleCredentialResponse(resp){
     gstBtn.classList.toggle('on',gstOn);
     gstBtn.setAttribute('aria-pressed',String(gstOn));
     gstBtn.textContent=gstOn?'GST ON':'+3% GST';
-    paintRows();paintHero();
+    renderList();paintHero();
   });
 
   // ─── Calc sub-tabs ───
@@ -528,7 +599,9 @@ function handleCredentialResponse(resp){
     var k=document.getElementById('clP').value;
     var ltv=(parseFloat(document.getElementById('clLtv').value)||0)/100;
     var apr=(parseFloat(document.getElementById('clRate').value)||0)/100;
-    var value=g*num(DATA[k].median);
+    var rates=BRANDS.map(function(b){return b.rate*PURITY[k]}).sort(function(a,b){return a-b});
+    var median=rates[Math.floor(rates.length/2)];
+    var value=g*median;
     var loan=value*ltv;
     var mr=apr/12,n=12;
     var emi=mr>0?(loan*mr*Math.pow(1+mr,n))/(Math.pow(1+mr,n)-1):loan/n;
@@ -586,6 +659,6 @@ function handleCredentialResponse(resp){
   });
 
   // ─── init ───
-  paintRows();paintHero();recalcAll();
+  renderList();paintHero();recalcAll();
 })();
 </script>
