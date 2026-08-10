@@ -1,216 +1,237 @@
 <title>MyGoldRates</title>
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#FDF8F3">
+<meta name="theme-color" content="#1a1208">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@500;600;700;800&display=swap');
-
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
-
+html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;background:#0a0804}
 :root{
-  --bg:#FDF8F3;
-  --bg2:#FFF9F2;
-  --card:#FFFFFF;
-  --card-shadow:0 2px 16px rgba(180,140,100,0.08),0 1px 3px rgba(0,0,0,0.04);
-  --card-shadow-lg:0 8px 32px rgba(180,140,100,0.12),0 2px 8px rgba(0,0,0,0.04);
-  --glass:rgba(255,255,255,0.72);
-  --glass-border:rgba(255,255,255,0.5);
-
-  --rose:#E07A9C;
-  --rose-light:#FCEEF3;
-  --rose-soft:#F4C1D2;
-  --rose-deep:#C4567A;
-
-  --gold:#CFA135;
-  --gold-light:#F8E8B0;
-  --gold-soft:#FFF5DC;
+  --glass:rgba(12,8,4,0.78);
+  --glass2:rgba(18,12,6,0.85);
+  --glass-border:rgba(200,160,60,0.12);
+  --glass-border2:rgba(200,160,60,0.22);
+  --card:rgba(22,16,8,0.82);
+  --card-hover:rgba(30,22,12,0.88);
+  --gold:#D4A63C;
+  --gold-light:#F0D080;
+  --gold-soft:rgba(212,166,60,0.12);
   --gold-deep:#A67C1A;
-
-  --blue:#5B9BD5;
-  --blue-light:#E8F2FC;
-  --blue-soft:#B8D6F0;
-  --blue-deep:#3A72A8;
-
+  --rose:#E88AAE;
+  --rose-soft:rgba(232,138,174,0.15);
+  --rose-deep:#C45A82;
+  --blue:#6AADDF;
+  --blue-soft:rgba(106,173,223,0.12);
+  --blue-deep:#3A8AC4;
   --mint:#5CC4A0;
-  --mint-light:#E6F8F1;
-  --mint-deep:#3A9B7A;
-
-  --text:#1E1B18;
-  --text2:#6B6560;
-  --text3:#A09890;
-  --border:rgba(0,0,0,0.06);
-  --border2:rgba(0,0,0,0.1);
+  --mint-soft:rgba(92,196,160,0.12);
+  --mint-deep:#3AA07A;
+  --text:#F4EDE0;
+  --text2:#C8BDA8;
+  --text3:#7A7060;
+  --border:rgba(200,160,60,0.1);
 }
+.app{display:flex;flex-direction:column;height:100dvh;width:100%;max-width:430px;margin:0 auto;position:relative;overflow:hidden}
 
-.app{display:flex;flex-direction:column;height:100dvh;width:100%;max-width:430px;margin:0 auto;background:var(--bg);position:relative;overflow:hidden}
+/* ─── BG image layer ─── */
+.bg-layer{position:absolute;inset:0;z-index:0;background:url('bg.png') center/cover no-repeat;transition:filter 1.2s cubic-bezier(.4,0,.2,1)}
+.bg-layer.blurred{filter:blur(18px) brightness(0.5)}
+.bg-layer.clear{filter:blur(0) brightness(0.7)}
+.bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,8,4,0.5) 0%,rgba(10,8,4,0.3) 30%,rgba(10,8,4,0.6) 70%,rgba(10,8,4,0.85) 100%);pointer-events:none;transition:opacity 1.2s}
 
-/* ─── Mesh gradient bg ─── */
-.mesh-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
-.mesh-blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;animation:float 20s ease-in-out infinite}
-.mesh-blob.b1{width:300px;height:300px;background:var(--rose-soft);top:-60px;right:-80px;animation-delay:0s}
-.mesh-blob.b2{width:250px;height:250px;background:var(--gold-light);top:30%;left:-60px;animation-delay:-7s}
-.mesh-blob.b3{width:200px;height:200px;background:var(--blue-soft);bottom:15%;right:-40px;animation-delay:-14s}
-.mesh-blob.b4{width:180px;height:180px;background:var(--rose-light);bottom:-40px;left:20%;animation-delay:-4s}
-@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(15px,-20px) scale(1.05)}66%{transform:translate(-10px,15px) scale(.95)}}
-
-.app>*:not(.mesh-bg){position:relative;z-index:1}
+.app>*:not(.bg-layer):not(.bg-overlay){position:relative;z-index:2}
 
 /* ─── Top bar ─── */
-.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 18px 6px;flex-shrink:0}
-.logo{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;letter-spacing:-.2px;color:var(--text)}
-.logo .gold{background:linear-gradient(135deg,var(--gold),var(--gold-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.3px;color:var(--text2);background:var(--card);border:1px solid var(--border2);border-radius:99px;padding:5px 10px;box-shadow:0 1px 4px rgba(0,0,0,0.04)}
-.live-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(92,196,160,0.6);animation:pulse 2s ease-in-out infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
-.avatar-btn{width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--rose-deep));border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:12px;font-weight:700;box-shadow:0 2px 8px rgba(224,122,156,0.3)}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px;flex-shrink:0}
+.logo{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,0.5)}
+.logo .g{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.top-right{display:flex;align-items:center;gap:8px}
+.live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.3px;color:var(--text2);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:99px;padding:5px 10px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(92,196,160,0.7);animation:pulse 2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
 
-/* ─── Sections ─── */
-.sections{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-behavior:smooth;overscroll-behavior:contain}
+/* ─── Music bar (saloon.wtf style) ─── */
+.music-bar{display:flex;align-items:center;gap:10px;padding:6px 16px 8px;flex-shrink:0}
+.music-art{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,#2a1a0a,#3a2510);border:1px solid var(--glass-border2);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.3)}
+.music-art .note{animation:noteFloat 3s ease-in-out infinite}
+@keyframes noteFloat{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-2px) rotate(5deg)}}
+.music-info{flex:1;min-width:0}
+.music-title{font-size:12px;font-weight:600;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-artist{font-size:10px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.music-controls{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.m-btn{width:28px;height:28px;border-radius:50%;background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text2);transition:all .2s}
+.m-btn:active{transform:scale(.85)}
+.m-btn svg{width:14px;height:14px;fill:currentColor}
+.m-btn.play{width:34px;height:34px;background:var(--gold);color:#1a0a04}
+.m-btn.play svg{width:16px;height:16px;margin-left:1px}
+.music-links{display:flex;gap:6px;flex-shrink:0;margin-left:4px}
+.m-link{display:flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;background:var(--glass);border:1px solid var(--glass-border);color:var(--text3);text-decoration:none;transition:all .2s}
+.m-link:hover{border-color:var(--glass-border2);color:var(--text2)}
+.m-link svg{width:13px;height:13px;fill:currentColor}
+
+/* ─── Seek bar ─── */
+.seek-row{display:flex;align-items:center;gap:6px;padding:0 16px 6px}
+.seek-time{font-size:9px;color:var(--text3);min-width:28px;font-weight:500}
+.seek-track{flex:1;height:3px;background:rgba(200,160,60,0.15);border-radius:3px;position:relative;overflow:hidden;cursor:pointer}
+.seek-fill{height:100%;width:12%;background:linear-gradient(90deg,var(--gold),var(--gold-light));border-radius:3px;transition:width .3s}
+
+/* ─── Sections container ─── */
+.sections{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}
 .sections::-webkit-scrollbar{display:none}
 
 /* ─── Hero ─── */
-.hero{text-align:center;padding:18px 18px 12px}
-.hero-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--gold-deep);background:var(--gold-soft);border:1px solid var(--gold-light);border-radius:99px;padding:4px 12px;margin-bottom:8px}
-.hero-badge .dot{width:4px;height:4px;border-radius:50%;background:var(--gold)}
-.hero-rate{font-family:'Playfair Display',Georgia,serif;font-size:54px;font-weight:800;line-height:1;color:var(--text);position:relative;display:inline-block}
-.hero-rate .sym{background:linear-gradient(135deg,var(--gold),var(--gold-deep));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:36px;vertical-align:6px;margin-right:1px}
-.hero-rate .unit{font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;color:var(--text3);-webkit-text-fill-color:var(--text3);margin-left:1px}
-.hero-sparkle{position:absolute;inset:-4px;background:linear-gradient(105deg,transparent 42%,rgba(207,161,53,0.18) 50%,transparent 58%);animation:sparkle 4s ease-in-out infinite;pointer-events:none;border-radius:12px}
-@keyframes sparkle{0%{transform:translateX(-120%)}100%{transform:translateX(120%)}}
-.hero-sub{font-size:12px;color:var(--text3);margin-top:6px;line-height:1.4}
-.hero-sub b{color:var(--text2);font-weight:600}
+.hero{text-align:center;padding:20px 16px 10px}
+.hero-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);backdrop-filter:blur(12px);border:1px solid var(--glass-border2);border-radius:99px;padding:4px 12px;margin-bottom:8px}
+.hero-badge .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
+.hero-rate{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:800;line-height:1;color:var(--text);position:relative;display:inline-block;text-shadow:0 2px 20px rgba(0,0,0,0.4)}
+.hero-rate .sym{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:34px;vertical-align:5px;margin-right:1px}
+.hero-rate .unit{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;color:var(--text3);-webkit-text-fill-color:var(--text3)}
+.hero-sparkle{position:absolute;inset:-4px;background:linear-gradient(105deg,transparent 42%,rgba(240,208,128,0.2) 50%,transparent 58%);animation:sparkle 4s ease-in-out infinite;pointer-events:none;border-radius:12px}
+@keyframes sparkle{0%{transform:translateX(-140%)}100%{transform:translateX(140%)}}
+.hero-sub{font-size:11px;color:var(--text3);margin-top:6px}.hero-sub b{color:var(--text2)}
 
-/* ─── Karat switcher ─── */
-.karat-row{display:flex;justify-content:center;gap:4px;margin:10px 0}
-.karat-pill{font-size:11px;font-weight:700;letter-spacing:.3px;padding:7px 22px;border-radius:99px;border:1.5px solid var(--border2);background:var(--card);color:var(--text3);cursor:pointer;transition:all .25s cubic-bezier(.4,0,.2,1);box-shadow:0 1px 3px rgba(0,0,0,0.03)}
-.karat-pill.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#fff;border-color:transparent;box-shadow:0 4px 16px rgba(207,161,53,0.35);transform:scale(1.02)}
-.karat-pill:not(.active):active{transform:scale(.96)}
+/* ─── Karat strip ─── */
+.karat-row{display:flex;justify-content:center;gap:4px;margin:8px 0}
+.karat-pill{font-size:11px;font-weight:700;padding:6px 22px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);backdrop-filter:blur(12px);color:var(--text3);cursor:pointer;transition:all .25s}
+.karat-pill.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 4px 16px rgba(212,166,60,0.35)}
 
 /* ─── Savings chip ─── */
-.savings-chip{display:flex;align-items:center;justify-content:center;gap:6px;margin:0 18px 12px;padding:8px 14px;border-radius:12px;background:var(--mint-light);border:1px solid rgba(92,196,160,0.15)}
-.savings-chip svg{width:14px;height:14px;stroke:var(--mint-deep);fill:none;stroke-width:2.5;flex-shrink:0}
-.savings-chip span{font-size:11px;font-weight:500;color:var(--mint-deep)}
-.savings-chip strong{font-weight:700}
+.savings{display:flex;align-items:center;justify-content:center;gap:6px;margin:4px 16px 10px;padding:7px 12px;border-radius:10px;background:var(--mint-soft);backdrop-filter:blur(12px);border:1px solid rgba(92,196,160,0.12)}
+.savings svg{width:13px;height:13px;stroke:var(--mint);fill:none;stroke-width:2.5;flex-shrink:0}
+.savings span{font-size:11px;font-weight:500;color:var(--mint)}
+.savings strong{font-weight:700}
 
 /* ─── Brand list ─── */
-.brands-wrap{margin:0 14px;background:var(--card);border-radius:18px;box-shadow:var(--card-shadow);overflow:hidden;border:1px solid var(--border)}
-.brands-head{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 10px}
-.brands-head .title{font-size:13px;font-weight:700;color:var(--text)}
-.brands-head .count{font-size:11px;font-weight:500;color:var(--text3);background:var(--bg);padding:3px 8px;border-radius:99px}
-.brand-row{display:flex;align-items:center;padding:11px 16px;border-top:1px solid var(--border);transition:background .15s}
-.brand-row:active{background:rgba(0,0,0,0.02)}
-.brand-row.best{background:var(--mint-light)}
-.brand-row.best:active{background:rgba(92,196,160,0.15)}
-.b-rank{width:20px;font-size:11px;font-weight:700;color:var(--text3);flex-shrink:0}
-.brand-row.best .b-rank{color:var(--mint-deep)}
-.b-info{flex:1;min-width:0;display:flex;align-items:center;gap:6px}
-.b-name{font-size:13.5px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brand-row.best .b-name{color:var(--mint-deep);font-weight:600}
-.b-tag{font-size:8px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:linear-gradient(135deg,var(--mint),var(--mint-deep));color:#fff;padding:2px 6px;border-radius:4px;flex-shrink:0}
-.b-price{text-align:right;margin-left:10px;flex-shrink:0}
-.b-rate{font-size:14px;font-weight:600;color:var(--text)}
-.b-delta{font-size:10px;font-weight:600;margin-top:1px}
-.b-delta.neg{color:var(--mint-deep)}.b-delta.pos{color:var(--rose-deep)}.b-delta.zero{color:var(--text3)}
-
-/* ─── Section headers ─── */
-.sec-head{display:flex;align-items:center;gap:8px;padding:22px 18px 10px}
-.sec-head .icon{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-.sec-head .icon.rose{background:var(--rose-light);color:var(--rose-deep)}
-.sec-head .icon.blue{background:var(--blue-light);color:var(--blue-deep)}
-.sec-head .icon.gold{background:var(--gold-soft);color:var(--gold-deep)}
-.sec-head h2{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text)}
+.brands-wrap{margin:0 12px;background:var(--glass2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;overflow:hidden;border:1px solid var(--glass-border)}
+.brands-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px}
+.brands-head .t{font-size:12px;font-weight:700;color:var(--text)}
+.brands-head .c{font-size:10px;color:var(--text3);background:rgba(255,255,255,0.06);padding:2px 8px;border-radius:99px}
+.br{display:flex;align-items:center;padding:10px 14px;border-top:1px solid var(--border);transition:background .15s}
+.br:active{background:var(--card-hover)}
+.br.best{background:var(--mint-soft)}
+.b-rk{width:18px;font-size:10px;font-weight:700;color:var(--text3);flex-shrink:0}
+.br.best .b-rk{color:var(--mint)}
+.b-inf{flex:1;min-width:0;display:flex;align-items:center;gap:5px}
+.b-nm{font-size:13px;font-weight:500;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.br.best .b-nm{color:var(--mint);font-weight:600}
+.b-tg{font-size:7px;font-weight:800;letter-spacing:.3px;text-transform:uppercase;background:var(--mint);color:#0a1a0e;padding:2px 5px;border-radius:3px;flex-shrink:0}
+.b-pr{text-align:right;margin-left:8px;flex-shrink:0}
+.b-rt{font-size:13px;font-weight:600;color:var(--text)}
+.b-dl{font-size:10px;font-weight:600;margin-top:1px}
+.b-dl.neg{color:var(--mint)}.b-dl.pos{color:var(--rose)}.b-dl.zero{color:var(--text3)}
 
 /* ─── Divider ─── */
-.divider{display:flex;align-items:center;gap:6px;padding:16px 30px 4px}
-.divider .line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
-.divider .gem{width:5px;height:5px;border-radius:1px;transform:rotate(45deg);flex-shrink:0}
-.divider .gem.r{background:var(--rose-soft)}.divider .gem.g{background:var(--gold-light)}.divider .gem.b{background:var(--blue-soft)}
+.dv{display:flex;align-items:center;gap:6px;padding:16px 28px 6px}
+.dv .ln{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--glass-border2),transparent)}
+.dv .gm{width:5px;height:5px;border-radius:1px;transform:rotate(45deg);flex-shrink:0}
+.dv .gm.r{background:var(--rose-deep)}.dv .gm.g{background:var(--gold)}.dv .gm.b{background:var(--blue)}
+
+/* ─── Section head ─── */
+.sh{display:flex;align-items:center;gap:8px;padding:14px 16px 8px}
+.sh .ic{width:26px;height:26px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;backdrop-filter:blur(12px)}
+.sh .ic.rs{background:var(--rose-soft);border:1px solid rgba(232,138,174,0.1)}
+.sh .ic.bl{background:var(--blue-soft);border:1px solid rgba(106,173,223,0.1)}
+.sh .ic.gl{background:var(--gold-soft);border:1px solid var(--glass-border)}
+.sh h2{font-family:'Playfair Display',Georgia,serif;font-size:16px;font-weight:700;color:var(--text)}
 
 /* ─── Market cards ─── */
-.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px}
-.market-card{background:var(--card);border-radius:14px;padding:14px;box-shadow:var(--card-shadow);border:1px solid var(--border);position:relative;overflow:hidden}
-.market-card .accent{position:absolute;top:0;left:0;right:0;height:3px;border-radius:3px 3px 0 0}
-.market-card .accent.rose{background:linear-gradient(90deg,var(--rose-soft),var(--rose))}
-.market-card .accent.gold{background:linear-gradient(90deg,var(--gold-light),var(--gold))}
-.market-card .accent.blue{background:linear-gradient(90deg,var(--blue-soft),var(--blue))}
-.market-card .accent.mint{background:linear-gradient(90deg,rgba(92,196,160,0.3),var(--mint))}
-.mc-label{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-top:2px}
-.mc-rate{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700;color:var(--text);margin-top:3px}
-.mc-sub{font-size:9px;color:var(--text3);margin-top:1px}
-.mc-delta{font-size:10px;font-weight:700;margin-top:4px;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:6px}
-.mc-delta.up{color:var(--mint-deep);background:var(--mint-light)}
-.mc-delta.down{color:var(--rose-deep);background:var(--rose-light)}
+.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px}
+.mcard{background:var(--glass2);backdrop-filter:blur(20px);border-radius:13px;padding:12px;border:1px solid var(--glass-border);position:relative;overflow:hidden}
+.mcard .ac{position:absolute;top:0;left:0;right:0;height:2px}
+.mcard .ac.rs{background:linear-gradient(90deg,rgba(232,138,174,0.3),var(--rose))}
+.mcard .ac.gl{background:linear-gradient(90deg,rgba(212,166,60,0.3),var(--gold))}
+.mcard .ac.bl{background:linear-gradient(90deg,rgba(106,173,223,0.3),var(--blue))}
+.mcard .ac.mt{background:linear-gradient(90deg,rgba(92,196,160,0.3),var(--mint))}
+.mc-l{font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);margin-top:2px}
+.mc-r{font-family:'Playfair Display',Georgia,serif;font-size:18px;font-weight:700;color:var(--text);margin-top:2px}
+.mc-s{font-size:9px;color:var(--text3);margin-top:1px}
+.mc-d{font-size:10px;font-weight:700;margin-top:3px;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:5px}
+.mc-d.up{color:var(--mint);background:var(--mint-soft)}.mc-d.dn{color:var(--rose);background:var(--rose-soft)}
 
-/* ─── Quick Calc ─── */
-.calc-inline{margin:0 14px;background:var(--card);border-radius:18px;box-shadow:var(--card-shadow);border:1px solid var(--border);padding:16px;overflow:hidden;position:relative}
-.calc-inline::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--blue))}
-.calc-row{display:flex;gap:8px;margin-bottom:12px}
-.calc-input{flex:1;background:var(--bg);border:1.5px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
-.calc-input:focus{border-color:var(--blue)}
-.calc-input::placeholder{color:var(--text3);font-weight:400}
-.calc-select{background:var(--bg);border:1.5px solid var(--border2);border-radius:10px;padding:10px 12px;color:var(--text);font-size:13px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:72px;cursor:pointer;transition:border-color .2s;background-image:url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23A09890' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
-.calc-select:focus{border-color:var(--blue)}
-.calc-result{text-align:center;padding:14px;background:linear-gradient(135deg,var(--gold-soft),rgba(248,232,176,0.3));border-radius:14px;border:1px solid var(--gold-light)}
-.calc-result-val{font-family:'Playfair Display',Georgia,serif;font-size:28px;font-weight:700;background:linear-gradient(135deg,var(--gold-deep),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.calc-result-sub{font-size:10px;color:var(--text3);margin-top:3px;font-weight:500}
+/* ─── Quick calc ─── */
+.qcw{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border-radius:16px;border:1px solid var(--glass-border);padding:14px;position:relative;overflow:hidden}
+.qcw::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--blue))}
+.qcr{display:flex;gap:8px;margin-bottom:10px}
+.qci{flex:1;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
+.qci:focus{border-color:var(--gold)}
+.qci::placeholder{color:var(--text3)}
+.qcs{background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:9px;padding:9px;color:var(--text);font-size:12px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:68px;cursor:pointer}
+.qcres{text-align:center;padding:12px;background:var(--gold-soft);border-radius:12px;border:1px solid var(--glass-border2)}
+.qcres-v{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.qcres-l{font-size:10px;color:var(--text3);margin-top:2px}
 
 /* ─── Calc links ─── */
-.calc-links{display:flex;flex-direction:column;gap:6px;padding:10px 14px 0}
-.calc-link{display:flex;align-items:center;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:13px 14px;box-shadow:0 1px 4px rgba(0,0,0,0.03);cursor:pointer;transition:all .2s}
-.calc-link:active{transform:scale(.98);box-shadow:var(--card-shadow)}
-.cl-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0}
-.cl-icon.rose{background:var(--rose-light)}.cl-icon.blue{background:var(--blue-light)}.cl-icon.gold{background:var(--gold-soft)}.cl-icon.mint{background:var(--mint-light)}
-.cl-info{flex:1;min-width:0}
-.cl-title{font-size:13px;font-weight:600;color:var(--text)}
-.cl-desc{font-size:11px;color:var(--text3);margin-top:1px}
-.cl-arrow{width:24px;height:24px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:13px;flex-shrink:0;border:1px solid var(--border)}
+.clnks{display:flex;flex-direction:column;gap:6px;padding:8px 12px 0}
+.clnk{display:flex;align-items:center;gap:10px;background:var(--glass2);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:13px;padding:12px;cursor:pointer;transition:all .2s}
+.clnk:active{transform:scale(.98);background:var(--card-hover)}
+.cl-i{width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.cl-i.rs{background:var(--rose-soft)}.cl-i.bl{background:var(--blue-soft)}.cl-i.gl{background:var(--gold-soft)}.cl-i.mt{background:var(--mint-soft)}
+.cl-inf{flex:1;min-width:0}
+.cl-t{font-size:13px;font-weight:600;color:var(--text)}
+.cl-d{font-size:10px;color:var(--text3);margin-top:1px}
+.cl-ar{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;flex-shrink:0}
 
-/* ─── Alerts ─── */
-.alert-card{margin:0 14px;background:linear-gradient(135deg,#FFF0F4,#FFF8FA,#FFF5F8);border-radius:18px;border:1px solid var(--rose-soft);padding:22px 18px;text-align:center;box-shadow:0 4px 20px rgba(224,122,156,0.08);position:relative;overflow:hidden}
-.alert-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--rose-soft),var(--rose),var(--rose-soft))}
-.alert-emoji{font-size:28px;margin-bottom:6px}
-.alert-title{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px}
-.alert-desc{font-size:12px;color:var(--text2);line-height:1.5;margin-bottom:14px;max-width:260px;margin-left:auto;margin-right:auto}
-.alert-row{display:flex;gap:6px;max-width:300px;margin:0 auto}
-.alert-input{flex:1;background:#fff;border:1.5px solid var(--rose-soft);border-radius:10px;padding:10px 12px;color:var(--text);font-size:13px;outline:none;font-family:inherit;transition:border-color .2s}
-.alert-input:focus{border-color:var(--rose)}
-.alert-input::placeholder{color:var(--text3)}
-.alert-btn{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:12px;font-weight:700;cursor:pointer;letter-spacing:.3px;box-shadow:0 4px 14px rgba(224,122,156,0.3);transition:all .2s}
-.alert-btn:active{transform:scale(.96)}
+/* ─── Alert card ─── */
+.alcard{margin:0 12px;background:linear-gradient(135deg,rgba(232,138,174,0.1),rgba(212,166,60,0.08));backdrop-filter:blur(20px);border-radius:16px;border:1px solid rgba(232,138,174,0.15);padding:20px 16px;text-align:center;position:relative;overflow:hidden}
+.alcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--rose),var(--gold),transparent)}
+.al-em{font-size:24px;margin-bottom:4px}
+.al-t{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px}
+.al-d{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:12px;max-width:260px;margin-left:auto;margin-right:auto}
+.al-row{display:flex;gap:6px;max-width:280px;margin:0 auto}
+.al-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.al-inp:focus{border-color:var(--rose)}
+.al-inp::placeholder{color:var(--text3)}
+.al-btn{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:#fff;border:none;border-radius:9px;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(232,138,174,0.25)}
+.al-btn:active{transform:scale(.96)}
 
 /* ─── Bottom nav ─── */
-.bottomnav{flex-shrink:0;display:flex;justify-content:space-around;padding:6px 4px 8px;background:var(--glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--glass-border)}
-@supports(padding:env(safe-area-inset-bottom)){.bottomnav{padding-bottom:calc(8px + env(safe-area-inset-bottom))}}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-size:9px;font-weight:600;letter-spacing:.3px;padding:4px 8px;transition:all .2s;position:relative}
-.nav-item.active{color:var(--rose)}
-.nav-item.active .nav-dot{opacity:1;transform:scale(1)}
-.nav-dot{width:4px;height:4px;border-radius:50%;background:var(--rose);position:absolute;top:-2px;opacity:0;transform:scale(0);transition:all .3s cubic-bezier(.4,0,.2,1)}
-.nav-item svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
-.nav-item:active{transform:scale(.9)}
+.bnav{flex-shrink:0;display:flex;justify-content:space-around;padding:6px 4px 8px;background:var(--glass);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-top:1px solid var(--glass-border)}
+@supports(padding:env(safe-area-inset-bottom)){.bnav{padding-bottom:calc(8px + env(safe-area-inset-bottom))}}
+.ni{display:flex;flex-direction:column;align-items:center;gap:3px;background:none;border:none;cursor:pointer;color:var(--text3);font-size:9px;font-weight:600;padding:4px 8px;transition:color .2s;position:relative}
+.ni.active{color:var(--gold)}
+.ni.active::after{content:'';position:absolute;top:-6px;left:50%;transform:translateX(-50%);width:14px;height:2px;background:var(--gold);border-radius:2px}
+.ni svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ni:active{transform:scale(.88)}
 
-@media(min-width:431px){.app{border-left:1px solid var(--border2);border-right:1px solid var(--border2);box-shadow:0 0 60px rgba(0,0,0,0.06)}}
+@media(min-width:431px){.app{border-left:1px solid rgba(200,160,60,0.08);border-right:1px solid rgba(200,160,60,0.08)}}
 </style>
 
 <div class="app">
 
-<!-- Mesh gradient background -->
-<div class="mesh-bg">
-  <div class="mesh-blob b1"></div>
-  <div class="mesh-blob b2"></div>
-  <div class="mesh-blob b3"></div>
-  <div class="mesh-blob b4"></div>
-</div>
+<div class="bg-layer blurred"></div>
+<div class="bg-overlay"></div>
 
 <!-- Top bar -->
 <header class="topbar">
-  <div class="logo">My<span class="gold">Gold</span>Rates</div>
-  <div class="topbar-right">
-    <div class="live-chip"><div class="live-dot"></div>10 Aug, 6 PM</div>
-    <button class="avatar-btn">H</button>
+  <div class="logo">My<span class="g">Gold</span>Rates</div>
+  <div class="top-right">
+    <div class="live-chip"><div class="live-dot"></div>LIVE &middot; 10 Aug</div>
   </div>
 </header>
+
+<!-- Music bar -->
+<div class="music-bar">
+  <div class="music-art"><span class="note">&#127926;</span></div>
+  <div class="music-info">
+    <div class="music-title" id="mTitle">Gazab Ka Hai Din (Instrumental)</div>
+    <div class="music-artist" id="mArtist">Qayamat Se Qayamat Tak</div>
+  </div>
+  <div class="music-controls">
+    <button class="m-btn" id="mPrev"><svg viewBox="0 0 24 24"><path d="M19 20L9 12l10-8v16zM5 19V5"/></svg></button>
+    <button class="m-btn play" id="mPlay"><svg viewBox="0 0 24 24" id="playIcon"><path d="M8 5v14l11-7z"/></svg></button>
+    <button class="m-btn" id="mNext"><svg viewBox="0 0 24 24"><path d="M5 4l10 8-10 8V4zM19 5v14"/></svg></button>
+  </div>
+  <div class="music-links">
+    <a class="m-link" href="https://open.spotify.com/playlist/37i9dQZF1DWTJPjbBFMMBm" target="_blank" rel="noopener" aria-label="Open on Spotify"><svg viewBox="0 0 24 24"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.42 1.56-.299.421-1.02.599-1.559.3z"/></svg></a>
+    <a class="m-link" href="https://music.youtube.com/playlist?list=PLGr9kS-J2hVeKdSOfHkqxaLvGhf3hOCF9" target="_blank" rel="noopener" aria-label="Open on YouTube Music"><svg viewBox="0 0 24 24"><path d="M12 0C5.376 0 0 5.376 0 12s5.376 12 12 12 12-5.376 12-12S18.624 0 12 0zm0 19.104c-3.924 0-7.104-3.18-7.104-7.104S8.076 4.896 12 4.896s7.104 3.18 7.104 7.104-3.18 7.104-7.104 7.104zm0-13.332c-3.432 0-6.228 2.796-6.228 6.228S8.568 18.228 12 18.228s6.228-2.796 6.228-6.228S15.432 5.772 12 5.772zM9.684 15.54V8.46L16.2 12l-6.516 3.54z"/></svg></a>
+  </div>
+</div>
+<div class="seek-row">
+  <span class="seek-time" id="sTime">0:00</span>
+  <div class="seek-track" id="seekTrack"><div class="seek-fill" id="seekFill"></div></div>
+  <span class="seek-time" id="sTotal">4:28</span>
+</div>
 
 <!-- Scrollable content -->
 <div class="sections" id="sections">
@@ -225,162 +246,200 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
     <div class="hero-sub">Pre-GST &middot; <b>19 jewellers</b> &middot; IBJA ref &#8377;15,106</div>
   </section>
 
-  <!-- Karat switcher -->
   <div class="karat-row" id="karatRow">
     <button class="karat-pill active" data-k="24K">24K</button>
     <button class="karat-pill" data-k="22K">22K</button>
     <button class="karat-pill" data-k="18K">18K</button>
   </div>
 
-  <!-- Savings -->
-  <div class="savings-chip">
-    <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-    <span>Save up to <strong>&#8377;363/g</strong> &mdash; pick the cheapest jeweller</span>
-  </div>
+  <div class="savings"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Save up to <strong>&#8377;363/g</strong> &mdash; pick the cheapest</span></div>
 
   <!-- Brands -->
   <div class="brands-wrap">
-    <div class="brands-head">
-      <span class="title">Today's Board</span>
-      <span class="count">19 brands</span>
-    </div>
+    <div class="brands-head"><span class="t">Today's Board</span><span class="c">19 brands</span></div>
     <div id="brandList">
-      <div class="brand-row best"><span class="b-rank">1</span><div class="b-info"><span class="b-name">PN Gadgil</span><span class="b-tag">Lowest</span></div><div class="b-price"><div class="b-rate">&#8377;15,075</div><div class="b-delta neg">&minus;&#8377;136</div></div></div>
-      <div class="brand-row"><span class="b-rank">2</span><div class="b-info"><span class="b-name">Senco Gold</span></div><div class="b-price"><div class="b-rate">&#8377;15,147</div><div class="b-delta neg">&minus;&#8377;64</div></div></div>
-      <div class="brand-row"><span class="b-rank">3</span><div class="b-info"><span class="b-name">Indriya</span></div><div class="b-price"><div class="b-rate">&#8377;15,191</div><div class="b-delta neg">&minus;&#8377;20</div></div></div>
-      <div class="brand-row"><span class="b-rank">4</span><div class="b-info"><span class="b-name">GRT Jewellers</span></div><div class="b-price"><div class="b-rate">&#8377;15,196</div><div class="b-delta neg">&minus;&#8377;15</div></div></div>
-      <div class="brand-row"><span class="b-rank">5</span><div class="b-info"><span class="b-name">Bhima Jewels</span></div><div class="b-price"><div class="b-rate">&#8377;15,199</div><div class="b-delta neg">&minus;&#8377;12</div></div></div>
-      <div class="brand-row"><span class="b-rank">6</span><div class="b-info"><span class="b-name">Jos Alukkas</span></div><div class="b-price"><div class="b-rate">&#8377;15,201</div><div class="b-delta neg">&minus;&#8377;10</div></div></div>
-      <div class="brand-row"><span class="b-rank">7</span><div class="b-info"><span class="b-name">Candere</span></div><div class="b-price"><div class="b-rate">&#8377;15,207</div><div class="b-delta neg">&minus;&#8377;4</div></div></div>
-      <div class="brand-row"><span class="b-rank">8</span><div class="b-info"><span class="b-name">Kalyan Jewellers</span></div><div class="b-price"><div class="b-rate">&#8377;15,216</div><div class="b-delta pos">+&#8377;4</div></div></div>
-      <div class="brand-row"><span class="b-rank">9</span><div class="b-info"><span class="b-name">ORRA</span></div><div class="b-price"><div class="b-rate">&#8377;15,222</div><div class="b-delta pos">+&#8377;10</div></div></div>
-      <div class="brand-row"><span class="b-rank">10</span><div class="b-info"><span class="b-name">CaratLane</span></div><div class="b-price"><div class="b-rate">&#8377;15,241</div><div class="b-delta pos">+&#8377;30</div></div></div>
-      <div class="brand-row"><span class="b-rank">11</span><div class="b-info"><span class="b-name">Tanishq</span></div><div class="b-price"><div class="b-rate">&#8377;15,245</div><div class="b-delta pos">+&#8377;34</div></div></div>
-      <div class="brand-row"><span class="b-rank">12</span><div class="b-info"><span class="b-name">Kisna</span></div><div class="b-price"><div class="b-rate">&#8377;15,250</div><div class="b-delta pos">+&#8377;39</div></div></div>
-      <div class="brand-row"><span class="b-rank">13</span><div class="b-info"><span class="b-name">BlueStone</span></div><div class="b-price"><div class="b-rate">&#8377;15,390</div><div class="b-delta pos">+&#8377;179</div></div></div>
-      <div class="brand-row"><span class="b-rank">14</span><div class="b-info"><span class="b-name">Waman Hari Pethe</span></div><div class="b-price"><div class="b-rate">&#8377;15,438</div><div class="b-delta pos">+&#8377;227</div></div></div>
+      <div class="br best"><span class="b-rk">1</span><div class="b-inf"><span class="b-nm">PN Gadgil</span><span class="b-tg">Lowest</span></div><div class="b-pr"><div class="b-rt">&#8377;15,075</div><div class="b-dl neg">&minus;&#8377;136</div></div></div>
+      <div class="br"><span class="b-rk">2</span><div class="b-inf"><span class="b-nm">Senco Gold</span></div><div class="b-pr"><div class="b-rt">&#8377;15,147</div><div class="b-dl neg">&minus;&#8377;64</div></div></div>
+      <div class="br"><span class="b-rk">3</span><div class="b-inf"><span class="b-nm">Indriya</span></div><div class="b-pr"><div class="b-rt">&#8377;15,191</div><div class="b-dl neg">&minus;&#8377;20</div></div></div>
+      <div class="br"><span class="b-rk">4</span><div class="b-inf"><span class="b-nm">GRT Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,196</div><div class="b-dl neg">&minus;&#8377;15</div></div></div>
+      <div class="br"><span class="b-rk">5</span><div class="b-inf"><span class="b-nm">Bhima Jewels</span></div><div class="b-pr"><div class="b-rt">&#8377;15,199</div><div class="b-dl neg">&minus;&#8377;12</div></div></div>
+      <div class="br"><span class="b-rk">6</span><div class="b-inf"><span class="b-nm">Jos Alukkas</span></div><div class="b-pr"><div class="b-rt">&#8377;15,201</div><div class="b-dl neg">&minus;&#8377;10</div></div></div>
+      <div class="br"><span class="b-rk">7</span><div class="b-inf"><span class="b-nm">Candere</span></div><div class="b-pr"><div class="b-rt">&#8377;15,207</div><div class="b-dl neg">&minus;&#8377;4</div></div></div>
+      <div class="br"><span class="b-rk">8</span><div class="b-inf"><span class="b-nm">Kalyan Jewellers</span></div><div class="b-pr"><div class="b-rt">&#8377;15,216</div><div class="b-dl pos">+&#8377;4</div></div></div>
+      <div class="br"><span class="b-rk">9</span><div class="b-inf"><span class="b-nm">ORRA</span></div><div class="b-pr"><div class="b-rt">&#8377;15,222</div><div class="b-dl pos">+&#8377;10</div></div></div>
+      <div class="br"><span class="b-rk">10</span><div class="b-inf"><span class="b-nm">CaratLane</span></div><div class="b-pr"><div class="b-rt">&#8377;15,241</div><div class="b-dl pos">+&#8377;30</div></div></div>
+      <div class="br"><span class="b-rk">11</span><div class="b-inf"><span class="b-nm">Tanishq</span></div><div class="b-pr"><div class="b-rt">&#8377;15,245</div><div class="b-dl pos">+&#8377;34</div></div></div>
+      <div class="br"><span class="b-rk">12</span><div class="b-inf"><span class="b-nm">Kisna</span></div><div class="b-pr"><div class="b-rt">&#8377;15,250</div><div class="b-dl pos">+&#8377;39</div></div></div>
+      <div class="br"><span class="b-rk">13</span><div class="b-inf"><span class="b-nm">BlueStone</span></div><div class="b-pr"><div class="b-rt">&#8377;15,390</div><div class="b-dl pos">+&#8377;179</div></div></div>
+      <div class="br"><span class="b-rk">14</span><div class="b-inf"><span class="b-nm">Waman Hari Pethe</span></div><div class="b-pr"><div class="b-rt">&#8377;15,438</div><div class="b-dl pos">+&#8377;227</div></div></div>
     </div>
   </div>
 
-  <!-- Divider -->
-  <div class="divider"><div class="line"></div><div class="gem r"></div><div class="gem g"></div><div class="gem b"></div><div class="line"></div></div>
+  <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
 
   <!-- MARKET -->
-  <div class="sec-head" id="sec-market"><div class="icon rose">&#9830;</div><h2>Market Pulse</h2></div>
-  <div class="market-grid">
-    <div class="market-card"><div class="accent gold"></div><div class="mc-label">IBJA 24K</div><div class="mc-rate">&#8377;15,106</div><div class="mc-sub">999 Fine &middot; National</div><div class="mc-delta up">&#9650; +&#8377;42</div></div>
-    <div class="market-card"><div class="accent rose"></div><div class="mc-label">IBJA 22K</div><div class="mc-rate">&#8377;13,847</div><div class="mc-sub">916 &middot; National</div><div class="mc-delta up">&#9650; +&#8377;38</div></div>
-    <div class="market-card"><div class="accent blue"></div><div class="mc-label">MCX Gold</div><div class="mc-rate">&#8377;75,820</div><div class="mc-sub">Per 10g &middot; Futures</div><div class="mc-delta down">&#9660; &minus;&#8377;130</div></div>
-    <div class="market-card"><div class="accent mint"></div><div class="mc-label">AKGSMA</div><div class="mc-rate">&#8377;15,140</div><div class="mc-sub">24K &middot; Ahmedabad</div><div class="mc-delta up">&#9650; +&#8377;55</div></div>
+  <div class="sh" id="sec-market"><div class="ic rs">&#9830;</div><h2>Market Pulse</h2></div>
+  <div class="mgrid">
+    <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r">&#8377;15,106</div><div class="mc-s">999 Fine &middot; National</div><div class="mc-d up">&#9650; +&#8377;42</div></div>
+    <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r">&#8377;13,847</div><div class="mc-s">916 &middot; National</div><div class="mc-d up">&#9650; +&#8377;38</div></div>
+    <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r">&#8377;75,820</div><div class="mc-s">Per 10g &middot; Futures</div><div class="mc-d dn">&#9660; &minus;&#8377;130</div></div>
+    <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r">&#8377;15,140</div><div class="mc-s">24K &middot; Ahmedabad</div><div class="mc-d up">&#9650; +&#8377;55</div></div>
   </div>
 
-  <!-- Divider -->
-  <div class="divider"><div class="line"></div><div class="gem g"></div><div class="gem r"></div><div class="gem b"></div><div class="line"></div></div>
+  <div class="dv"><div class="ln"></div><div class="gm g"></div><div class="gm r"></div><div class="gm b"></div><div class="ln"></div></div>
 
   <!-- CALCULATOR -->
-  <div class="sec-head" id="sec-calc"><div class="icon blue">&#9998;</div><h2>Quick Calculator</h2></div>
-  <div class="calc-inline">
-    <div class="calc-row">
-      <input class="calc-input" id="qcGrams" type="number" inputmode="decimal" placeholder="Enter grams" value="10">
-      <select class="calc-select" id="qcPurity"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select>
-    </div>
-    <div class="calc-result">
-      <div class="calc-result-val" id="qcResult">&#8377;1,39,440</div>
-      <div class="calc-result-sub">Estimated value &middot; pre-GST &middot; no making charges</div>
-    </div>
+  <div class="sh" id="sec-calc"><div class="ic bl">&#9998;</div><h2>Quick Calculator</h2></div>
+  <div class="qcw">
+    <div class="qcr"><input class="qci" id="qcGrams" type="number" inputmode="decimal" placeholder="Enter grams" value="10"><select class="qcs" id="qcPurity"><option value="24K">24K</option><option value="22K" selected>22K</option><option value="18K">18K</option></select></div>
+    <div class="qcres"><div class="qcres-v" id="qcResult">&#8377;1,39,440</div><div class="qcres-l">Estimated value &middot; pre-GST &middot; no making</div></div>
+  </div>
+  <div class="clnks">
+    <div class="clnk"><div class="cl-i rs">&#128176;</div><div class="cl-inf"><div class="cl-t">Gold Loan Calculator</div><div class="cl-d">How much can you borrow?</div></div><div class="cl-ar">&#8250;</div></div>
+    <div class="clnk"><div class="cl-i bl">&#128200;</div><div class="cl-inf"><div class="cl-t">Gold SIP Calculator</div><div class="cl-d">Monthly gold savings plan</div></div><div class="cl-ar">&#8250;</div></div>
+    <div class="clnk"><div class="cl-i gl">&#128142;</div><div class="cl-inf"><div class="cl-t">Making Charges</div><div class="cl-d">Compare across jewellers</div></div><div class="cl-ar">&#8250;</div></div>
+    <div class="clnk"><div class="cl-i mt">&#127991;</div><div class="cl-inf"><div class="cl-t">Budget Gold</div><div class="cl-d">Fix rupees, see grams per brand</div></div><div class="cl-ar">&#8250;</div></div>
   </div>
 
-  <div class="calc-links">
-    <div class="calc-link"><div class="cl-icon rose">&#128176;</div><div class="cl-info"><div class="cl-title">Gold Loan Calculator</div><div class="cl-desc">How much can you borrow on your gold?</div></div><div class="cl-arrow">&#8250;</div></div>
-    <div class="calc-link"><div class="cl-icon blue">&#128200;</div><div class="cl-info"><div class="cl-title">Gold SIP Calculator</div><div class="cl-desc">Plan your monthly gold savings</div></div><div class="cl-arrow">&#8250;</div></div>
-    <div class="calc-link"><div class="cl-icon gold">&#128142;</div><div class="cl-info"><div class="cl-title">Making Charges Comparison</div><div class="cl-desc">Side-by-side across jewellers</div></div><div class="cl-arrow">&#8250;</div></div>
-    <div class="calc-link"><div class="cl-icon mint">&#127991;</div><div class="cl-info"><div class="cl-title">Budget Gold Calculator</div><div class="cl-desc">Fix your budget, see grams per brand</div></div><div class="cl-arrow">&#8250;</div></div>
-  </div>
-
-  <!-- Divider -->
-  <div class="divider"><div class="line"></div><div class="gem b"></div><div class="gem g"></div><div class="gem r"></div><div class="line"></div></div>
+  <div class="dv"><div class="ln"></div><div class="gm b"></div><div class="gm g"></div><div class="gm r"></div><div class="ln"></div></div>
 
   <!-- ALERTS -->
-  <div class="sec-head" id="sec-alerts"><div class="icon gold">&#128276;</div><h2>Daily Alerts</h2></div>
-  <div class="alert-card">
-    <div class="alert-emoji">&#128140;</div>
-    <div class="alert-title">Never miss the cheapest rate</div>
-    <div class="alert-desc">One free email each morning — who's cheapest, the bullion premium, and the market median. Unsubscribe anytime.</div>
-    <div class="alert-row">
-      <input class="alert-input" type="email" placeholder="Your email" inputmode="email">
-      <button class="alert-btn">Subscribe</button>
-    </div>
+  <div class="sh" id="sec-alerts"><div class="ic gl">&#128276;</div><h2>Daily Alerts</h2></div>
+  <div class="alcard">
+    <div class="al-em">&#128140;</div>
+    <div class="al-t">Never miss the cheapest rate</div>
+    <div class="al-d">One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</div>
+    <div class="al-row"><input class="al-inp" type="email" placeholder="Your email" inputmode="email"><button class="al-btn">Subscribe</button></div>
   </div>
 
   <div style="height:28px"></div>
 </div>
 
 <!-- Bottom nav -->
-<nav class="bottomnav">
-  <button class="nav-item active" data-sec="sec-rates"><div class="nav-dot"></div><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
-  <button class="nav-item" data-sec="sec-market"><div class="nav-dot"></div><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
-  <button class="nav-item" data-sec="sec-calc"><div class="nav-dot"></div><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
-  <button class="nav-item" data-sec="sec-alerts"><div class="nav-dot"></div><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts</button>
+<nav class="bnav">
+  <button class="ni active" data-sec="sec-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
+  <button class="ni" data-sec="sec-market"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
+  <button class="ni" data-sec="sec-calc"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
+  <button class="ni" data-sec="sec-alerts"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Alerts</button>
 </nav>
 </div>
 
 <script>
 (function(){
+  // ─── BG blur/unblur on scroll ───
+  var bg=document.querySelector('.bg-layer');
+  var overlay=document.querySelector('.bg-overlay');
+  var sections=document.getElementById('sections');
+  var maxScroll=800;
+
+  sections.addEventListener('scroll',function(){
+    var s=sections.scrollTop;
+    var pct=Math.min(s/maxScroll,1);
+    var blur=18*(1-pct);
+    var bright=0.5+0.3*pct;
+    bg.style.filter='blur('+blur+'px) brightness('+bright+')';
+    overlay.style.opacity=1-pct*0.4;
+  });
+
+  // ─── Music player (playlist of 90s romantic instrumentals) ───
+  var playlist=[
+    {title:'Gazab Ka Hai Din (Instrumental)',artist:'Qayamat Se Qayamat Tak',dur:'4:28'},
+    {title:'Pehla Nasha (Instrumental)',artist:'Jo Jeeta Wohi Sikandar',dur:'5:12'},
+    {title:'Tujhe Dekha To (Instrumental)',artist:'Dilwale Dulhania Le Jayenge',dur:'5:45'},
+    {title:'Ek Ladki Ko Dekha (Instrumental)',artist:'1942: A Love Story',dur:'5:30'},
+    {title:'Dil To Pagal Hai (Instrumental)',artist:'Dil To Pagal Hai',dur:'6:02'},
+    {title:'Ye Kaali Kaali Aankhen (Instrumental)',artist:'Baazigar',dur:'4:55'},
+    {title:'Meri Mehbooba (Instrumental)',artist:'Pardes',dur:'5:18'},
+    {title:'Chaand Sifarish (Instrumental)',artist:'Fanaa',dur:'4:48'},
+    {title:'Tum Se Hi (Instrumental)',artist:'Jab We Met',dur:'5:22'},
+    {title:'Jaadu Teri Nazar (Instrumental)',artist:'Darr',dur:'4:42'}
+  ];
+  var ci=0,playing=false;
+  var mTitle=document.getElementById('mTitle');
+  var mArtist=document.getElementById('mArtist');
+  var playIcon=document.getElementById('playIcon');
+  var seekFill=document.getElementById('seekFill');
+  var sTime=document.getElementById('sTime');
+  var sTotal=document.getElementById('sTotal');
+  var elapsed=0,interval=null;
+
+  function loadTrack(i){
+    ci=((i%playlist.length)+playlist.length)%playlist.length;
+    var t=playlist[ci];
+    mTitle.textContent=t.title;
+    mArtist.textContent=t.artist;
+    sTotal.textContent=t.dur;
+    elapsed=0;sTime.textContent='0:00';seekFill.style.width='0%';
+  }
+
+  function parseDur(s){var p=s.split(':');return parseInt(p[0])*60+parseInt(p[1])}
+
+  function tick(){
+    if(!playing)return;
+    elapsed++;
+    var total=parseDur(playlist[ci].dur);
+    if(elapsed>=total){loadTrack(ci+1);return}
+    var m=Math.floor(elapsed/60),s=elapsed%60;
+    sTime.textContent=m+':'+(s<10?'0':'')+s;
+    seekFill.style.width=(elapsed/total*100)+'%';
+  }
+
+  document.getElementById('mPlay').addEventListener('click',function(){
+    playing=!playing;
+    playIcon.innerHTML=playing?'<path d="M6 4h4v16H6zM14 4h4v16h-4z"/>':'<path d="M8 5v14l11-7z"/>';
+    if(playing){interval=setInterval(tick,1000)}else{clearInterval(interval)}
+  });
+  document.getElementById('mPrev').addEventListener('click',function(){loadTrack(ci-1);if(playing){elapsed=0}});
+  document.getElementById('mNext').addEventListener('click',function(){loadTrack(ci+1);if(playing){elapsed=0}});
+  document.getElementById('seekTrack').addEventListener('click',function(e){
+    var rect=this.getBoundingClientRect();
+    var pct=(e.clientX-rect.left)/rect.width;
+    var total=parseDur(playlist[ci].dur);
+    elapsed=Math.floor(pct*total);
+    var m=Math.floor(elapsed/60),s=elapsed%60;
+    sTime.textContent=m+':'+(s<10?'0':'')+s;
+    seekFill.style.width=(pct*100)+'%';
+  });
+
   // ─── Karat switcher ───
   var karats=document.querySelectorAll('.karat-pill');
   var heroBadge=document.querySelector('.hero-badge');
   var heroVal=document.getElementById('heroVal');
   var heroSub=document.querySelector('.hero-sub');
-
   var DATA={
-    '24K':{median:'15,211',ibja:'15,106',
-      rates:['15,075','15,147','15,191','15,196','15,199','15,201','15,207','15,216','15,222','15,241','15,245','15,250','15,390','15,438'],
-      deltas:['-136','-64','-20','-15','-12','-10','-4','+4','+10','+30','+34','+39','+179','+227']},
-    '22K':{median:'13,944',ibja:'13,847',
-      rates:['13,819','13,885','13,925','13,930','13,932','13,934','13,940','13,948','13,953','13,971','13,975','13,979','14,108','14,152'],
-      deltas:['-125','-59','-19','-14','-12','-10','-4','+4','+9','+27','+31','+35','+164','+208']},
-    '18K':{median:'11,408',ibja:'11,330',
-      rates:['11,306','11,361','11,393','11,397','11,399','11,401','11,405','11,412','11,416','11,431','11,434','11,437','11,543','11,578'],
-      deltas:['-102','-47','-15','-11','-9','-7','-3','+4','+8','+23','+26','+29','+135','+170']}
+    '24K':{median:'15,211',ibja:'15,106',rates:['15,075','15,147','15,191','15,196','15,199','15,201','15,207','15,216','15,222','15,241','15,245','15,250','15,390','15,438'],deltas:['-136','-64','-20','-15','-12','-10','-4','+4','+10','+30','+34','+39','+179','+227']},
+    '22K':{median:'13,944',ibja:'13,847',rates:['13,819','13,885','13,925','13,930','13,932','13,934','13,940','13,948','13,953','13,971','13,975','13,979','14,108','14,152'],deltas:['-125','-59','-19','-14','-12','-10','-4','+4','+9','+27','+31','+35','+164','+208']},
+    '18K':{median:'11,408',ibja:'11,330',rates:['11,306','11,361','11,393','11,397','11,399','11,401','11,405','11,412','11,416','11,431','11,434','11,437','11,543','11,578'],deltas:['-102','-47','-15','-11','-9','-7','-3','+4','+8','+23','+26','+29','+135','+170']}
   };
   var medianNums={'24K':15211,'22K':13944,'18K':11408};
-  var currentK='24K';
 
   karats.forEach(function(btn){
     btn.addEventListener('click',function(){
       karats.forEach(function(b){b.classList.remove('active')});
       this.classList.add('active');
-      currentK=this.dataset.k;
-      var d=DATA[currentK];
-      heroBadge.innerHTML='<div class="dot"></div>'+currentK+' GOLD · MEDIAN';
+      var k=this.dataset.k,d=DATA[k];
+      heroBadge.innerHTML='<div class="dot"></div>'+k+' GOLD · MEDIAN';
       heroVal.textContent=d.median;
       heroSub.innerHTML='Pre-GST · <b>19 jewellers</b> · IBJA ref ₹'+d.ibja;
-      var rows=document.querySelectorAll('.brand-row');
-      rows.forEach(function(row,i){
-        row.querySelector('.b-rate').innerHTML='₹'+d.rates[i];
-        var dd=row.querySelector('.b-delta');
-        var v=d.deltas[i];
+      document.querySelectorAll('.br').forEach(function(row,i){
+        row.querySelector('.b-rt').innerHTML='₹'+d.rates[i];
+        var dd=row.querySelector('.b-dl'),v=d.deltas[i];
         dd.textContent=(v.startsWith('+')?'+':'−')+'₹'+v.replace(/[+-]/,'');
-        dd.className='b-delta '+(v.startsWith('+')?'pos':v==='0'?'zero':'neg');
+        dd.className='b-dl '+(v.startsWith('+')?'pos':v==='0'?'zero':'neg');
       });
       updateCalc();
     });
   });
 
-  // ─── Quick calculator ───
+  // ─── Quick calc ───
   var qcG=document.getElementById('qcGrams'),qcP=document.getElementById('qcPurity'),qcR=document.getElementById('qcResult');
-  function updateCalc(){
-    var g=parseFloat(qcG.value)||0,p=qcP.value,rate=medianNums[p]||medianNums['22K'];
-    qcR.innerHTML='₹'+Math.round(g*rate).toLocaleString('en-IN');
-  }
-  qcG.addEventListener('input',updateCalc);
-  qcP.addEventListener('change',updateCalc);
+  function updateCalc(){var g=parseFloat(qcG.value)||0,rate=medianNums[qcP.value]||medianNums['22K'];qcR.innerHTML='₹'+Math.round(g*rate).toLocaleString('en-IN')}
+  qcG.addEventListener('input',updateCalc);qcP.addEventListener('change',updateCalc);
 
   // ─── Bottom nav ───
-  var navBtns=document.querySelectorAll('.nav-item');
-  navBtns.forEach(function(btn){
+  document.querySelectorAll('.ni').forEach(function(btn){
     btn.addEventListener('click',function(){
-      navBtns.forEach(function(b){b.classList.remove('active')});
+      document.querySelectorAll('.ni').forEach(function(b){b.classList.remove('active')});
       this.classList.add('active');
       var sec=document.getElementById(this.dataset.sec);
       if(sec)sec.scrollIntoView({behavior:'smooth',block:'start'});
