@@ -1,0 +1,491 @@
+<title>MyGoldRates — Concept</title>
+<style>
+  @font-face {
+    font-family: 'Display';
+    src: local('Georgia'), local('Times New Roman'), local('serif');
+  }
+
+  :root {
+    --bg: #0C0A08;
+    --surface: #161310;
+    --surface-hover: #1E1B17;
+    --border: #2A2520;
+    --gold: #C9A84C;
+    --gold-dim: #8A7544;
+    --gold-glow: rgba(201, 168, 76, 0.12);
+    --text: #E8E2D6;
+    --text-2: #9B9487;
+    --text-3: #5E584E;
+    --green: #5AB87A;
+    --green-dim: rgba(90, 184, 122, 0.15);
+    --red: #D4644A;
+    --red-dim: rgba(212, 100, 74, 0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html, body {
+    height: 100%; overflow: hidden;
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .app {
+    display: flex; flex-direction: column;
+    height: 100dvh;
+    max-width: 480px; margin: 0 auto;
+    position: relative;
+  }
+
+  /* ─── Top bar ─── */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px 0;
+    flex-shrink: 0;
+  }
+  .brand {
+    font-size: 13px; font-weight: 600; letter-spacing: 1.2px;
+    color: var(--text-2);
+  }
+  .brand span { color: var(--gold); }
+  .live-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 500; letter-spacing: 0.5px;
+    color: var(--text-2);
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: 5px 12px 5px 10px;
+  }
+  .live-dot {
+    width: 7px; height: 7px; border-radius: 50%;
+    background: var(--green);
+    box-shadow: 0 0 6px rgba(90,184,122,0.7);
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    flex-shrink: 0;
+    text-align: center;
+    padding: 28px 20px 18px;
+  }
+  .hero-label {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 6px;
+  }
+  .hero-rate {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 52px; font-weight: 700;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 2px;
+  }
+  .hero-rate .symbol { color: var(--gold); font-size: 36px; }
+  .hero-rate .unit {
+    font-family: system-ui, sans-serif;
+    font-size: 16px; font-weight: 400;
+    color: var(--text-3); margin-left: 2px;
+  }
+  .hero-sub {
+    font-size: 12px; color: var(--text-3);
+    margin-top: 6px;
+  }
+
+  /* ─── Karat strip ─── */
+  .karat-strip {
+    display: flex; justify-content: center; gap: 2px;
+    padding: 0 20px; margin-bottom: 16px;
+    flex-shrink: 0;
+  }
+  .karat-btn {
+    font-size: 12px; font-weight: 600; letter-spacing: 0.3px;
+    padding: 7px 18px;
+    border-radius: 999px; border: none; cursor: pointer;
+    background: transparent; color: var(--text-3);
+    transition: all 0.2s;
+  }
+  .karat-btn.active {
+    background: var(--gold);
+    color: #0C0A08;
+  }
+  .karat-btn:not(.active):hover {
+    color: var(--text-2);
+    background: var(--surface);
+  }
+
+  /* ─── Savings banner ─── */
+  .savings {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    margin: 0 20px 14px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    background: var(--green-dim);
+    border: 1px solid rgba(90,184,122,0.15);
+  }
+  .savings-icon { font-size: 14px; }
+  .savings-text {
+    font-size: 12px; font-weight: 500; color: var(--green);
+  }
+  .savings-text strong { font-weight: 700; }
+
+  /* ─── Brand list ─── */
+  .brands-section {
+    flex: 1; min-height: 0;
+    display: flex; flex-direction: column;
+    padding: 0 12px;
+  }
+  .brands-header {
+    display: flex; align-items: baseline; justify-content: space-between;
+    padding: 0 8px;
+    margin-bottom: 8px;
+  }
+  .brands-title {
+    font-size: 11px; font-weight: 600;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--text-3);
+  }
+  .brands-count {
+    font-size: 11px; color: var(--text-3);
+  }
+  .brands-list {
+    flex: 1; overflow-y: auto;
+    border-radius: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+  }
+  .brands-list::-webkit-scrollbar { width: 0; }
+
+  .brand-row {
+    display: flex; align-items: center;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .brand-row:last-child { border-bottom: none; }
+  .brand-row:hover { background: var(--surface-hover); }
+  .brand-row.lowest { background: var(--green-dim); }
+  .brand-row.lowest:hover { background: rgba(90,184,122,0.2); }
+
+  .brand-rank {
+    width: 22px; flex-shrink: 0;
+    font-size: 11px; font-weight: 600;
+    color: var(--text-3);
+  }
+  .brand-row.lowest .brand-rank { color: var(--green); }
+
+  .brand-info { flex: 1; min-width: 0; }
+  .brand-name {
+    font-size: 14px; font-weight: 500;
+    color: var(--text);
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  }
+  .brand-row.lowest .brand-name { color: var(--green); }
+  .brand-tag {
+    display: inline-block;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    background: var(--green);
+    color: #0C0A08;
+    padding: 2px 6px; border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: 1px;
+  }
+
+  .brand-price {
+    text-align: right; flex-shrink: 0;
+    margin-left: 12px;
+  }
+  .brand-rate {
+    font-size: 15px; font-weight: 600;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+  }
+  .brand-delta {
+    font-size: 11px; font-weight: 500;
+    margin-top: 1px;
+    font-variant-numeric: tabular-nums;
+  }
+  .brand-delta.neg { color: var(--green); }
+  .brand-delta.pos { color: var(--red); }
+  .brand-delta.zero { color: var(--text-3); }
+
+  /* ─── Bottom bar ─── */
+  .bottombar {
+    flex-shrink: 0;
+    display: flex; justify-content: space-around;
+    padding: 12px 8px 16px;
+    border-top: 1px solid var(--border);
+    background: var(--bg);
+  }
+  .nav-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+    background: none; border: none; cursor: pointer;
+    color: var(--text-3);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.3px;
+    transition: color 0.2s;
+    padding: 4px 8px;
+  }
+  .nav-btn.active { color: var(--gold); }
+  .nav-btn:hover { color: var(--text-2); }
+  .nav-btn svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .nav-btn.active svg { stroke: var(--gold); }
+
+  /* ─── Ambient glow ─── */
+  .glow {
+    position: absolute;
+    top: -80px; left: 50%; transform: translateX(-50%);
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, var(--gold-glow) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .app > *:not(.glow) { position: relative; z-index: 1; }
+
+  /* ─── Safe area ─── */
+  @supports (padding-bottom: env(safe-area-inset-bottom)) {
+    .bottombar { padding-bottom: calc(12px + env(safe-area-inset-bottom)); }
+  }
+
+  /* ─── Tablet+ ─── */
+  @media (min-width: 481px) {
+    .app {
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+  }
+</style>
+
+<div class="app">
+  <div class="glow"></div>
+
+  <!-- Top bar -->
+  <header class="topbar">
+    <div class="brand">MY<span>GOLD</span>RATES</div>
+    <div class="live-pill">
+      <div class="live-dot"></div>
+      10 Aug, 6:02 PM
+    </div>
+  </header>
+
+  <!-- Hero rate -->
+  <section class="hero">
+    <div class="hero-label">24K Gold &middot; Median</div>
+    <div class="hero-rate">
+      <span class="symbol">&#8377;</span>15,211<span class="unit">/g</span>
+    </div>
+    <div class="hero-sub">Pre-GST &middot; 19 jewellers &middot; IBJA ref &#8377;15,106</div>
+  </section>
+
+  <!-- Karat selector -->
+  <div class="karat-strip">
+    <button class="karat-btn active">24K</button>
+    <button class="karat-btn">22K</button>
+    <button class="karat-btn">18K</button>
+  </div>
+
+  <!-- Savings banner -->
+  <div class="savings">
+    <span class="savings-icon">&#9660;</span>
+    <span class="savings-text">Save up to <strong>&#8377;363/g</strong> by picking the cheapest</span>
+  </div>
+
+  <!-- Brand list -->
+  <div class="brands-section">
+    <div class="brands-header">
+      <span class="brands-title">Today's Board</span>
+      <span class="brands-count">19 brands</span>
+    </div>
+    <div class="brands-list">
+      <div class="brand-row lowest">
+        <span class="brand-rank">1</span>
+        <div class="brand-info">
+          <span class="brand-name">PN Gadgil<span class="brand-tag">Lowest</span></span>
+        </div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,075</div>
+          <div class="brand-delta neg">&minus;&#8377;136</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">2</span>
+        <div class="brand-info"><span class="brand-name">Senco Gold</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,147</div>
+          <div class="brand-delta neg">&minus;&#8377;64</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">3</span>
+        <div class="brand-info"><span class="brand-name">Indriya</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,191</div>
+          <div class="brand-delta neg">&minus;&#8377;20</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">4</span>
+        <div class="brand-info"><span class="brand-name">GRT Jewellers</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,196</div>
+          <div class="brand-delta neg">&minus;&#8377;15</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">5</span>
+        <div class="brand-info"><span class="brand-name">Bhima Jewels</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,199</div>
+          <div class="brand-delta neg">&minus;&#8377;12</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">6</span>
+        <div class="brand-info"><span class="brand-name">Jos Alukkas</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,201</div>
+          <div class="brand-delta neg">&minus;&#8377;10</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">7</span>
+        <div class="brand-info"><span class="brand-name">Candere</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,207</div>
+          <div class="brand-delta neg">&minus;&#8377;4</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">8</span>
+        <div class="brand-info"><span class="brand-name">Kalyan Jewellers</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,216</div>
+          <div class="brand-delta pos">+&#8377;4</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">9</span>
+        <div class="brand-info"><span class="brand-name">ORRA</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,222</div>
+          <div class="brand-delta pos">+&#8377;10</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">10</span>
+        <div class="brand-info"><span class="brand-name">CaratLane</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,241</div>
+          <div class="brand-delta pos">+&#8377;30</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">11</span>
+        <div class="brand-info"><span class="brand-name">Tanishq</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,245</div>
+          <div class="brand-delta pos">+&#8377;34</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">12</span>
+        <div class="brand-info"><span class="brand-name">Kisna</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,250</div>
+          <div class="brand-delta pos">+&#8377;39</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">13</span>
+        <div class="brand-info"><span class="brand-name">BlueStone</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,390</div>
+          <div class="brand-delta pos">+&#8377;179</div>
+        </div>
+      </div>
+      <div class="brand-row">
+        <span class="brand-rank">14</span>
+        <div class="brand-info"><span class="brand-name">Waman Hari Pethe</span></div>
+        <div class="brand-price">
+          <div class="brand-rate">&#8377;15,438</div>
+          <div class="brand-delta pos">+&#8377;227</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom nav -->
+  <nav class="bottombar">
+    <button class="nav-btn active">
+      <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Rates
+    </button>
+    <button class="nav-btn">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      Compare
+    </button>
+    <button class="nav-btn">
+      <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Calc
+    </button>
+    <button class="nav-btn">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      Alerts
+    </button>
+  </nav>
+</div>
+
+<script>
+(function(){
+  const btns = document.querySelectorAll('.karat-btn');
+  const heroLabel = document.querySelector('.hero-label');
+  const heroRate = document.querySelector('.hero-rate');
+  const heroSub = document.querySelector('.hero-sub');
+  const rows = document.querySelectorAll('.brand-row');
+
+  const data = {
+    '24K': {
+      median: '15,211', ibja: '15,106',
+      rates: ['15,075','15,147','15,191','15,196','15,199','15,201','15,207','15,216','15,222','15,241','15,245','15,250','15,390','15,438'],
+      deltas: ['-136','-64','-20','-15','-12','-10','-4','+4','+10','+30','+34','+39','+179','+227']
+    },
+    '22K': {
+      median: '13,944', ibja: '13,847',
+      rates: ['13,819','13,885','13,925','13,930','13,932','13,934','13,940','13,948','13,953','13,971','13,975','13,979','14,108','14,152'],
+      deltas: ['-125','-59','-19','-14','-12','-10','-4','+4','+9','+27','+31','+35','+164','+208']
+    },
+    '18K': {
+      median: '11,408', ibja: '11,330',
+      rates: ['11,306','11,361','11,393','11,397','11,399','11,401','11,405','11,412','11,416','11,431','11,434','11,437','11,543','11,578'],
+      deltas: ['-102','-47','-15','-11','-9','-7','-3','+4','+8','+23','+26','+29','+135','+170']
+    }
+  };
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      btns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const k = this.textContent;
+      const d = data[k];
+      heroLabel.innerHTML = k + ' Gold &middot; Median';
+      heroRate.innerHTML = '<span class="symbol">₹</span>' + d.median + '<span class="unit">/g</span>';
+      heroSub.innerHTML = 'Pre-GST &middot; 19 jewellers &middot; IBJA ref ₹' + d.ibja;
+      rows.forEach((row, i) => {
+        row.querySelector('.brand-rate').innerHTML = '₹' + d.rates[i];
+        const dd = row.querySelector('.brand-delta');
+        const v = d.deltas[i];
+        dd.textContent = (v.startsWith('+') ? '+' : '−') + '₹' + v.replace(/[+-]/, '');
+        dd.className = 'brand-delta ' + (v.startsWith('+') ? 'pos' : v === '0' ? 'zero' : 'neg');
+      });
+    });
+  });
+})();
+</script>
