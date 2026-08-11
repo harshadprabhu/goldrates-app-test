@@ -1,0 +1,5 @@
+# Google AdSense seller record.
+# INACTIVE placeholder — replace pub-0000000000000000 with your real
+# publisher ID (from your AdSense account, format pub-XXXXXXXXXXXXXXXX)
+# before going live. Until then this line is harmless (no ID collision).
+google.com, pub-0000000000000000, DIRECT, f08c47fec0942fa0

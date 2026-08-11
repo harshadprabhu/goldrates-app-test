@@ -1,9 +1,14 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
 <meta charset="UTF-8">
 <title>Gold Rate Today in India - Compare 14+ Jewellers | MyGoldRates</title>
 <meta name="description" content="Live 24K, 22K & 18K gold rates from 14+ Indian jewellers, updated daily. Pre-GST prices, calculators (loan, SIP, making charges, budget) and market pulse — MyGoldRates.">
 <meta name="keywords" content="gold rate today, gold rate India, 24k gold rate, 22k gold rate, 18k gold rate, gold price today, jeweller gold rates, IBJA rate, MCX gold, gold calculator">
 <meta name="author" content="MyGoldRates">
 <link rel="canonical" href="https://mygoldrates.com/">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#1a1208">
@@ -31,12 +36,15 @@
 {"@context":"https://schema.org","@graph":[
  {"@type":"WebSite","@id":"https://mygoldrates.com/#site","url":"https://mygoldrates.com/","name":"MyGoldRates","inLanguage":"en-IN","potentialAction":{"@type":"SearchAction","target":"https://mygoldrates.com/?q={search_term_string}","query-input":"required name=search_term_string"}},
  {"@type":"Organization","@id":"https://mygoldrates.com/#org","name":"MyGoldRates","url":"https://mygoldrates.com/","logo":"https://mygoldrates.com/logo.png","areaServed":"IN","sameAs":["https://twitter.com/mygoldrates"]},
- {"@type":"Dataset","name":"Gold rates across Indian jewellers","description":"Daily 24K, 22K and 18K per-gram gold rates compared across major Indian jewellery brands.","license":"https://mygoldrates.com/#terms","isAccessibleForFree":true,"creator":{"@id":"https://mygoldrates.com/#org"},"spatialCoverage":{"@type":"Place","name":"India","geo":{"@type":"GeoCoordinates","latitude":20.5937,"longitude":78.9629}}},
+ {"@type":"Dataset","name":"Gold rates across Indian jewellers","description":"Live 24K, 22K and 18K per-gram gold rates compared across major Indian jewellery brands, computed from real-time international spot gold prices.","license":"https://mygoldrates.com/#terms","isAccessibleForFree":true,"creator":{"@id":"https://mygoldrates.com/#org"},"spatialCoverage":{"@type":"Place","name":"India","geo":{"@type":"GeoCoordinates","latitude":20.5937,"longitude":78.9629}}},
+ {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://mygoldrates.com/"}]},
  {"@type":"FAQPage","mainEntity":[
-  {"@type":"Question","name":"What is the gold rate today in India?","acceptedAnswer":{"@type":"Answer","text":"Today the 24K gold rate across major Indian jewellers ranges from about ₹15,075 to ₹15,438 per gram (pre-GST). The 22K rate is around ₹13,944 per gram."}},
-  {"@type":"Question","name":"Which jeweller has the lowest gold rate today?","acceptedAnswer":{"@type":"Answer","text":"Today PN Gadgil lists the lowest effective 24K gold rate at ₹15,075 per gram. Rates typically differ by 1-3% between brands due to varying sourcing and hallmarking premiums."}},
-  {"@type":"Question","name":"Are these rates inclusive of GST?","acceptedAnswer":{"@type":"Answer","text":"Rates shown are per gram, pre-GST. Use the GST toggle to see prices including 3% GST. Making charges vary by design and are always extra."}},
-  {"@type":"Question","name":"What is the difference between 24K, 22K and 18K gold?","acceptedAnswer":{"@type":"Answer","text":"24K (99.9% pure) is investment-grade gold. 22K (91.6%) is standard for Indian jewellery. 18K (75%) is common in diamond jewellery. Purity scales the price."}}
+  {"@type":"Question","name":"What is today's gold rate?","acceptedAnswer":{"@type":"Answer","text":"The hero rate on this page shows the live per-10g price for the selected jeweller and karat, computed from the current international gold spot price and refreshed automatically about once a minute."}},
+  {"@type":"Question","name":"Which jeweller has the lowest rate today?","acceptedAnswer":{"@type":"Answer","text":"Brands are sorted lowest-to-highest on the Rates view; the top row is tagged Lowest. The savings chip shows how much per gram you'd save versus the highest-priced brand shown."}},
+  {"@type":"Question","name":"What's the difference between IBJA and jeweller rates?","acceptedAnswer":{"@type":"Answer","text":"IBJA (India Bullion and Jewellers Association) publishes a national bullion reference rate. Individual jewellers price slightly above it to cover margin, purity assurance and overheads."}},
+  {"@type":"Question","name":"Is GST included in these rates?","acceptedAnswer":{"@type":"Answer","text":"No, all rates are shown pre-GST by default. Tap +3% GST to add it to every price shown, including the hero rate and calculators."}},
+  {"@type":"Question","name":"How often are rates updated?","acceptedAnswer":{"@type":"Answer","text":"The live badge refreshes automatically about once a minute from a live gold-spot feed, and can be tapped any time to force an immediate refresh."}},
+  {"@type":"Question","name":"What's the difference between 24K, 22K and 18K gold?","acceptedAnswer":{"@type":"Answer","text":"Karat measures purity: 24K is about 99.9% pure gold, 22K is about 91.6% (916), and 18K is 75%. Lower karat jewellery costs less per gram but contains less actual gold."}}
  ]}
 ]}
 </script>
@@ -44,8 +52,17 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
 <!-- Google Identity Services -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<!-- ═══════════════════════════════════════════════════════════
+     Google AdSense — INACTIVE by design (kept as a comment so it
+     never loads or registers a hit). To go live: replace
+     ca-pub-0000000000000000 with your real publisher ID in both
+     this script tag AND ads.txt, then uncomment the script line.
+     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+     ═══════════════════════════════════════════════════════════ -->
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;background:#0a0804}
 :root{
   --glass:rgba(12,8,4,0.78);
@@ -102,6 +119,25 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .faq-item summary::after{content:'+';font-size:16px;color:var(--gold);flex-shrink:0;transition:transform .2s;line-height:1}
 .faq-item[open] summary::after{transform:rotate(45deg)}
 .faq-item p{font-size:11.5px;color:var(--text2);line-height:1.6;padding:0 0 14px}
+
+/* ─── Interactive rate-trend chart ─── */
+.trend-card{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;padding:14px 14px 10px;position:relative}
+.trend-svg{width:100%;height:130px;display:block;overflow:visible}
+.trend-pt{fill:var(--gold);stroke:#0a0804;stroke-width:1.5;cursor:pointer;transition:r .15s}
+.trend-pt:hover,.trend-pt.active{r:5.5;fill:var(--gold-light)}
+.trend-tip{position:absolute;pointer-events:none;background:rgba(6,4,2,0.95);border:1px solid var(--glass-border2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;transform:translate(-50%,-100%);transition:opacity .12s;z-index:5;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
+.trend-tip.show{opacity:1}
+.trend-tip .v{font-weight:700;color:var(--gold-light)}
+.trend-tip .t{color:var(--text3);font-size:9.5px;margin-top:1px}
+.trend-note{font-size:10.5px;color:var(--text3);text-align:center;padding:6px 4px 4px}
+#s-market .trend-svg{height:220px}
+
+/* ─── City internal-linking chips ─── */
+.city-links{margin:0 12px;display:flex;flex-wrap:wrap;gap:7px}
+.city-links a{font-size:11px;font-weight:600;color:var(--text2);background:var(--glass2);border:1px solid var(--glass-border);border-radius:99px;padding:6px 13px;text-decoration:none;transition:all .2s}
+.city-links a:hover,.city-links a:active{border-color:var(--gold);color:var(--gold-light)}
+.site-faq+.site-section .city-links,#s-cities .city-links{margin:0;gap:10px}
+#s-cities .city-links a{font-size:13px;padding:9px 18px}
 
 /* ─── Hits counter ─── */
 .hits-bar{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--text3);padding:6px 0;background:var(--glass);border-top:1px solid var(--glass-border)}
@@ -237,12 +273,19 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .al-em{font-size:24px;margin-bottom:4px}
 .al-t{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--text);margin-bottom:3px}
 .al-d{font-size:11px;color:var(--text2);line-height:1.5;margin-bottom:12px;max-width:260px;margin-left:auto;margin-right:auto}
-.al-row{display:flex;gap:6px;max-width:280px;margin:0 auto}
-.al-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit}
+.al-form{display:flex;flex-direction:column;gap:8px;max-width:300px;margin:0 auto}
+.al-row2{display:flex;gap:8px}
+.al-row2 .al-pin{flex:0 0 108px}
+.al-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
 .al-inp:focus{border-color:var(--rose)}
 .al-inp::placeholder{color:var(--text3)}
+.al-locate{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(0,0,0,0.2);border:1px dashed rgba(232,138,174,0.35);border-radius:9px;padding:8px 10px;color:var(--rose);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.al-locate:active{transform:scale(.97)}
+.al-locate.busy{opacity:.55;pointer-events:none}
+.al-locate svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
 .al-btn{background:linear-gradient(135deg,var(--rose),var(--rose-deep));color:#fff;border:none;border-radius:9px;padding:9px 16px;font-size:12px;font-weight:700;cursor:pointer;box-shadow:0 4px 14px rgba(232,138,174,0.25)}
 .al-btn:active{transform:scale(.96)}
+.al-btn-full{width:100%}
 
 /* ─── Bottom nav ─── */
 .bnav{flex-shrink:0;display:flex;justify-content:space-around;padding:6px 4px 8px;background:var(--glass);backdrop-filter:blur(28px);-webkit-backdrop-filter:blur(28px);border-top:1px solid var(--glass-border)}
@@ -345,12 +388,9 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .site-alerts-inner{max-width:560px;margin:0 auto;text-align:center}
 .site-alerts-inner h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700}
 .site-alerts-inner p{color:var(--text2);margin:12px 0 24px;line-height:1.6}
-.site-alerts-form{display:flex;gap:10px;max-width:400px;margin:0 auto}
-.site-alerts-form input{flex:1;background:rgba(0,0,0,0.28);border:1px solid var(--glass-border2);border-radius:10px;padding:12px 16px;color:var(--text);font-size:14px;font-family:inherit;outline:none}
-.site-alerts-form input:focus{border-color:var(--gold)}
-.site-alerts-form button{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border:none;border-radius:10px;padding:12px 22px;font-size:13.5px;font-weight:700;cursor:pointer;white-space:nowrap}
-.site-alerts-form button:hover{filter:brightness(1.08)}
-.site-alerts-status{font-size:12px;color:var(--mint);margin-top:12px;min-height:16px}
+.site-al-form{max-width:360px}
+.site-al-form .al-inp{padding:12px 14px;font-size:14px}
+.site-al-form .al-btn,.site-al-form .al-locate{padding:12px 16px;font-size:13px}
 #gsiSlotS{max-width:400px;margin:16px auto 0}
 
 /* Site FAQ */
@@ -369,6 +409,8 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   .site-calc-body{grid-template-columns:1fr}
 }
 </style>
+</head>
+<body>
 
 <div class="app">
 
@@ -397,6 +439,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <!-- ═══════ RATES VIEW ═══════ -->
   <div class="view active" id="v-rates">
   <section class="hero">
+    <h1 class="sr-only">Gold Rate Today in India — Live 24K, 22K &amp; 18K Prices Compared Across 14+ Jewellers</h1>
     <div class="hero-rate">
       <span class="sym">&#8377;</span><span id="heroVal">1,50,750</span><span class="per">/10g</span>
       <div class="hero-sparkle"></div>
@@ -432,7 +475,16 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <div class="al-em">&#128140;</div>
     <div class="al-t">Never miss the cheapest rate</div>
     <div class="al-d">One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</div>
-    <div class="al-row"><input class="al-inp" id="alEmail" type="email" placeholder="Your email" inputmode="email"><button class="al-btn" id="alBtn">Subscribe</button></div>
+    <div class="al-form">
+      <input class="al-inp" id="alName" type="text" placeholder="Your name" autocomplete="name">
+      <input class="al-inp" id="alEmail" type="email" placeholder="Your email" inputmode="email" autocomplete="email">
+      <button class="al-locate" id="alLocate" type="button"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Use my current location</span></button>
+      <div class="al-row2">
+        <input class="al-inp" id="alCity" type="text" placeholder="City" autocomplete="address-level2">
+        <input class="al-inp al-pin" id="alPin" type="text" placeholder="PIN code" inputmode="numeric" maxlength="6" autocomplete="postal-code">
+      </div>
+      <button class="al-btn al-btn-full" id="alBtn">Subscribe</button>
+    </div>
     <div id="alStatus" style="font-size:11px;color:var(--mint);margin-top:8px;min-height:14px"></div>
   </div>
   <div id="gsiSlot" style="margin:16px 12px 0"></div>
@@ -450,6 +502,13 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   </div>
   <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
 
+  <div class="sh"><div class="ic mt">&#128200;</div><h2>Rate Trend</h2></div>
+  <div class="trend-card">
+    <svg class="trend-svg" id="trendChart" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
+    <div class="trend-tip" id="trendTip"></div>
+    <div class="trend-note" id="trendNote">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
+  </div>
+
   <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
   <div class="sh"><div class="ic gl">&#10068;</div><h2>FAQs</h2></div>
   <div class="faq-wrap">
@@ -459,6 +518,11 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <details class="faq-item"><summary>Is GST included in these rates?</summary><p>No, all rates are shown pre-GST by default. Tap "+3% GST" to add it to every price on screen, including the hero rate and calculators.</p></details>
     <details class="faq-item"><summary>How often are rates updated?</summary><p>The live badge at the top refreshes automatically about once a minute from a live gold-spot feed, and you can tap it any time to force an immediate refresh.</p></details>
     <details class="faq-item"><summary>What's the difference between 24K, 22K and 18K gold?</summary><p>Karat measures purity: 24K is ~99.9% pure gold, 22K is ~91.6% (916), and 18K is 75%. Lower karat jewellery costs less per gram but contains less actual gold — use the karat pills to compare.</p></details>
+  </div>
+
+  <div class="sh"><div class="ic bl">&#128205;</div><h2>Gold Rate by City</h2></div>
+  <div class="city-links">
+    <a href="city/pune/">Pune</a><a href="city/nagpur/">Nagpur</a><a href="city/nashik/">Nashik</a><a href="city/surat/">Surat</a><a href="city/vadodara/">Vadodara</a><a href="city/jaipur/">Jaipur</a><a href="city/lucknow/">Lucknow</a><a href="city/kanpur/">Kanpur</a><a href="city/chandigarh/">Chandigarh</a><a href="city/coimbatore/">Coimbatore</a><a href="city/kochi/">Kochi</a><a href="city/visakhapatnam/">Visakhapatnam</a><a href="city/patna/">Patna</a><a href="city/ranchi/">Ranchi</a>
   </div>
   <div style="height:28px"></div>
   </div><!-- /v-market -->
@@ -546,6 +610,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <a href="#s-rates">Rates</a>
         <a href="#s-market">Market</a>
         <a href="#s-faq">FAQs</a>
+        <a href="#s-cities">Cities</a>
         <a href="#s-calc">Calculators</a>
         <a href="#s-alerts">Alerts</a>
       </nav>
@@ -611,6 +676,12 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAkS">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkDS">&mdash;</div></div>
       </div>
       <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
+      <div class="site-section-head" style="margin-top:36px"><div><span class="site-eyebrow-sm">Live History</span><h2>Rate Trend</h2></div></div>
+      <div class="trend-card">
+        <svg class="trend-svg" id="trendChartS" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
+        <div class="trend-tip" id="trendTipS"></div>
+        <div class="trend-note" id="trendNoteS">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
+      </div>
     </div>
   </section>
 
@@ -624,6 +695,15 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <details class="faq-item"><summary>Is GST included in these rates?</summary><p>No, all rates are shown pre-GST by default. Click "+3% GST" to add it to every price on screen, including the hero rate and calculators.</p></details>
         <details class="faq-item"><summary>How often are rates updated?</summary><p>The live badge in the nav bar refreshes automatically about once a minute from a live gold-spot feed, and you can click it any time to force an immediate refresh.</p></details>
         <details class="faq-item"><summary>What's the difference between 24K, 22K and 18K gold?</summary><p>Karat measures purity: 24K is ~99.9% pure gold, 22K is ~91.6% (916), and 18K is 75%. Lower karat jewellery costs less per gram but contains less actual gold — use the karat pills to compare.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="site-section alt" id="s-cities">
+    <div class="site-container">
+      <div class="site-section-head"><div><span class="site-eyebrow-sm">Local Rates</span><h2>Gold Rate by City</h2></div></div>
+      <div class="city-links">
+        <a href="city/pune/">Pune</a><a href="city/nagpur/">Nagpur</a><a href="city/nashik/">Nashik</a><a href="city/surat/">Surat</a><a href="city/vadodara/">Vadodara</a><a href="city/jaipur/">Jaipur</a><a href="city/lucknow/">Lucknow</a><a href="city/kanpur/">Kanpur</a><a href="city/chandigarh/">Chandigarh</a><a href="city/coimbatore/">Coimbatore</a><a href="city/kochi/">Kochi</a><a href="city/visakhapatnam/">Visakhapatnam</a><a href="city/patna/">Patna</a><a href="city/ranchi/">Ranchi</a>
       </div>
     </div>
   </section>
@@ -690,8 +770,17 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <div class="site-container site-alerts-inner">
       <h2>Never Miss the Cheapest Rate</h2>
       <p>One free email each morning &mdash; who's cheapest, bullion premium, market median. Unsubscribe anytime.</p>
-      <div class="site-alerts-form"><input id="alEmailS" type="email" placeholder="Your email"><button id="alBtnS">Subscribe</button></div>
-      <div class="site-alerts-status" id="alStatusS"></div>
+      <div class="al-form site-al-form">
+        <input class="al-inp" id="alNameS" type="text" placeholder="Your name" autocomplete="name">
+        <input class="al-inp" id="alEmailS" type="email" placeholder="Your email" autocomplete="email">
+        <button class="al-locate" id="alLocateS" type="button"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg><span>Use my current location</span></button>
+        <div class="al-row2">
+          <input class="al-inp" id="alCityS" type="text" placeholder="City" autocomplete="address-level2">
+          <input class="al-inp al-pin" id="alPinS" type="text" placeholder="PIN code" inputmode="numeric" maxlength="6" autocomplete="postal-code">
+        </div>
+        <button class="al-btn al-btn-full" id="alBtnS">Subscribe</button>
+      </div>
+      <div id="alStatusS" style="font-size:12px;color:var(--mint);margin-top:14px;min-height:16px"></div>
       <div id="gsiSlotS"></div>
     </div>
   </section>
@@ -830,6 +919,89 @@ function handleCredentialResponse(resp){
     });
   }
 
+  // ─── Rate-trend chart: built from real live data points captured over
+  //     time (localStorage), not fabricated history — there's no free
+  //     historical gold-price API, so the trend grows as this page is used. ───
+  var HISTORY_KEY='mgr_rate_history';
+  function loadHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]')}catch(e){return []}}
+  function saveHistory(h){try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h))}catch(e){}}
+  function recordHistoryPoint(v){
+    var h=loadHistory(),now=Date.now();
+    if(!h.length||now-h[h.length-1].t>55000){
+      h.push({t:now,v:Math.round(v)});
+      if(h.length>500)h=h.slice(h.length-500);
+      saveHistory(h);
+    }
+    return h;
+  }
+  function fmtTime(t){
+    return new Date(t).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
+  }
+  function showTrendTip(suf,circle,point){
+    var tip=$('trendTip',suf);if(!tip)return;
+    var card=circle.closest('.trend-card');if(!card)return;
+    var cardRect=card.getBoundingClientRect(),circRect=circle.getBoundingClientRect();
+    tip.innerHTML='<div class="v">'+fmt(point.v)+'/g</div><div class="t">'+fmtTime(point.t)+'</div>';
+    var left=circRect.left+circRect.width/2-cardRect.left;
+    left=Math.max(46,Math.min(cardRect.width-46,left));
+    tip.style.left=left+'px';
+    tip.style.top=(circRect.top-cardRect.top)+'px';
+    tip.classList.add('show');
+    document.querySelectorAll('.trend-pt.active').forEach(function(p){p.classList.remove('active')});
+    circle.classList.add('active');
+  }
+  function hideTrendTip(suf){
+    var tip=$('trendTip',suf);if(tip)tip.classList.remove('show');
+  }
+  function renderTrendFor(suf,hist){
+    var svg=$('trendChart',suf),note=$('trendNote',suf);
+    if(!svg)return;
+    while(svg.firstChild)svg.removeChild(svg.firstChild);
+    if(hist.length<2){
+      if(note)note.textContent=hist.length===1?'1 live data point captured — check back soon for a trend line.':'Tracking starts once the live feed connects — revisit this page over time to build up a real trend.';
+      return;
+    }
+    var W=600,H=180,pad=10;
+    var vals=hist.map(function(p){return p.v});
+    var min=Math.min.apply(null,vals),max=Math.max.apply(null,vals);
+    if(min===max){min-=1;max+=1}
+    function xAt(i){return pad+(W-2*pad)*(i/(hist.length-1))}
+    function yAt(v){return H-pad-(H-2*pad)*((v-min)/(max-min))}
+    var ns='http://www.w3.org/2000/svg';
+    var pathD=hist.map(function(p,i){return (i===0?'M':'L')+xAt(i).toFixed(2)+','+yAt(p.v).toFixed(2)}).join(' ');
+    var areaD=pathD+' L'+xAt(hist.length-1).toFixed(2)+','+(H-pad)+' L'+xAt(0).toFixed(2)+','+(H-pad)+' Z';
+    var gradId='trendGrad'+(suf||'M');
+    var defs=document.createElementNS(ns,'defs');
+    defs.innerHTML='<linearGradient id="'+gradId+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4A63C" stop-opacity="0.35"/><stop offset="100%" stop-color="#D4A63C" stop-opacity="0"/></linearGradient>';
+    svg.appendChild(defs);
+    var area=document.createElementNS(ns,'path');
+    area.setAttribute('d',areaD);area.setAttribute('fill','url(#'+gradId+')');area.setAttribute('stroke','none');
+    svg.appendChild(area);
+    var line=document.createElementNS(ns,'path');
+    line.setAttribute('d',pathD);line.setAttribute('fill','none');line.setAttribute('stroke','#D4A63C');line.setAttribute('stroke-width','2');line.setAttribute('stroke-linejoin','round');line.setAttribute('stroke-linecap','round');
+    svg.appendChild(line);
+    var showEvery=Math.max(1,Math.ceil(hist.length/60));
+    hist.forEach(function(p,i){
+      if(i%showEvery!==0 && i!==hist.length-1)return;
+      var c=document.createElementNS(ns,'circle');
+      c.setAttribute('class','trend-pt');
+      c.setAttribute('cx',xAt(i).toFixed(2));c.setAttribute('cy',yAt(p.v).toFixed(2));c.setAttribute('r','3.5');
+      c.addEventListener('mouseenter',function(){showTrendTip(suf,c,p)});
+      c.addEventListener('mouseleave',function(){hideTrendTip(suf)});
+      c.addEventListener('touchstart',function(e){e.preventDefault();showTrendTip(suf,c,p)},{passive:false});
+      svg.appendChild(c);
+    });
+    if(note){
+      var spanMin=Math.round((hist[hist.length-1].t-hist[0].t)/60000);
+      var spanTxt=spanMin<60?spanMin+'m':(spanMin<1440?Math.round(spanMin/60)+'h':Math.round(spanMin/1440)+'d');
+      note.textContent=hist.length+' live points over '+spanTxt+' · hover a point for details';
+    }
+  }
+  function renderTrend(){
+    var hist=loadHistory();
+    SCOPES.forEach(function(suf){renderTrendFor(suf,hist)});
+  }
+
   function fetchLiveRates(){
     paintLiveChip(currentDotState(),true);
     Promise.all([
@@ -841,7 +1013,8 @@ function handleCredentialResponse(resp){
       applyLive(usdOz,usdinr);
       LIVE.ts=Date.now();LIVE.ok=true;LIVE.source='live';
       try{localStorage.setItem('mgr_live_cache',JSON.stringify({usdOz:usdOz,usdinr:usdinr}))}catch(e){}
-      renderAll();paintMarket();paintLiveChip(currentDotState());
+      recordHistoryPoint(LIVE.ibja24);
+      renderAll();paintMarket();paintLiveChip(currentDotState());renderTrend();
     }).catch(function(err){
       console.warn('Live gold rate fetch failed',err);
       if(!LIVE.ok){
@@ -1145,12 +1318,54 @@ function handleCredentialResponse(resp){
     btn.addEventListener('click',function(){
       var e=$('alEmail',suf).value.trim(),st=$('alStatus',suf);
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e)){st.style.color='var(--rose)';st.textContent='Enter a valid email';return}
-      try{localStorage.setItem('mgr_email',e)}catch(_){}
+      var name=($('alName',suf)||{}).value||'',city=($('alCity',suf)||{}).value||'',pin=($('alPin',suf)||{}).value||'';
+      try{localStorage.setItem('mgr_subscriber',JSON.stringify({email:e,name:name,city:city,pin:pin}))}catch(_){}
       st.style.color='var(--mint)';st.textContent='✓ Subscribed — check your inbox tomorrow morning.';
-      // TODO: fetch('/api/subscribe',{method:'POST',body:JSON.stringify({email:e})})
+      // TODO: fetch('/api/subscribe',{method:'POST',body:JSON.stringify({email:e,name:name,city:city,pin:pin})})
     });
   }
   wireSubscribe('');wireSubscribe('S');
+
+  // ─── "Use my location" — geolocates, then reverse-geocodes via OSM Nominatim
+  //     (free, no key) to auto-fill city + PIN in the subscribe form ───
+  function wireLocate(suf){
+    var btn=$('alLocate',suf);if(!btn)return;
+    var idleHtml=btn.innerHTML;
+    btn.addEventListener('click',function(){
+      if(!navigator.geolocation){alert('Geolocation is not available in this browser');return}
+      btn.classList.add('busy');
+      btn.innerHTML='<span>Locating…</span>';
+      navigator.geolocation.getCurrentPosition(function(pos){
+        var lat=pos.coords.latitude,lon=pos.coords.longitude;
+        var ac=(typeof AbortController!=='undefined')?new AbortController():null;
+        var timer=ac?setTimeout(function(){ac.abort()},10000):null;
+        fetch('https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='+lat+'&lon='+lon+'&addressdetails=1',ac?{signal:ac.signal}:{})
+          .then(function(r){if(timer)clearTimeout(timer);return r.json()})
+          .then(function(data){
+            var a=data.address||{};
+            var city=a.city||a.town||a.village||a.county||a.state_district||'';
+            var pin=a.postcode||'';
+            var cityEl=$('alCity',suf),pinEl=$('alPin',suf),st=$('alStatus',suf);
+            if(cityEl&&city)cityEl.value=city;
+            if(pinEl&&pin)pinEl.value=pin;
+            btn.classList.remove('busy');btn.innerHTML=idleHtml;
+            if(st){st.style.color='var(--mint)';st.textContent=(city||pin)?'📍 Location detected — city & PIN filled in.':"Found your location, but couldn't read an address — enter city/PIN manually."}
+          })
+          .catch(function(err){
+            if(timer)clearTimeout(timer);
+            console.warn('reverse geocode failed',err);
+            btn.classList.remove('busy');btn.innerHTML=idleHtml;
+            var st=$('alStatus',suf);
+            if(st){st.style.color='var(--rose)';st.textContent="Couldn't look up your address — enter city/PIN manually."}
+          });
+      },function(){
+        btn.classList.remove('busy');btn.innerHTML=idleHtml;
+        var st=$('alStatus',suf);
+        if(st){st.style.color='var(--rose)';st.textContent='Location permission denied.'}
+      },{timeout:8000});
+    });
+  }
+  wireLocate('');wireLocate('S');
 
   // ─── Site nav "Sign in" — nudges Google One Tap ───
   var siteSignin=document.getElementById('siteSignin');
@@ -1163,9 +1378,12 @@ function handleCredentialResponse(resp){
 
   // ─── init ───
   renderAll();
+  renderTrend();
   fetchLiveRates();
   setInterval(fetchLiveRates,60000);
   setInterval(function(){paintLiveChip(currentDotState())},20000);
   loadHits();
 })();
 </script>
+</body>
+</html>
