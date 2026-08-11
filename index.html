@@ -88,8 +88,24 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .logo .g{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-right{display:flex;align-items:center;gap:6px}
 .live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.3px;color:var(--text2);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:99px;padding:5px 10px}
+.live-chip{cursor:pointer}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--mint);box-shadow:0 0 8px rgba(92,196,160,0.7);animation:pulse 2s ease-in-out infinite}
+.live-dot.warn{background:var(--gold);box-shadow:0 0 8px rgba(212,166,60,0.7)}
+.live-dot.bad{background:var(--rose);box-shadow:0 0 8px rgba(232,138,174,0.7);animation:none}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+
+/* ─── FAQ accordion ─── */
+.faq-wrap{margin:0 12px;display:flex;flex-direction:column;gap:8px}
+.faq-item{background:var(--glass2);backdrop-filter:blur(16px);border:1px solid var(--glass-border);border-radius:12px;padding:0 14px}
+.faq-item summary{list-style:none;cursor:pointer;padding:12px 0;font-size:12.5px;font-weight:600;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.faq-item summary::-webkit-details-marker{display:none}
+.faq-item summary::after{content:'+';font-size:16px;color:var(--gold);flex-shrink:0;transition:transform .2s;line-height:1}
+.faq-item[open] summary::after{transform:rotate(45deg)}
+.faq-item p{font-size:11.5px;color:var(--text2);line-height:1.6;padding:0 0 14px}
+
+/* ─── Hits counter ─── */
+.hits-bar{flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;color:var(--text3);padding:6px 0;background:var(--glass);border-top:1px solid var(--glass-border)}
+.hits-bar span:first-child{font-size:11px}
 
 /* ─── View system (tabbed) ─── */
 .view{display:none;animation:fadeIn .25s ease}
@@ -337,8 +353,14 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .site-alerts-status{font-size:12px;color:var(--mint);margin-top:12px;min-height:16px}
 #gsiSlotS{max-width:400px;margin:16px auto 0}
 
+/* Site FAQ */
+.site-faq .faq-wrap{max-width:760px;margin:0 auto}
+.site-faq .faq-item summary{font-size:14.5px;padding:16px 0}
+.site-faq .faq-item p{font-size:13px;padding:0 0 18px}
+
 /* Footer */
 .site-footer{border-top:1px solid var(--glass-border);padding:28px 0;text-align:center;font-size:12px;color:var(--text3)}
+.site-hits{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11.5px;margin-bottom:10px}
 
 @media(max-width:1100px){
   .site-rate-card{grid-template-columns:1fr}
@@ -357,7 +379,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 <header class="topbar">
   <div class="logo">My<span class="g">Gold</span>Rates</div>
   <div class="top-right">
-    <div class="live-chip"><div class="live-dot"></div>LIVE &middot; 10 Aug</div>
+    <div class="live-chip" id="liveChip" title="Tap to refresh live gold rate"><div class="live-dot" id="liveDot"></div><span id="liveChipTxt">Connecting…</span></div>
   </div>
 </header>
 
@@ -421,10 +443,22 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div class="view" id="v-market">
   <div class="sh"><div class="ic rs">&#9830;</div><h2>Market Pulse</h2></div>
   <div class="mgrid">
-    <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r">&#8377;15,106</div><div class="mc-s">999 Fine &middot; National</div><div class="mc-d up">&#9650; +&#8377;42</div></div>
-    <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r">&#8377;13,847</div><div class="mc-s">916 &middot; National</div><div class="mc-d up">&#9650; +&#8377;38</div></div>
-    <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r">&#8377;75,820</div><div class="mc-s">Per 10g &middot; Futures</div><div class="mc-d dn">&#9660; &minus;&#8377;130</div></div>
-    <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r">&#8377;15,140</div><div class="mc-s">24K &middot; Ahmedabad</div><div class="mc-d up">&#9650; +&#8377;55</div></div>
+    <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r" id="mcIbja24">&#8377;&mdash;</div><div class="mc-s">999 Fine &middot; National &middot; live</div><div class="mc-d" id="mcIbja24D">&mdash;</div></div>
+    <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r" id="mcIbja22">&#8377;&mdash;</div><div class="mc-s">916 &middot; National &middot; live</div><div class="mc-d" id="mcIbja22D">&mdash;</div></div>
+    <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcx">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures (est.)</div><div class="mc-d" id="mcMcxD">&mdash;</div></div>
+    <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAk">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkD">&mdash;</div></div>
+  </div>
+  <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
+
+  <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
+  <div class="sh"><div class="ic gl">&#10068;</div><h2>FAQs</h2></div>
+  <div class="faq-wrap">
+    <details class="faq-item"><summary>What is today's gold rate?</summary><p>The hero rate on the Rates tab shows the live per-10g price for the selected jeweller and karat, computed from the current international gold spot price. Switch karat (24K/22K/18K) or tap any brand row to see its rate.</p></details>
+    <details class="faq-item"><summary>Which jeweller has the lowest rate today?</summary><p>Brands are sorted lowest-to-highest on the Rates tab; the top row is tagged "Lowest". The savings chip shows how much per gram you'd save versus the highest-priced brand shown.</p></details>
+    <details class="faq-item"><summary>What's the difference between IBJA and jeweller rates?</summary><p>IBJA (India Bullion and Jewellers Association) publishes a national bullion reference rate. Individual jewellers price slightly above it to cover margin, purity assurance and overheads — that gap is shown as the delta (Δ) next to each brand.</p></details>
+    <details class="faq-item"><summary>Is GST included in these rates?</summary><p>No, all rates are shown pre-GST by default. Tap "+3% GST" to add it to every price on screen, including the hero rate and calculators.</p></details>
+    <details class="faq-item"><summary>How often are rates updated?</summary><p>The live badge at the top refreshes automatically about once a minute from a live gold-spot feed, and you can tap it any time to force an immediate refresh.</p></details>
+    <details class="faq-item"><summary>What's the difference between 24K, 22K and 18K gold?</summary><p>Karat measures purity: 24K is ~99.9% pure gold, 22K is ~91.6% (916), and 18K is 75%. Lower karat jewellery costs less per gram but contains less actual gold — use the karat pills to compare.</p></details>
   </div>
   <div style="height:28px"></div>
   </div><!-- /v-market -->
@@ -486,6 +520,9 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 
 </div>
 
+<!-- Daily/total hit counter, always visible above the bottom nav -->
+<div class="hits-bar"><span>&#128065;</span><span id="hitsTxt">Counting views…</span></div>
+
 <!-- Bottom nav -->
 <nav class="bnav">
   <button class="ni active" data-view="v-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
@@ -508,11 +545,12 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       <nav class="site-links">
         <a href="#s-rates">Rates</a>
         <a href="#s-market">Market</a>
+        <a href="#s-faq">FAQs</a>
         <a href="#s-calc">Calculators</a>
         <a href="#s-alerts">Alerts</a>
       </nav>
       <div class="site-nav-cta">
-        <div class="live-chip"><div class="live-dot"></div>LIVE &middot; 10 Aug</div>
+        <div class="live-chip" id="liveChipS" title="Click to refresh live gold rate"><div class="live-dot" id="liveDotS"></div><span id="liveChipTxtS">Connecting…</span></div>
         <button class="site-signin" id="siteSignin">Sign in</button>
       </div>
     </div>
@@ -567,10 +605,25 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <div><span class="site-eyebrow-sm">Reference Rates</span><h2>Market Pulse</h2></div>
       </div>
       <div class="site-mgrid">
-        <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r">&#8377;15,106</div><div class="mc-s">999 Fine &middot; National</div><div class="mc-d up">&#9650; +&#8377;42</div></div>
-        <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r">&#8377;13,847</div><div class="mc-s">916 &middot; National</div><div class="mc-d up">&#9650; +&#8377;38</div></div>
-        <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r">&#8377;75,820</div><div class="mc-s">Per 10g &middot; Futures</div><div class="mc-d dn">&#9660; &minus;&#8377;130</div></div>
-        <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r">&#8377;15,140</div><div class="mc-s">24K &middot; Ahmedabad</div><div class="mc-d up">&#9650; +&#8377;55</div></div>
+        <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r" id="mcIbja24S">&#8377;&mdash;</div><div class="mc-s">999 Fine &middot; National &middot; live</div><div class="mc-d" id="mcIbja24DS">&mdash;</div></div>
+        <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r" id="mcIbja22S">&#8377;&mdash;</div><div class="mc-s">916 &middot; National &middot; live</div><div class="mc-d" id="mcIbja22DS">&mdash;</div></div>
+        <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcxS">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures (est.)</div><div class="mc-d" id="mcMcxDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAkS">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkDS">&mdash;</div></div>
+      </div>
+      <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
+    </div>
+  </section>
+
+  <section class="site-section site-faq" id="s-faq">
+    <div class="site-container">
+      <div class="site-section-head"><div><span class="site-eyebrow-sm">Know Your Gold</span><h2>FAQs</h2></div></div>
+      <div class="faq-wrap">
+        <details class="faq-item"><summary>What is today's gold rate?</summary><p>The hero rate shows the live per-10g price for the selected jeweller and karat, computed from the current international gold spot price. Switch karat (24K/22K/18K) or click any table row to see its rate.</p></details>
+        <details class="faq-item"><summary>Which jeweller has the lowest rate today?</summary><p>The comparison table is sorted lowest-to-highest; the top row is tagged "Lowest". The savings chip shows how much per gram you'd save versus the highest-priced brand shown.</p></details>
+        <details class="faq-item"><summary>What's the difference between IBJA and jeweller rates?</summary><p>IBJA (India Bullion and Jewellers Association) publishes a national bullion reference rate. Individual jewellers price slightly above it to cover margin, purity assurance and overheads — that gap is shown as the delta (Δ) next to each brand.</p></details>
+        <details class="faq-item"><summary>Is GST included in these rates?</summary><p>No, all rates are shown pre-GST by default. Click "+3% GST" to add it to every price on screen, including the hero rate and calculators.</p></details>
+        <details class="faq-item"><summary>How often are rates updated?</summary><p>The live badge in the nav bar refreshes automatically about once a minute from a live gold-spot feed, and you can click it any time to force an immediate refresh.</p></details>
+        <details class="faq-item"><summary>What's the difference between 24K, 22K and 18K gold?</summary><p>Karat measures purity: 24K is ~99.9% pure gold, 22K is ~91.6% (916), and 18K is 75%. Lower karat jewellery costs less per gram but contains less actual gold — use the karat pills to compare.</p></details>
       </div>
     </div>
   </section>
@@ -644,7 +697,10 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   </section>
 
   <footer class="site-footer">
-    <div class="site-container">&copy; MyGoldRates &middot; Rates are indicative, updated daily &middot; Not investment advice</div>
+    <div class="site-container">
+      <div class="site-hits"><span>&#128065;</span><span id="hitsTxtS">Counting views…</span></div>
+      &copy; MyGoldRates &middot; Rates are indicative, updated daily &middot; Not investment advice
+    </div>
   </footer>
 </div>
 
@@ -703,6 +759,127 @@ function handleCredentialResponse(resp){
     {n:'Bhindi Jewellers',d:'bhindi.com',nat:false,r:'west',rate:15268}
   ];
   var PURITY={'24K':1,'22K':22/24,'18K':18/24};
+
+  // ─── Live gold rate feed ───
+  // Each brand's static `rate` above becomes its fixed premium over a live
+  // India 24K reference (IBJA-equivalent), so the board keeps its realistic
+  // spread while the base price tracks the real market.
+  var OZ_TO_G=31.1034768;
+  var INDIA_PREMIUM=0.14; // approx import duty + dealer markup over raw LBMA spot, tuned to typical IBJA vs XAU/INR gap
+  var seedMin=Math.min.apply(null,BRANDS.map(function(b){return b.rate}));
+  BRANDS.forEach(function(b){b.premiumPct=b.rate/seedMin-1});
+  var LIVE={ibja24:null,ibja22:null,deltaIbja24:0,ts:null,ok:false,source:'static'};
+
+  function applyLive(usdOz,usdinr){
+    var spotRaw=(usdOz/OZ_TO_G)*usdinr;
+    var ibja24=spotRaw*(1+INDIA_PREMIUM);
+    var prev=LIVE.ibja24;
+    LIVE.deltaIbja24=prev?Math.round(ibja24-prev):0;
+    LIVE.ibja24=ibja24;LIVE.ibja22=ibja24*PURITY['22K'];
+    BRANDS.forEach(function(b){b.rate=ibja24*(1+b.premiumPct)});
+  }
+
+  function agoText(){
+    if(!LIVE.ts)return '';
+    var s=Math.round((Date.now()-LIVE.ts)/1000);
+    if(s<5)return 'just now';
+    if(s<60)return s+'s ago';
+    return Math.round(s/60)+'m ago';
+  }
+  function liveStatusText(){
+    if(LIVE.source==='live')return 'LIVE · '+agoText();
+    if(LIVE.source==='cached')return 'Cached · '+agoText();
+    return 'Static · demo rates';
+  }
+  function currentDotState(){
+    if(LIVE.source==='static')return 'bad';
+    if(LIVE.source==='cached')return 'warn';
+    return null;
+  }
+  function paintLiveChip(dotState,loading){
+    SCOPES.forEach(function(suf){
+      var dot=$('liveDot',suf),txt=$('liveChipTxt',suf);
+      if(!dot)return;
+      dot.classList.remove('warn','bad');
+      if(dotState==='warn')dot.classList.add('warn');
+      if(dotState==='bad')dot.classList.add('bad');
+      if(txt)txt.textContent=loading?'Connecting…':liveStatusText();
+    });
+  }
+
+  function setMc(id,suf,val,delta){
+    var v=$(id,suf),d=$(id+'D',suf);
+    if(v)v.textContent=fmt(val);
+    if(!d)return;
+    delta=Math.round(delta||0);
+    d.classList.remove('up','dn');
+    if(delta===0){d.textContent='± ₹0';return}
+    d.classList.add(delta<0?'dn':'up');
+    d.innerHTML=(delta<0?'▼ −':'▲ +')+'₹'+Math.abs(delta);
+  }
+  function paintMarket(){
+    if(!LIVE.ibja24)return;
+    var i24=LIVE.ibja24,i22=LIVE.ibja22;
+    var mcx=i24*10*1.004,mcxD=LIVE.deltaIbja24*10*1.004; // est. futures contango over spot
+    var ak=i24*1.002,akD=LIVE.deltaIbja24*1.002; // est. regional spread
+    SCOPES.forEach(function(suf){
+      setMc('mcIbja24',suf,i24,LIVE.deltaIbja24);
+      setMc('mcIbja22',suf,i22,LIVE.deltaIbja24*PURITY['22K']);
+      setMc('mcMcx',suf,mcx,mcxD);
+      setMc('mcAk',suf,ak,akD);
+    });
+  }
+
+  function fetchLiveRates(){
+    paintLiveChip(currentDotState(),true);
+    Promise.all([
+      fetch('https://api.gold-api.com/price/XAU').then(function(r){return r.json()}),
+      fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json()})
+    ]).then(function(res){
+      var usdOz=res[0]&&res[0].price,usdinr=res[1]&&res[1].rates&&res[1].rates.INR;
+      if(!usdOz||!usdinr)throw new Error('bad payload');
+      applyLive(usdOz,usdinr);
+      LIVE.ts=Date.now();LIVE.ok=true;LIVE.source='live';
+      try{localStorage.setItem('mgr_live_cache',JSON.stringify({usdOz:usdOz,usdinr:usdinr}))}catch(e){}
+      renderAll();paintMarket();paintLiveChip(currentDotState());
+    }).catch(function(err){
+      console.warn('Live gold rate fetch failed',err);
+      if(!LIVE.ok){
+        var cached=null;
+        try{cached=JSON.parse(localStorage.getItem('mgr_live_cache')||'null')}catch(e){}
+        if(cached&&cached.usdOz){applyLive(cached.usdOz,cached.usdinr);LIVE.source='cached';LIVE.ts=Date.now()}
+        else{LIVE.source='static'}
+        renderAll();paintMarket();
+      }
+      paintLiveChip(currentDotState());
+    });
+  }
+  // ─── Hit counter (daily + total), via a free public counter API ───
+  function todayKeyIST(){
+    return new Date(Date.now()+5.5*3600*1000).toISOString().slice(0,10);
+  }
+  function paintHits(text){
+    var el=document.getElementById('hitsTxt'),elS=document.getElementById('hitsTxtS');
+    if(el)el.textContent=text;
+    if(elS)elS.textContent=text;
+  }
+  function loadHits(){
+    var totalKey='mygoldrates-app-hits-total-v1';
+    var dailyKey='mygoldrates-app-hits-daily-'+todayKeyIST();
+    Promise.all([
+      fetch('https://countapi.mileshilliard.com/api/v1/hit/'+totalKey).then(function(r){return r.json()}),
+      fetch('https://countapi.mileshilliard.com/api/v1/hit/'+dailyKey).then(function(r){return r.json()})
+    ]).then(function(res){
+      var total=res[0]&&res[0].value,daily=res[1]&&res[1].value;
+      if(total==null||daily==null)throw new Error('bad payload');
+      paintHits(Number(total).toLocaleString('en-IN')+' total views · '+Number(daily).toLocaleString('en-IN')+' today');
+    }).catch(function(err){
+      console.warn('Hit counter unavailable, using local fallback',err);
+      var local=0;
+      try{local=(parseInt(localStorage.getItem('mgr_local_hits'))||0)+1;localStorage.setItem('mgr_local_hits',local)}catch(e){}
+      paintHits(local.toLocaleString('en-IN')+' views on this device (offline)');
+    });
+  }
 
   // Shared state — the phone app (ids as-is) and the desktop site (ids +'S')
   // both read/write this, so switching breakpoints never desyncs them.
@@ -981,7 +1158,14 @@ function handleCredentialResponse(resp){
     if(window.google&&google.accounts&&google.accounts.id){google.accounts.id.prompt()}
   });
 
+  // ─── Live rate + hits wiring (needs $ and SCOPES, defined above) ───
+  SCOPES.forEach(function(suf){var c=$('liveChip',suf);if(c)c.addEventListener('click',function(){fetchLiveRates()})});
+
   // ─── init ───
   renderAll();
+  fetchLiveRates();
+  setInterval(fetchLiveRates,60000);
+  setInterval(function(){paintLiveChip(currentDotState())},20000);
+  loadHits();
 })();
 </script>
