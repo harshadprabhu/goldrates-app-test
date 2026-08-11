@@ -857,14 +857,15 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     btn.setAttribute('aria-pressed',String(muted));
     btn.setAttribute('aria-label',muted?'Unmute background music':'Mute background music');
   }
-  function tryPlay(){audio.play().catch(function(){/* blocked until a user gesture — startOnGesture below covers it */})}
-  function startOnGesture(){
-    tryPlay();
-    ['pointerdown','keydown'].forEach(function(ev){document.removeEventListener(ev,startOnGesture)});
-  }
+  function tryPlay(){var p=audio.play();if(p&&p.catch)p.catch(function(){/* still locked — the next click/tap/key retries */})}
+  // 'click'/'touchend'/'keydown' are the gestures every browser (incl. iOS Safari,
+  // which ignores pointerdown/touchstart for media-autoplay purposes) treats as
+  // real user activation, so listen on all three and just keep retrying — play()
+  // on an already-playing element is a harmless no-op, no need to unbind.
+  ['click','touchend','keydown'].forEach(function(ev){document.addEventListener(ev,tryPlay,{passive:true})});
   tryPlay();
-  ['pointerdown','keydown'].forEach(function(ev){document.addEventListener(ev,startOnGesture,{once:false})});
   btn.addEventListener('click',function(){
+    tryPlay();
     muted=!muted;audio.muted=muted;
     try{localStorage.setItem(MUTE_KEY,muted?'1':'0')}catch(e){}
     paintBtn();
