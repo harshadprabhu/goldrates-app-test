@@ -125,12 +125,30 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .trend-svg{width:100%;height:130px;display:block;overflow:visible}
 .trend-pt{fill:var(--gold);stroke:#0a0804;stroke-width:1.5;cursor:pointer;transition:r .15s}
 .trend-pt:hover,.trend-pt.active{r:5.5;fill:var(--gold-light)}
-.trend-tip{position:absolute;pointer-events:none;background:rgba(6,4,2,0.95);border:1px solid var(--glass-border2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;transform:translate(-50%,-100%);transition:opacity .12s;z-index:5;box-shadow:0 4px 16px rgba(0,0,0,0.4)}
+.trend-tip{position:absolute;pointer-events:none;background:rgba(64,46,20,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;transform:translate(-50%,-100%);transition:opacity .12s;z-index:5;box-shadow:0 4px 16px rgba(0,0,0,0.35)}
 .trend-tip.show{opacity:1}
 .trend-tip .v{font-weight:700;color:var(--gold-light)}
 .trend-tip .t{color:var(--text3);font-size:9.5px;margin-top:1px}
 .trend-note{font-size:10.5px;color:var(--text3);text-align:center;padding:6px 4px 4px}
 #s-market .trend-svg{height:220px}
+
+/* ─── Trend range filter chips ─── */
+.trend-range{display:flex;gap:6px;margin:0 12px 8px}
+.tr-btn{font-size:10.5px;font-weight:700;padding:5px 14px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text3);cursor:pointer;font-family:inherit}
+.tr-btn.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent}
+
+/* ─── Trend scrub bar (drag to move a cursor through the data) ─── */
+.trend-scrub-track{position:relative;height:22px;margin:8px 2px 0;cursor:pointer;touch-action:none}
+.trend-scrub-track::before{content:'';position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:rgba(255,255,255,0.08);border-radius:2px}
+.trend-scrub-fill{position:absolute;left:0;top:50%;height:3px;margin-top:-1.5px;width:0%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));border-radius:2px;pointer-events:none}
+.trend-scrub-thumb{position:absolute;left:0%;top:50%;width:15px;height:15px;border-radius:50%;background:var(--gold-light);box-shadow:0 2px 8px rgba(0,0,0,0.5);transform:translate(-50%,-50%);pointer-events:none;border:2px solid #1a0a04}
+.trend-scrub-line{stroke:var(--gold-light);stroke-width:1;stroke-dasharray:3,3;opacity:0}
+.trend-scrub-dot{fill:var(--gold-light);stroke:#0a0804;stroke-width:2;opacity:0}
+
+/* ─── Background music mute toggle ─── */
+.music-mute{position:fixed;right:16px;bottom:78px;z-index:60;width:40px;height:40px;border-radius:50%;background:var(--glass2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border2);color:var(--gold-light);font-size:16px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center}
+@media(min-width:900px){.music-mute{bottom:24px}}
+.music-mute:active{transform:scale(.9)}
 
 /* ─── City internal-linking chips ─── */
 .city-links{margin:0 12px;display:flex;flex-wrap:wrap;gap:7px}
@@ -248,10 +266,10 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .calc-note{font-size:10px;color:var(--text3);text-align:center;padding:10px 20px 0;line-height:1.5}
 select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .qcr{display:flex;gap:8px;margin-bottom:10px}
-.qci{flex:1;background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
+.qci{flex:1;background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
 .qci:focus{border-color:var(--gold)}
 .qci::placeholder{color:var(--text3)}
-.qcs{background:rgba(0,0,0,0.25);border:1px solid var(--glass-border);border-radius:9px;padding:9px;color:var(--text);font-size:12px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:68px;cursor:pointer}
+.qcs{background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px;color:var(--text);font-size:12px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:68px;cursor:pointer}
 .qcres{text-align:center;padding:12px;background:var(--gold-soft);border-radius:12px;border:1px solid var(--glass-border2)}
 .qcres-v{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .qcres-l{font-size:10px;color:var(--text3);margin-top:2px}
@@ -276,10 +294,10 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .al-form{display:flex;flex-direction:column;gap:8px;max-width:300px;margin:0 auto}
 .al-row2{display:flex;gap:8px}
 .al-row2 .al-pin{flex:0 0 108px}
-.al-inp{flex:1;background:rgba(0,0,0,0.25);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
+.al-inp{flex:1;background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
 .al-inp:focus{border-color:var(--rose)}
 .al-inp::placeholder{color:var(--text3)}
-.al-locate{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(0,0,0,0.2);border:1px dashed rgba(232,138,174,0.35);border-radius:9px;padding:8px 10px;color:var(--rose);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.al-locate{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(70,52,24,0.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px dashed rgba(232,138,174,0.35);border-radius:9px;padding:8px 10px;color:var(--rose);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
 .al-locate:active{transform:scale(.97)}
 .al-locate.busy{opacity:.55;pointer-events:none}
 .al-locate svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
@@ -503,9 +521,19 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
 
   <div class="sh"><div class="ic mt">&#128200;</div><h2>Rate Trend</h2></div>
+  <div class="trend-range" id="trendRange">
+    <button class="tr-btn" data-r="7">1W</button>
+    <button class="tr-btn" data-r="30">1M</button>
+    <button class="tr-btn" data-r="90">3M</button>
+    <button class="tr-btn active" data-r="0">All</button>
+  </div>
   <div class="trend-card">
     <svg class="trend-svg" id="trendChart" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
     <div class="trend-tip" id="trendTip"></div>
+    <div class="trend-scrub-track" id="trendScrub">
+      <div class="trend-scrub-fill" id="trendScrubFill"></div>
+      <div class="trend-scrub-thumb" id="trendScrubThumb"></div>
+    </div>
     <div class="trend-note" id="trendNote">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
   </div>
 
@@ -676,10 +704,22 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAkS">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkDS">&mdash;</div></div>
       </div>
       <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
-      <div class="site-section-head" style="margin-top:36px"><div><span class="site-eyebrow-sm">Live History</span><h2>Rate Trend</h2></div></div>
+      <div class="site-section-head" style="margin-top:36px">
+        <div><span class="site-eyebrow-sm">Live History</span><h2>Rate Trend</h2></div>
+        <div class="trend-range" id="trendRangeS">
+          <button class="tr-btn" data-r="7">1W</button>
+          <button class="tr-btn" data-r="30">1M</button>
+          <button class="tr-btn" data-r="90">3M</button>
+          <button class="tr-btn active" data-r="0">All</button>
+        </div>
+      </div>
       <div class="trend-card">
         <svg class="trend-svg" id="trendChartS" viewBox="0 0 600 180" preserveAspectRatio="none"></svg>
         <div class="trend-tip" id="trendTipS"></div>
+        <div class="trend-scrub-track" id="trendScrubS">
+          <div class="trend-scrub-fill" id="trendScrubFillS"></div>
+          <div class="trend-scrub-thumb" id="trendScrubThumbS"></div>
+        </div>
         <div class="trend-note" id="trendNoteS">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
       </div>
     </div>
@@ -792,6 +832,45 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     </div>
   </footer>
 </div>
+
+<!-- Background music: Beethoven's Für Elise (public domain), autoplays on
+     visit with a small mute toggle. Browsers block audio-with-sound
+     autoplay until the user has interacted with the page at least once,
+     so playback starts immediately if the browser allows it, and
+     otherwise on the very first tap/click/key anywhere on the page. -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="furelise.ogg" type="audio/ogg">
+  <source src="furelise.mp3" type="audio/mpeg">
+</audio>
+<button class="music-mute" id="musicMute" aria-label="Mute background music" aria-pressed="false" title="Für Elise — Beethoven (public domain)">&#128266;</button>
+<script>
+(function(){
+  var audio=document.getElementById('bgMusic'),btn=document.getElementById('musicMute');
+  if(!audio||!btn)return;
+  var MUTE_KEY='mgr_music_muted';
+  var muted=false;
+  try{muted=localStorage.getItem(MUTE_KEY)==='1'}catch(e){}
+  audio.muted=muted;
+  paintBtn();
+  function paintBtn(){
+    btn.innerHTML=muted?'&#128263;':'&#128266;';
+    btn.setAttribute('aria-pressed',String(muted));
+    btn.setAttribute('aria-label',muted?'Unmute background music':'Mute background music');
+  }
+  function tryPlay(){audio.play().catch(function(){/* blocked until a user gesture — startOnGesture below covers it */})}
+  function startOnGesture(){
+    tryPlay();
+    ['pointerdown','keydown'].forEach(function(ev){document.removeEventListener(ev,startOnGesture)});
+  }
+  tryPlay();
+  ['pointerdown','keydown'].forEach(function(ev){document.addEventListener(ev,startOnGesture,{once:false})});
+  btn.addEventListener('click',function(){
+    muted=!muted;audio.muted=muted;
+    try{localStorage.setItem(MUTE_KEY,muted?'1':'0')}catch(e){}
+    paintBtn();
+  });
+})();
+</script>
 
 <script>
 // Google One Tap callback (global scope)
@@ -1049,17 +1128,95 @@ function handleCredentialResponse(resp){
       c.addEventListener('touchstart',function(e){e.preventDefault();showTrendTip(suf,c,p)},{passive:false});
       svg.appendChild(c);
     });
+    // scrub cursor line + dot, positioned by the drag handler in wireTrendScrub
+    var scrubLine=document.createElementNS(ns,'line');
+    scrubLine.setAttribute('class','trend-scrub-line');scrubLine.setAttribute('y1',pad);scrubLine.setAttribute('y2',H-pad);
+    svg.appendChild(scrubLine);
+    var scrubDot=document.createElementNS(ns,'circle');
+    scrubDot.setAttribute('class','trend-scrub-dot');scrubDot.setAttribute('r','4.5');
+    svg.appendChild(scrubDot);
+    svg._trendPts=hist.map(function(p,i){return {x:xAt(i),y:yAt(p.v),p:p}});
+    svg._scrubLine=scrubLine;svg._scrubDot=scrubDot;
+    var fill=$('trendScrubFill',suf),thumb=$('trendScrubThumb',suf);
+    if(fill)fill.style.width='0%';
+    if(thumb)thumb.style.left='0%';
     if(note){
       var spanMin=Math.round((hist[hist.length-1].t-hist[0].t)/60000);
       var spanTxt=spanMin<60?spanMin+'m':(spanMin<1440?Math.round(spanMin/60)+'h':Math.round(spanMin/1440)+'d');
       var src=hasHistory?'MyGoldRates daily history + your live tracking':'your live tracking so far';
-      note.textContent=hist.length+' points over '+spanTxt+' · '+src+' · hover for details';
+      note.textContent=hist.length+' points over '+spanTxt+' · '+src+' · drag the bar or hover to inspect';
     }
   }
+  function showTrendTipAtSvgPoint(suf,svgX,svgY,point){
+    var tip=$('trendTip',suf),svg=$('trendChart',suf);if(!tip||!svg)return;
+    var card=svg.closest('.trend-card');if(!card)return;
+    var svgRect=svg.getBoundingClientRect(),cardRect=card.getBoundingClientRect();
+    var scaleX=svgRect.width/600,scaleY=svgRect.height/180;
+    var left=(svgRect.left-cardRect.left)+svgX*scaleX;
+    left=Math.max(46,Math.min(cardRect.width-46,left));
+    var top=(svgRect.top-cardRect.top)+svgY*scaleY;
+    tip.innerHTML='<div class="v">'+fmt(point.v)+'/g</div><div class="t">'+fmtTime(point.t)+'</div>';
+    tip.style.left=left+'px';tip.style.top=top+'px';
+    tip.classList.add('show');
+    if(svg._scrubLine){svg._scrubLine.setAttribute('x1',svgX);svg._scrubLine.setAttribute('x2',svgX);svg._scrubLine.style.opacity='1'}
+    if(svg._scrubDot){svg._scrubDot.setAttribute('cx',svgX);svg._scrubDot.setAttribute('cy',svgY);svg._scrubDot.style.opacity='1'}
+  }
+  function hideTrendScrubVisuals(suf){
+    var svg=$('trendChart',suf);if(!svg)return;
+    if(svg._scrubLine)svg._scrubLine.style.opacity='0';
+    if(svg._scrubDot)svg._scrubDot.style.opacity='0';
+  }
+  function wireTrendScrub(suf){
+    var track=$('trendScrub',suf),fill=$('trendScrubFill',suf),thumb=$('trendScrubThumb',suf),svg=$('trendChart',suf);
+    if(!track||!svg)return;
+    var dragging=false;
+    function update(clientX){
+      var pts=svg._trendPts;if(!pts||!pts.length)return;
+      var rect=track.getBoundingClientRect();
+      var frac=Math.max(0,Math.min(1,(clientX-rect.left)/rect.width));
+      var idx=Math.round(frac*(pts.length-1));
+      var pt=pts[idx];
+      if(fill)fill.style.width=(frac*100)+'%';
+      if(thumb)thumb.style.left=(frac*100)+'%';
+      showTrendTipAtSvgPoint(suf,pt.x,pt.y,pt.p);
+    }
+    function onMove(e){
+      if(!dragging)return;
+      var clientX=e.touches?e.touches[0].clientX:e.clientX;
+      update(clientX);
+      e.preventDefault();
+    }
+    function onEnd(){
+      dragging=false;
+      window.removeEventListener('pointermove',onMove);
+      window.removeEventListener('pointerup',onEnd);
+    }
+    track.addEventListener('pointerdown',function(e){
+      dragging=true;update(e.clientX);
+      window.addEventListener('pointermove',onMove);
+      window.addEventListener('pointerup',onEnd);
+      e.preventDefault();
+    });
+  }
+  function wireTrendRange(suf){
+    var el=$('trendRange',suf);if(!el)return;
+    el.querySelectorAll('.tr-btn').forEach(function(b){
+      b.addEventListener('click',function(){
+        trendRangeDays=parseInt(b.dataset.r,10)||0;
+        el.querySelectorAll('.tr-btn').forEach(function(x){x.classList.toggle('active',x===b)});
+        renderTrend();
+      });
+    });
+  }
+  var trendRangeDays=0;
   function renderTrend(){
     var live=loadHistory();
     var hasHistory=!!(sbTrendData&&sbTrendData.length);
     var merged=hasHistory?mergeTrend(sbTrendData,live):live;
+    if(trendRangeDays>0){
+      var cutoff=Date.now()-trendRangeDays*86400000;
+      merged=merged.filter(function(p){return p.t>=cutoff});
+    }
     SCOPES.forEach(function(suf){renderTrendFor(suf,merged,hasHistory)});
   }
 
@@ -1436,6 +1593,7 @@ function handleCredentialResponse(resp){
 
   // ─── Live rate + hits wiring (needs $ and SCOPES, defined above) ───
   SCOPES.forEach(function(suf){var c=$('liveChip',suf);if(c)c.addEventListener('click',function(){fetchLiveRates()})});
+  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf)});
 
   // ─── init ───
   renderAll();
