@@ -919,9 +919,67 @@ function handleCredentialResponse(resp){
     });
   }
 
-  // ─── Rate-trend chart: built from real live data points captured over
-  //     time (localStorage), not fabricated history — there's no free
-  //     historical gold-price API, so the trend grows as this page is used. ───
+  // ─── Rate-trend chart: real multi-day history from the MyGoldRates
+  //     Supabase project (published daily median 24K, anon read-only —
+  //     see sql/public_read_rates.sql), with a live intraday tail
+  //     captured locally on top of it. Falls back to local-only tracking
+  //     if the anon SELECT policy isn't applied yet or the fetch fails. ───
+  var SUPABASE_URL='https://opwrfflzzowhobesysmr.supabase.co';
+  var SUPABASE_ANON_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9wd3JmZmx6em93aG9iZXN5c21yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQ1MjE2NDIsImV4cCI6MjEwMDA5NzY0Mn0.KHe1m2M98a9xyXGKstZo_bj5Zobw06X8nXbzvIoQjTE';
+  var SB_TREND_CACHE_KEY='mgr_sb_trend_cache';
+  var sbTrendData=null;
+
+  function fetchSupabaseTrend(){
+    var since=new Date(Date.now()-120*86400000).toISOString().slice(0,10);
+    var url=SUPABASE_URL+'/rest/v1/rates?select=rate_date,canonical_24k_pre_gst&status=eq.published&rate_date=gte.'+since+'&order=rate_date.asc';
+    return fetch(url,{headers:{apikey:SUPABASE_ANON_KEY,Authorization:'Bearer '+SUPABASE_ANON_KEY}})
+      .then(function(r){return r.json()})
+      .then(function(rows){
+        if(!Array.isArray(rows)||!rows.length)return [];
+        var byDay={};
+        rows.forEach(function(r){
+          var v=r.canonical_24k_pre_gst;
+          if(v==null)return;
+          (byDay[r.rate_date]=byDay[r.rate_date]||[]).push(v);
+        });
+        return Object.keys(byDay).sort().map(function(d){
+          var vals=byDay[d].slice().sort(function(a,b){return a-b});
+          var mid=Math.floor(vals.length/2);
+          var median=vals.length%2?vals[mid]:(vals[mid-1]+vals[mid])/2;
+          return {d:d,t:Date.parse(d+'T12:00:00+05:30'),v:Math.round(median)};
+        });
+      })
+      .catch(function(err){
+        console.warn('Supabase trend fetch failed (RLS policy may not be applied yet)',err);
+        return [];
+      });
+  }
+  function loadSbTrendCache(){
+    try{
+      var c=JSON.parse(localStorage.getItem(SB_TREND_CACHE_KEY)||'null');
+      if(c&&c.ts&&Date.now()-c.ts<3600000)return c.data;
+    }catch(e){}
+    return null;
+  }
+  function saveSbTrendCache(data){try{localStorage.setItem(SB_TREND_CACHE_KEY,JSON.stringify({ts:Date.now(),data:data}))}catch(e){}}
+  function initSupabaseTrend(){
+    var cached=loadSbTrendCache();
+    if(cached){sbTrendData=cached;renderTrend();return}
+    fetchSupabaseTrend().then(function(data){
+      sbTrendData=data;
+      if(data.length)saveSbTrendCache(data);
+      renderTrend();
+    });
+  }
+  function mergeTrend(hist,live){
+    var today=new Date(Date.now()+5.5*3600*1000).toISOString().slice(0,10);
+    var past=hist.filter(function(p){return p.d<today}).map(function(p){return {t:p.t,v:p.v}});
+    return past.concat(live).sort(function(a,b){return a.t-b.t});
+  }
+
+  // ─── Live intraday tail: real data points captured over time
+  //     (localStorage) as this page is used, laid on top of the
+  //     Supabase history above. ───
   var HISTORY_KEY='mgr_rate_history';
   function loadHistory(){try{return JSON.parse(localStorage.getItem(HISTORY_KEY)||'[]')}catch(e){return []}}
   function saveHistory(h){try{localStorage.setItem(HISTORY_KEY,JSON.stringify(h))}catch(e){}}
@@ -953,7 +1011,7 @@ function handleCredentialResponse(resp){
   function hideTrendTip(suf){
     var tip=$('trendTip',suf);if(tip)tip.classList.remove('show');
   }
-  function renderTrendFor(suf,hist){
+  function renderTrendFor(suf,hist,hasHistory){
     var svg=$('trendChart',suf),note=$('trendNote',suf);
     if(!svg)return;
     while(svg.firstChild)svg.removeChild(svg.firstChild);
@@ -994,12 +1052,15 @@ function handleCredentialResponse(resp){
     if(note){
       var spanMin=Math.round((hist[hist.length-1].t-hist[0].t)/60000);
       var spanTxt=spanMin<60?spanMin+'m':(spanMin<1440?Math.round(spanMin/60)+'h':Math.round(spanMin/1440)+'d');
-      note.textContent=hist.length+' live points over '+spanTxt+' · hover a point for details';
+      var src=hasHistory?'MyGoldRates daily history + your live tracking':'your live tracking so far';
+      note.textContent=hist.length+' points over '+spanTxt+' · '+src+' · hover for details';
     }
   }
   function renderTrend(){
-    var hist=loadHistory();
-    SCOPES.forEach(function(suf){renderTrendFor(suf,hist)});
+    var live=loadHistory();
+    var hasHistory=!!(sbTrendData&&sbTrendData.length);
+    var merged=hasHistory?mergeTrend(sbTrendData,live):live;
+    SCOPES.forEach(function(suf){renderTrendFor(suf,merged,hasHistory)});
   }
 
   function fetchLiveRates(){
@@ -1379,6 +1440,7 @@ function handleCredentialResponse(resp){
   // ─── init ───
   renderAll();
   renderTrend();
+  initSupabaseTrend();
   fetchLiveRates();
   setInterval(fetchLiveRates,60000);
   setInterval(function(){paintLiveChip(currentDotState())},20000);
