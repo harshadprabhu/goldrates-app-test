@@ -63,45 +63,45 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;background:#0a0804}
+html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;background:#F6F1E6}
 :root{
-  --glass:rgba(12,8,4,0.78);
-  --glass2:rgba(18,12,6,0.85);
-  --glass-border:rgba(200,160,60,0.12);
-  --glass-border2:rgba(200,160,60,0.22);
-  --card:rgba(22,16,8,0.82);
-  --card-hover:rgba(30,22,12,0.88);
-  --gold:#D4A63C;
-  --gold-light:#F0D080;
-  --gold-soft:rgba(212,166,60,0.12);
-  --gold-deep:#A67C1A;
-  --rose:#E88AAE;
-  --rose-soft:rgba(232,138,174,0.15);
-  --rose-deep:#C45A82;
-  --blue:#6AADDF;
-  --blue-soft:rgba(106,173,223,0.12);
-  --blue-deep:#3A8AC4;
-  --mint:#5CC4A0;
-  --mint-soft:rgba(92,196,160,0.12);
-  --mint-deep:#3AA07A;
-  --text:#F4EDE0;
-  --text2:#C8BDA8;
-  --text3:#7A7060;
-  --border:rgba(200,160,60,0.1);
+  --glass:rgba(255,255,255,0.52);
+  --glass2:rgba(255,255,255,0.7);
+  --glass-border:rgba(160,120,40,0.2);
+  --glass-border2:rgba(160,120,40,0.34);
+  --card:rgba(255,255,255,0.62);
+  --card-hover:rgba(255,255,255,0.85);
+  --gold:#B8862A;
+  --gold-light:#C99A3D;
+  --gold-soft:rgba(184,134,42,0.12);
+  --gold-deep:#8A6118;
+  --rose:#C94E76;
+  --rose-soft:rgba(201,78,118,0.12);
+  --rose-deep:#A13A5C;
+  --blue:#2678AE;
+  --blue-soft:rgba(38,120,174,0.12);
+  --blue-deep:#1A5980;
+  --mint:#1F9268;
+  --mint-soft:rgba(31,146,104,0.12);
+  --mint-deep:#166F4E;
+  --text:#2A2318;
+  --text2:#5C5140;
+  --text3:#8C8068;
+  --border:rgba(160,120,40,0.16);
 }
 .app{display:flex;flex-direction:column;height:100dvh;width:100%;max-width:430px;margin:0 auto;position:relative;overflow:hidden}
 
 /* ─── BG image layer ─── */
 .bg-layer{position:absolute;inset:0;z-index:0;background:url('bg.png') center/cover no-repeat;transition:filter 1.2s cubic-bezier(.4,0,.2,1)}
-.bg-layer.blurred{filter:blur(18px) brightness(0.5)}
-.bg-layer.clear{filter:blur(0) brightness(0.7)}
-.bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(10,8,4,0.5) 0%,rgba(10,8,4,0.3) 30%,rgba(10,8,4,0.6) 70%,rgba(10,8,4,0.85) 100%);pointer-events:none;transition:opacity 1.2s}
+.bg-layer.blurred{filter:blur(18px) brightness(1.15) saturate(.7)}
+.bg-layer.clear{filter:blur(0) brightness(1.05) saturate(.8)}
+.bg-overlay{position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(246,241,230,0.6) 0%,rgba(246,241,230,0.4) 30%,rgba(246,241,230,0.68) 70%,rgba(246,241,230,0.93) 100%);pointer-events:none;transition:opacity 1.2s}
 
 .app>*:not(.bg-layer):not(.bg-overlay){position:relative;z-index:2}
 
 /* ─── Top bar ─── */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 4px;flex-shrink:0}
-.logo{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text);text-shadow:0 1px 8px rgba(0,0,0,0.5)}
+.logo{font-family:'Playfair Display',Georgia,serif;font-size:17px;font-weight:700;color:var(--text);text-shadow:0 1px 4px rgba(255,255,255,0.6)}
 .logo .g{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .top-right{display:flex;align-items:center;gap:6px}
 .live-chip{display:flex;align-items:center;gap:5px;font-size:10px;font-weight:600;letter-spacing:.3px;color:var(--text2);background:var(--glass);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:99px;padding:5px 10px}
@@ -123,9 +123,9 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 /* ─── Interactive rate-trend chart ─── */
 .trend-card{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;padding:14px 14px 10px;position:relative}
 .trend-svg{width:100%;height:130px;display:block;overflow:visible}
-.trend-pt{fill:var(--gold);stroke:#0a0804;stroke-width:1.5;cursor:pointer;transition:r .15s}
+.trend-pt{fill:var(--gold);stroke:#fff;stroke-width:1.5;cursor:pointer;transition:r .15s}
 .trend-pt:hover,.trend-pt.active{r:5.5;fill:var(--gold-light)}
-.trend-tip{position:absolute;pointer-events:none;background:rgba(64,46,20,0.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;transform:translate(-50%,-100%);transition:opacity .12s;z-index:5;box-shadow:0 4px 16px rgba(0,0,0,0.35)}
+.trend-tip{position:absolute;pointer-events:none;background:rgba(255,255,255,0.85);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--glass-border2);border-radius:8px;padding:6px 10px;font-size:11px;color:var(--text);white-space:nowrap;opacity:0;transform:translate(-50%,-100%);transition:opacity .12s;z-index:5;box-shadow:0 4px 16px rgba(120,90,30,0.18)}
 .trend-tip.show{opacity:1}
 .trend-tip .v{font-weight:700;color:var(--gold-light)}
 .trend-tip .t{color:var(--text3);font-size:9.5px;margin-top:1px}
@@ -139,11 +139,11 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 
 /* ─── Trend scrub bar (drag to move a cursor through the data) ─── */
 .trend-scrub-track{position:relative;height:22px;margin:8px 2px 0;cursor:pointer;touch-action:none}
-.trend-scrub-track::before{content:'';position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:rgba(255,255,255,0.08);border-radius:2px}
+.trend-scrub-track::before{content:'';position:absolute;left:0;right:0;top:50%;height:3px;margin-top:-1.5px;background:rgba(120,90,30,0.15);border-radius:2px}
 .trend-scrub-fill{position:absolute;left:0;top:50%;height:3px;margin-top:-1.5px;width:0%;background:linear-gradient(90deg,var(--gold-deep),var(--gold));border-radius:2px;pointer-events:none}
-.trend-scrub-thumb{position:absolute;left:0%;top:50%;width:15px;height:15px;border-radius:50%;background:var(--gold-light);box-shadow:0 2px 8px rgba(0,0,0,0.5);transform:translate(-50%,-50%);pointer-events:none;border:2px solid #1a0a04}
-.trend-scrub-line{stroke:var(--gold-light);stroke-width:1;stroke-dasharray:3,3;opacity:0}
-.trend-scrub-dot{fill:var(--gold-light);stroke:#0a0804;stroke-width:2;opacity:0}
+.trend-scrub-thumb{position:absolute;left:0%;top:50%;width:15px;height:15px;border-radius:50%;background:var(--gold-light);box-shadow:0 2px 8px rgba(120,90,30,0.4);transform:translate(-50%,-50%);pointer-events:none;border:2px solid #fff}
+.trend-scrub-line{stroke:var(--gold-deep);stroke-width:1;stroke-dasharray:3,3;opacity:0}
+.trend-scrub-dot{fill:var(--gold-light);stroke:#fff;stroke-width:2;opacity:0}
 
 /* ─── City internal-linking chips ─── */
 .city-links{margin:0 12px;display:flex;flex-wrap:wrap;gap:7px}
@@ -179,10 +179,10 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .sections::-webkit-scrollbar{display:none}
 
 /* ─── Hero ─── */
-.hero{text-align:center;padding:16px 16px 10px;position:sticky;top:0;z-index:6;background:linear-gradient(180deg,rgba(10,8,4,0.94) 0%,rgba(10,8,4,0.94) 78%,rgba(10,8,4,0) 100%)}
+.hero{text-align:center;padding:16px 16px 10px;position:sticky;top:0;z-index:6;background:linear-gradient(180deg,rgba(246,241,230,0.94) 0%,rgba(246,241,230,0.94) 78%,rgba(246,241,230,0) 100%)}
 .hero-badge{display:inline-flex;align-items:center;gap:5px;font-size:9px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);background:var(--gold-soft);backdrop-filter:blur(12px);border:1px solid var(--glass-border2);border-radius:99px;padding:4px 12px;margin-bottom:8px}
 .hero-badge .dot{width:4px;height:4px;border-radius:50%;background:var(--gold);box-shadow:0 0 6px var(--gold)}
-.hero-rate{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:800;line-height:1;color:var(--text);position:relative;display:inline-block;text-shadow:0 2px 20px rgba(0,0,0,0.4)}
+.hero-rate{font-family:'Playfair Display',Georgia,serif;font-size:52px;font-weight:800;line-height:1;color:var(--text);position:relative;display:inline-block;text-shadow:0 2px 12px rgba(120,90,30,0.12)}
 .hero-rate .sym{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:34px;vertical-align:5px;margin-right:1px}
 .hero-rate .unit{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:400;color:var(--text3);-webkit-text-fill-color:var(--text3)}
 .hero-sparkle{position:absolute;inset:-4px;background:linear-gradient(105deg,transparent 42%,rgba(240,208,128,0.2) 50%,transparent 58%);animation:sparkle 4s ease-in-out infinite;pointer-events:none;border-radius:12px}
@@ -208,7 +208,7 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .brands-wrap{margin:0 12px;background:var(--glass2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-radius:16px;overflow:hidden;border:1px solid var(--glass-border)}
 .brands-head{display:flex;align-items:center;justify-content:space-between;padding:10px 14px 8px}
 .brands-head .t{font-size:12px;font-weight:700;color:var(--text)}
-.brands-head .c{font-size:10px;color:var(--text3);background:rgba(255,255,255,0.06);padding:2px 8px;border-radius:99px}
+.brands-head .c{font-size:10px;color:var(--text3);background:rgba(0,0,0,0.05);padding:2px 8px;border-radius:99px}
 .br{display:flex;align-items:center;padding:10px 14px;border-top:1px solid var(--border);transition:background .15s}
 .br:active{background:var(--card-hover)}
 .br.best{background:var(--mint-soft)}
@@ -255,7 +255,7 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 /* ─── Quick calc ─── */
 .qcw{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border-radius:16px;border:1px solid var(--glass-border);padding:14px;position:relative;overflow:hidden}
 .qcw::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--rose),var(--gold),var(--blue))}
-.qc-tabs{display:flex;gap:4px;margin-bottom:10px;background:rgba(0,0,0,0.25);border-radius:9px;padding:3px}
+.qc-tabs{display:flex;gap:4px;margin-bottom:10px;background:rgba(120,90,30,0.08);border-radius:9px;padding:3px}
 .qc-tab{flex:1;background:transparent;border:none;color:var(--text3);font-size:11px;font-weight:700;padding:6px;border-radius:7px;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.4px;transition:all .2s}
 .qc-tab.active{background:var(--gold-soft);color:var(--gold-light);box-shadow:inset 0 0 0 1px var(--glass-border2)}
 .calc-note{font-size:10px;color:var(--text3);text-align:center;padding:10px 20px 0;line-height:1.5}
@@ -264,39 +264,49 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .mc-intro{font-size:11px;color:var(--text2);line-height:1.6;padding:0 16px 12px}
 .mc-brand-row{display:flex;gap:7px;padding:0 12px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .mc-brand-row::-webkit-scrollbar{display:none}
-.mc-brand-chip{flex-shrink:0;font-size:12px;font-weight:700;padding:8px 18px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text2);cursor:pointer;font-family:inherit;transition:all .2s}
+.mc-brand-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;padding:7px 16px 7px 10px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text2);cursor:pointer;font-family:inherit;transition:all .2s}
 .mc-brand-chip.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 4px 14px rgba(212,166,60,0.3)}
+.mc-brand-logo{width:18px;height:18px;border-radius:5px;object-fit:contain;flex-shrink:0;background:#fff}
+.mc-purity-row{display:flex;justify-content:flex-start;gap:6px;padding:0 12px 12px}
+.mc-purity-pill{font-size:10.5px;font-weight:700;padding:6px 14px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text3);cursor:pointer;font-family:inherit;transition:all .2s}
+.mc-purity-pill.active{background:linear-gradient(135deg,var(--blue),#8FC4EA);color:#08202f;border-color:transparent;box-shadow:0 4px 14px rgba(106,173,223,0.3)}
 .mc-callout{margin:0 12px 12px;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;background:var(--mint-soft);border:1px solid rgba(92,196,160,0.15);font-size:11.5px;color:var(--mint);min-height:16px}
 .mc-callout:empty{display:none}
 .mc-callout svg{width:14px;height:14px;stroke:var(--mint);fill:none;stroke-width:2.5;flex-shrink:0}
 .mc-callout strong{font-weight:700}
-.mc-table-wrap{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden}
+.mc-table-wrap{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;overflow-x:auto;-webkit-overflow-scrolling:touch}
 .mc-table{width:100%;border-collapse:collapse}
-.mc-table thead th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text3);padding:10px 10px;background:rgba(0,0,0,0.2)}
+.mc-table thead th{text-align:left;font-size:8.5px;font-weight:700;letter-spacing:.3px;text-transform:uppercase;color:var(--text3);padding:8px 5px;background:rgba(120,90,30,0.07);white-space:nowrap}
 .mc-table thead th.num{text-align:right}
-.mc-table td{padding:10px;border-top:1px solid var(--border);font-size:12.5px;vertical-align:middle}
+.mc-table td{padding:8px 5px;border-top:1px solid var(--border);font-size:11.5px;vertical-align:middle;color:var(--text)}
 .mc-table td.num{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
-.mc-item{font-weight:700;color:var(--text);margin-bottom:3px}
+.mc-item{font-weight:700;color:var(--text);margin-bottom:3px;white-space:nowrap}
 .mc-wt-row{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--text3)}
-.mc-wt{width:44px;background:rgba(70,52,24,0.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--glass-border);border-radius:6px;padding:3px 5px;color:var(--text);font-size:11px;font-family:inherit;outline:none}
+.mc-wt{width:44px;background:rgba(255,255,255,0.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--glass-border);border-radius:6px;padding:3px 5px;color:var(--text);font-size:11px;font-family:inherit;outline:none}
 .mc-wt:focus{border-color:var(--gold)}
 .mc-pct{display:block;font-size:9px;font-weight:400;color:var(--text3);margin-top:1px}
-.mc-final{color:var(--gold-light);font-weight:700}
+.mc-table td.mc-metal{color:var(--gold-light)}
+.mc-table td.mc-making{color:var(--rose)}
+.mc-table td.mc-gst{color:var(--text2);font-weight:500}
+.mc-table td.mc-final{color:var(--gold-light);font-weight:800}
 
-#s-mc .mc-brand-row{padding:0 0 16px}
-#s-mc .mc-brand-chip{font-size:13.5px;padding:10px 22px}
+#s-mc .mc-brand-row{padding:0 0 14px}
+#s-mc .mc-brand-chip{font-size:13.5px;padding:9px 20px 9px 12px}
+#s-mc .mc-brand-logo{width:22px;height:22px}
+#s-mc .mc-purity-row{padding:0 0 20px}
+#s-mc .mc-purity-pill{font-size:12px;padding:8px 18px}
 #s-mc .mc-callout{margin:0 0 20px;padding:14px 18px;font-size:13px;max-width:640px}
-#s-mc .mc-table-wrap{margin:0;max-width:820px}
-#s-mc .mc-table th{padding:14px 20px;font-size:11px}
-#s-mc .mc-table td{padding:16px 20px;font-size:14px}
+#s-mc .mc-table-wrap{margin:0;max-width:900px}
+#s-mc .mc-table th{padding:14px 18px;font-size:11px}
+#s-mc .mc-table td{padding:16px 18px;font-size:14px}
 #s-mc .mc-item{font-size:15px}
 #s-mc .mc-wt{width:56px;font-size:13px;padding:5px 8px}
 select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .qcr{display:flex;gap:8px;margin-bottom:10px}
-.qci{flex:1;background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
+.qci{flex:1;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
 .qci:focus{border-color:var(--gold)}
 .qci::placeholder{color:var(--text3)}
-.qcs{background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px;color:var(--text);font-size:12px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:68px;cursor:pointer}
+.qcs{background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px;color:var(--text);font-size:12px;font-family:inherit;outline:none;font-weight:600;appearance:none;-webkit-appearance:none;min-width:68px;cursor:pointer}
 .qcres{text-align:center;padding:12px;background:var(--gold-soft);border-radius:12px;border:1px solid var(--glass-border2)}
 .qcres-v{font-family:'Playfair Display',Georgia,serif;font-size:26px;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .qcres-l{font-size:10px;color:var(--text3);margin-top:2px}
@@ -310,7 +320,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .cl-inf{flex:1;min-width:0}
 .cl-t{font-size:13px;font-weight:600;color:var(--text)}
 .cl-d{font-size:10px;color:var(--text3);margin-top:1px}
-.cl-ar{width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;flex-shrink:0}
+.cl-ar{width:22px;height:22px;border-radius:50%;background:rgba(0,0,0,0.05);display:flex;align-items:center;justify-content:center;color:var(--text3);font-size:12px;flex-shrink:0}
 
 /* ─── Alert card ─── */
 .alcard{margin:0 12px;background:linear-gradient(135deg,rgba(232,138,174,0.1),rgba(212,166,60,0.08));backdrop-filter:blur(20px);border-radius:16px;border:1px solid rgba(232,138,174,0.15);padding:20px 16px;text-align:center;position:relative;overflow:hidden}
@@ -321,10 +331,10 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .al-form{display:flex;flex-direction:column;gap:8px;max-width:300px;margin:0 auto}
 .al-row2{display:flex;gap:8px}
 .al-row2 .al-pin{flex:0 0 108px}
-.al-inp{flex:1;background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
+.al-inp{flex:1;background:rgba(255,255,255,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(232,138,174,0.2);border-radius:9px;padding:9px 11px;color:var(--text);font-size:13px;outline:none;font-family:inherit;width:100%}
 .al-inp:focus{border-color:var(--rose)}
 .al-inp::placeholder{color:var(--text3)}
-.al-locate{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(70,52,24,0.22);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px dashed rgba(232,138,174,0.35);border-radius:9px;padding:8px 10px;color:var(--rose);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.al-locate{display:flex;align-items:center;justify-content:center;gap:6px;background:rgba(255,255,255,0.4);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px dashed rgba(232,138,174,0.35);border-radius:9px;padding:8px 10px;color:var(--rose);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
 .al-locate:active{transform:scale(.97)}
 .al-locate.busy{opacity:.55;pointer-events:none}
 .al-locate svg{width:12px;height:12px;stroke:currentColor;fill:none;stroke-width:2.5;flex-shrink:0}
@@ -355,12 +365,12 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 .site-container{max-width:1180px;margin:0 auto;padding:0 40px}
 
 /* fixed bg, shared image, less blur than the app */
-.site-bg{position:fixed;inset:0;z-index:0;background:url('bg.png') center 30%/cover no-repeat}
-.site-scrim{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(8,6,3,0.55) 0%,rgba(8,6,3,0.72) 40%,#0a0804 88%)}
+.site-bg{position:fixed;inset:0;z-index:0;background:url('bg.png') center 30%/cover no-repeat;filter:brightness(1.15) saturate(.75)}
+.site-scrim{position:fixed;inset:0;z-index:0;background:linear-gradient(180deg,rgba(246,241,230,0.6) 0%,rgba(246,241,230,0.78) 40%,#F6F1E6 88%)}
 .site>*:not(.site-bg):not(.site-scrim){position:relative;z-index:1}
 
 /* Nav */
-.site-nav{position:sticky;top:0;z-index:20;background:rgba(10,8,4,0.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-border)}
+.site-nav{position:sticky;top:0;z-index:20;background:rgba(246,241,230,0.78);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--glass-border)}
 .site-nav-inner{max-width:1180px;margin:0 auto;padding:16px 40px;display:flex;align-items:center;justify-content:space-between}
 .site-logo{font-family:'Playfair Display',Georgia,serif;font-size:19px;font-weight:700}
 .site-logo span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -375,7 +385,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 /* Hero */
 .site-hero{padding:72px 0 56px;text-align:center}
 .site-eyebrow{font-family:'DM Sans',sans-serif;font-size:11.5px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:14px}
-.site-hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,4.6vw,56px);font-weight:800;line-height:1.08;text-shadow:0 2px 24px rgba(0,0,0,0.5)}
+.site-hero h1{font-family:'Playfair Display',Georgia,serif;font-size:clamp(36px,4.6vw,56px);font-weight:800;line-height:1.08;text-shadow:0 2px 16px rgba(120,90,30,0.12)}
 .site-hero .sub{max-width:600px;margin:16px auto 0;font-size:16px;color:var(--text2);line-height:1.6}
 
 .site-rate-card{max-width:820px;margin:40px auto 0;background:var(--glass2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border);border-radius:22px;padding:36px 40px;display:grid;grid-template-columns:1fr auto;gap:32px;align-items:center;text-align:left}
@@ -390,7 +400,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 
 /* Sections */
 .site-section{padding:64px 0}
-.site-section.alt{background:rgba(0,0,0,0.18);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
+.site-section.alt{background:rgba(120,90,30,0.05);border-top:1px solid var(--glass-border);border-bottom:1px solid var(--glass-border)}
 .site-section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:28px}
 .site-section-head h2{font-family:'Playfair Display',Georgia,serif;font-size:30px;font-weight:700}
 .site-section-head p{color:var(--text3);font-size:13.5px;margin-top:4px}
@@ -399,7 +409,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 /* Table */
 .site-table-wrap{background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:18px;overflow:hidden}
 .site-table{width:100%;border-collapse:collapse}
-.site-table thead th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);padding:16px 24px;border-bottom:1px solid var(--glass-border2);background:rgba(0,0,0,0.2)}
+.site-table thead th{text-align:left;font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--text3);padding:16px 24px;border-bottom:1px solid var(--glass-border2);background:rgba(120,90,30,0.06)}
 .site-table thead th.num{text-align:right}
 .site-table tbody tr{border-bottom:1px solid var(--border);cursor:pointer;transition:background .15s}
 .site-table tbody tr:last-child{border-bottom:none}
@@ -643,39 +653,49 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <p class="mc-intro">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
 
   <div class="mc-brand-row" id="mcBrandRow">
-    <button class="mc-brand-chip active" data-brand="BlueStone">BlueStone</button>
-    <button class="mc-brand-chip" data-brand="CaratLane">CaratLane</button>
-    <button class="mc-brand-chip" data-brand="Senco Gold">Senco Gold</button>
+    <button class="mc-brand-chip active" data-brand="BlueStone"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'">BlueStone</button>
+    <button class="mc-brand-chip" data-brand="CaratLane"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'">CaratLane</button>
+    <button class="mc-brand-chip" data-brand="Senco Gold"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'">Senco Gold</button>
+  </div>
+
+  <div class="mc-purity-row" id="mcPurityRow">
+    <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
+    <button class="mc-purity-pill" data-k="24K">24K (999)</button>
+    <button class="mc-purity-pill" data-k="18K">18K (750)</button>
   </div>
 
   <div class="mc-callout" id="mcCallout"></div>
 
   <div class="mc-table-wrap">
     <table class="mc-table">
-      <thead><tr><th>Item</th><th class="num">Metal</th><th class="num">Making</th><th class="num">Total</th></tr></thead>
+      <thead><tr><th>Item</th><th class="num">Metal</th><th class="num">Making</th><th class="num">GST</th><th class="num">Total</th></tr></thead>
       <tbody id="mcTableBody">
         <tr>
           <td><div class="mc-item">Bangle</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="10" min="0.5" step="0.5" data-cat="Bangle">g</div></td>
-          <td class="num" id="mcMetal-Bangle">&#8377;&mdash;</td>
-          <td class="num" id="mcCharge-Bangle">&#8377;&mdash;<span class="mc-pct" id="mcPct-Bangle"></span></td>
+          <td class="num mc-metal" id="mcMetal-Bangle">&#8377;&mdash;</td>
+          <td class="num mc-making" id="mcCharge-Bangle">&#8377;&mdash;<span class="mc-pct" id="mcPct-Bangle"></span></td>
+          <td class="num mc-gst" id="mcGst-Bangle">&#8377;&mdash;</td>
           <td class="num mc-final" id="mcTotal-Bangle">&#8377;&mdash;</td>
         </tr>
         <tr>
           <td><div class="mc-item">Ring</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="5" min="0.5" step="0.5" data-cat="Ring">g</div></td>
-          <td class="num" id="mcMetal-Ring">&#8377;&mdash;</td>
-          <td class="num" id="mcCharge-Ring">&#8377;&mdash;<span class="mc-pct" id="mcPct-Ring"></span></td>
+          <td class="num mc-metal" id="mcMetal-Ring">&#8377;&mdash;</td>
+          <td class="num mc-making" id="mcCharge-Ring">&#8377;&mdash;<span class="mc-pct" id="mcPct-Ring"></span></td>
+          <td class="num mc-gst" id="mcGst-Ring">&#8377;&mdash;</td>
           <td class="num mc-final" id="mcTotal-Ring">&#8377;&mdash;</td>
         </tr>
         <tr>
           <td><div class="mc-item">Earrings</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="4" min="0.5" step="0.5" data-cat="Earrings">g</div></td>
-          <td class="num" id="mcMetal-Earrings">&#8377;&mdash;</td>
-          <td class="num" id="mcCharge-Earrings">&#8377;&mdash;<span class="mc-pct" id="mcPct-Earrings"></span></td>
+          <td class="num mc-metal" id="mcMetal-Earrings">&#8377;&mdash;</td>
+          <td class="num mc-making" id="mcCharge-Earrings">&#8377;&mdash;<span class="mc-pct" id="mcPct-Earrings"></span></td>
+          <td class="num mc-gst" id="mcGst-Earrings">&#8377;&mdash;</td>
           <td class="num mc-final" id="mcTotal-Earrings">&#8377;&mdash;</td>
         </tr>
         <tr>
           <td><div class="mc-item">Mangalsutra</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="12" min="0.5" step="0.5" data-cat="Mangalsutra">g</div></td>
-          <td class="num" id="mcMetal-Mangalsutra">&#8377;&mdash;</td>
-          <td class="num" id="mcCharge-Mangalsutra">&#8377;&mdash;<span class="mc-pct" id="mcPct-Mangalsutra"></span></td>
+          <td class="num mc-metal" id="mcMetal-Mangalsutra">&#8377;&mdash;</td>
+          <td class="num mc-making" id="mcCharge-Mangalsutra">&#8377;&mdash;<span class="mc-pct" id="mcPct-Mangalsutra"></span></td>
+          <td class="num mc-gst" id="mcGst-Mangalsutra">&#8377;&mdash;</td>
           <td class="num mc-final" id="mcTotal-Mangalsutra">&#8377;&mdash;</td>
         </tr>
       </tbody>
@@ -888,37 +908,46 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       <div class="site-section-head"><div><span class="site-eyebrow-sm">Real Listed Products</span><h2>Making Charges Comparison</h2></div></div>
       <p class="calc-note" style="text-align:left;padding:0 0 20px;max-width:640px">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
       <div class="mc-brand-row" id="mcBrandRowS">
-        <button class="mc-brand-chip active" data-brand="BlueStone">BlueStone</button>
-        <button class="mc-brand-chip" data-brand="CaratLane">CaratLane</button>
-        <button class="mc-brand-chip" data-brand="Senco Gold">Senco Gold</button>
+        <button class="mc-brand-chip active" data-brand="BlueStone"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'">BlueStone</button>
+        <button class="mc-brand-chip" data-brand="CaratLane"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'">CaratLane</button>
+        <button class="mc-brand-chip" data-brand="Senco Gold"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'">Senco Gold</button>
+      </div>
+      <div class="mc-purity-row" id="mcPurityRowS">
+        <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
+        <button class="mc-purity-pill" data-k="24K">24K (999)</button>
+        <button class="mc-purity-pill" data-k="18K">18K (750)</button>
       </div>
       <div class="mc-callout" id="mcCalloutS"></div>
       <div class="mc-table-wrap">
         <table class="mc-table">
-          <thead><tr><th>Item</th><th class="num">Metal Value</th><th class="num">Making Charge</th><th class="num">Total Price</th></tr></thead>
+          <thead><tr><th>Item</th><th class="num">Metal Value</th><th class="num">Making Charge</th><th class="num">GST (3%)</th><th class="num">Total Price</th></tr></thead>
           <tbody id="mcTableBodyS">
             <tr>
               <td><div class="mc-item">Bangle</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="10" min="0.5" step="0.5" data-cat="Bangle">g</div></td>
-              <td class="num" id="mcMetal-BangleS">&#8377;&mdash;</td>
-              <td class="num" id="mcCharge-BangleS">&#8377;&mdash;<span class="mc-pct" id="mcPct-BangleS"></span></td>
+              <td class="num mc-metal" id="mcMetal-BangleS">&#8377;&mdash;</td>
+              <td class="num mc-making" id="mcCharge-BangleS">&#8377;&mdash;<span class="mc-pct" id="mcPct-BangleS"></span></td>
+              <td class="num mc-gst" id="mcGst-BangleS">&#8377;&mdash;</td>
               <td class="num mc-final" id="mcTotal-BangleS">&#8377;&mdash;</td>
             </tr>
             <tr>
               <td><div class="mc-item">Ring</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="5" min="0.5" step="0.5" data-cat="Ring">g</div></td>
-              <td class="num" id="mcMetal-RingS">&#8377;&mdash;</td>
-              <td class="num" id="mcCharge-RingS">&#8377;&mdash;<span class="mc-pct" id="mcPct-RingS"></span></td>
+              <td class="num mc-metal" id="mcMetal-RingS">&#8377;&mdash;</td>
+              <td class="num mc-making" id="mcCharge-RingS">&#8377;&mdash;<span class="mc-pct" id="mcPct-RingS"></span></td>
+              <td class="num mc-gst" id="mcGst-RingS">&#8377;&mdash;</td>
               <td class="num mc-final" id="mcTotal-RingS">&#8377;&mdash;</td>
             </tr>
             <tr>
               <td><div class="mc-item">Earrings</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="4" min="0.5" step="0.5" data-cat="Earrings">g</div></td>
-              <td class="num" id="mcMetal-EarringsS">&#8377;&mdash;</td>
-              <td class="num" id="mcCharge-EarringsS">&#8377;&mdash;<span class="mc-pct" id="mcPct-EarringsS"></span></td>
+              <td class="num mc-metal" id="mcMetal-EarringsS">&#8377;&mdash;</td>
+              <td class="num mc-making" id="mcCharge-EarringsS">&#8377;&mdash;<span class="mc-pct" id="mcPct-EarringsS"></span></td>
+              <td class="num mc-gst" id="mcGst-EarringsS">&#8377;&mdash;</td>
               <td class="num mc-final" id="mcTotal-EarringsS">&#8377;&mdash;</td>
             </tr>
             <tr>
               <td><div class="mc-item">Mangalsutra</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="12" min="0.5" step="0.5" data-cat="Mangalsutra">g</div></td>
-              <td class="num" id="mcMetal-MangalsutraS">&#8377;&mdash;</td>
-              <td class="num" id="mcCharge-MangalsutraS">&#8377;&mdash;<span class="mc-pct" id="mcPct-MangalsutraS"></span></td>
+              <td class="num mc-metal" id="mcMetal-MangalsutraS">&#8377;&mdash;</td>
+              <td class="num mc-making" id="mcCharge-MangalsutraS">&#8377;&mdash;<span class="mc-pct" id="mcPct-MangalsutraS"></span></td>
+              <td class="num mc-gst" id="mcGst-MangalsutraS">&#8377;&mdash;</td>
               <td class="num mc-final" id="mcTotal-MangalsutraS">&#8377;&mdash;</td>
             </tr>
           </tbody>
@@ -1474,14 +1503,16 @@ function handleCredentialResponse(resp){
   //     per brand/category from mygoldrates.com's production pipeline,
   //     combined with this app's own live gold rate for the metal value. ───
   var MC_CATS=['Bangle','Ring','Earrings','Mangalsutra'];
+  var MC_GST=0.03;
   var MC_DATA=null;
   var mcSelectedBrand='BlueStone';
+  var mcKarat='22K';
   var mcWeights={Bangle:10,Ring:5,Earrings:4,Mangalsutra:12};
   var MC_CACHE_KEY='mgr_mc_cache';
 
-  function findBrandRate22(name){
+  function findBrandRate(name,karat){
     var b=BRANDS.filter(function(x){return x.n===name})[0];
-    return b?b.rate*PURITY['22K']:null;
+    return b?b.rate*PURITY[karat]:null;
   }
   function loadMcCache(){
     try{
@@ -1509,25 +1540,28 @@ function handleCredentialResponse(resp){
   }
   function renderMcTable(){
     if(!MC_DATA)return;
-    var rate22=findBrandRate22(mcSelectedBrand);
+    var rate=findBrandRate(mcSelectedBrand,mcKarat);
     var brandData=MC_DATA[mcSelectedBrand]||{};
     var results=[];
     MC_CATS.forEach(function(cat){
       var pct=brandData[cat],wt=mcWeights[cat];
-      var metal=rate22?rate22*wt:null;
+      var metal=rate?rate*wt:null;
       var mc=(metal!=null&&pct!=null)?metal*pct/100:null;
-      var total=(metal!=null&&mc!=null)?(metal+mc)*(gstOn?1.03:1):null;
-      if(pct!=null&&metal!=null)results.push({cat:cat,pct:pct,metal:metal,mc:mc,total:total});
+      var gst=(metal!=null&&mc!=null)?(metal+mc)*MC_GST:null;
+      var total=(metal!=null&&mc!=null&&gst!=null)?(metal+mc+gst):null;
+      if(pct!=null&&metal!=null)results.push({cat:cat,pct:pct,metal:metal,mc:mc,gst:gst,total:total});
       SCOPES.forEach(function(suf){
-        var mEl=$('mcMetal-'+cat,suf),cEl=$('mcCharge-'+cat,suf),pEl=$('mcPct-'+cat,suf),tEl=$('mcTotal-'+cat,suf);
+        var mEl=$('mcMetal-'+cat,suf),cEl=$('mcCharge-'+cat,suf),pEl=$('mcPct-'+cat,suf),gEl=$('mcGst-'+cat,suf),tEl=$('mcTotal-'+cat,suf);
         if(mEl)mEl.textContent=metal!=null?fmt(metal):'—';
         if(pct==null||mc==null){
           if(cEl)cEl.childNodes[0].nodeValue='—';
           if(pEl)pEl.textContent='no data';
+          if(gEl)gEl.textContent='—';
           if(tEl)tEl.textContent='—';
         }else{
           if(cEl)cEl.childNodes[0].nodeValue=fmt(mc);
           if(pEl)pEl.textContent=pct.toFixed(1)+'%';
+          if(gEl)gEl.textContent=fmt(gst);
           if(tEl)tEl.textContent=fmt(total);
         }
       });
@@ -1535,7 +1569,7 @@ function handleCredentialResponse(resp){
     SCOPES.forEach(function(suf){
       var note=$('mcNote',suf);
       if(note)note.textContent=results.length
-        ?'Making charges shown as % of gold value, median across real listed products — updates periodically from '+mcSelectedBrand+"'s own price breakup."
+        ?'Making charges shown as % of gold value ('+mcKarat+'), median across real listed products, plus 3% GST — updates periodically from '+mcSelectedBrand+"'s own price breakup."
         :'No making-charge data available for '+mcSelectedBrand+' yet.';
       var callout=$('mcCallout',suf);
       if(callout&&results.length){
@@ -1552,6 +1586,19 @@ function handleCredentialResponse(resp){
         SCOPES.forEach(function(s2){
           var row=$('mcBrandRow',s2);if(!row)return;
           row.querySelectorAll('.mc-brand-chip').forEach(function(x){x.classList.toggle('active',x.dataset.brand===mcSelectedBrand)});
+        });
+        renderMcTable();
+      });
+    });
+  }
+  function wireMcPurity(suf){
+    var el=$('mcPurityRow',suf);if(!el)return;
+    el.querySelectorAll('.mc-purity-pill').forEach(function(b){
+      b.addEventListener('click',function(){
+        mcKarat=b.dataset.k;
+        SCOPES.forEach(function(s2){
+          var row=$('mcPurityRow',s2);if(!row)return;
+          row.querySelectorAll('.mc-purity-pill').forEach(function(x){x.classList.toggle('active',x.dataset.k===mcKarat)});
         });
         renderMcTable();
       });
@@ -1779,7 +1826,7 @@ function handleCredentialResponse(resp){
 
   // ─── Live rate + hits wiring (needs $ and SCOPES, defined above) ───
   SCOPES.forEach(function(suf){var c=$('liveChip',suf);if(c)c.addEventListener('click',function(){fetchLiveRates()})});
-  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf);wireMcBrands(suf);wireMcWeights(suf)});
+  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf);wireMcBrands(suf);wireMcPurity(suf);wireMcWeights(suf)});
 
   // ─── init ───
   renderAll();
