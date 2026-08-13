@@ -145,11 +145,6 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .trend-scrub-line{stroke:var(--gold-light);stroke-width:1;stroke-dasharray:3,3;opacity:0}
 .trend-scrub-dot{fill:var(--gold-light);stroke:#0a0804;stroke-width:2;opacity:0}
 
-/* ─── Background music mute toggle ─── */
-.music-mute{position:fixed;right:16px;bottom:78px;z-index:60;width:40px;height:40px;border-radius:50%;background:var(--glass2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--glass-border2);color:var(--gold-light);font-size:16px;cursor:pointer;box-shadow:0 4px 16px rgba(0,0,0,0.35);display:flex;align-items:center;justify-content:center}
-@media(min-width:900px){.music-mute{bottom:24px}}
-.music-mute:active{transform:scale(.9)}
-
 /* ─── City internal-linking chips ─── */
 .city-links{margin:0 12px;display:flex;flex-wrap:wrap;gap:7px}
 .city-links a{font-size:11px;font-weight:600;color:var(--text2);background:var(--glass2);border:1px solid var(--glass-border);border-radius:99px;padding:6px 13px;text-decoration:none;transition:all .2s}
@@ -264,6 +259,38 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .qc-tab{flex:1;background:transparent;border:none;color:var(--text3);font-size:11px;font-weight:700;padding:6px;border-radius:7px;cursor:pointer;font-family:inherit;text-transform:uppercase;letter-spacing:.4px;transition:all .2s}
 .qc-tab.active{background:var(--gold-soft);color:var(--gold-light);box-shadow:inset 0 0 0 1px var(--glass-border2)}
 .calc-note{font-size:10px;color:var(--text3);text-align:center;padding:10px 20px 0;line-height:1.5}
+
+/* ─── Making Charges Comparison ─── */
+.mc-intro{font-size:11px;color:var(--text2);line-height:1.6;padding:0 16px 12px}
+.mc-brand-row{display:flex;gap:7px;padding:0 12px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
+.mc-brand-row::-webkit-scrollbar{display:none}
+.mc-brand-chip{flex-shrink:0;font-size:12px;font-weight:700;padding:8px 18px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text2);cursor:pointer;font-family:inherit;transition:all .2s}
+.mc-brand-chip.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 4px 14px rgba(212,166,60,0.3)}
+.mc-callout{margin:0 12px 12px;display:flex;align-items:center;gap:8px;padding:10px 14px;border-radius:11px;background:var(--mint-soft);border:1px solid rgba(92,196,160,0.15);font-size:11.5px;color:var(--mint);min-height:16px}
+.mc-callout:empty{display:none}
+.mc-callout svg{width:14px;height:14px;stroke:var(--mint);fill:none;stroke-width:2.5;flex-shrink:0}
+.mc-callout strong{font-weight:700}
+.mc-table-wrap{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:16px;overflow:hidden}
+.mc-table{width:100%;border-collapse:collapse}
+.mc-table thead th{text-align:left;font-size:9px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;color:var(--text3);padding:10px 10px;background:rgba(0,0,0,0.2)}
+.mc-table thead th.num{text-align:right}
+.mc-table td{padding:10px;border-top:1px solid var(--border);font-size:12.5px;vertical-align:middle}
+.mc-table td.num{text-align:right;font-weight:600;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mc-item{font-weight:700;color:var(--text);margin-bottom:3px}
+.mc-wt-row{display:flex;align-items:center;gap:3px;font-size:10px;color:var(--text3)}
+.mc-wt{width:44px;background:rgba(70,52,24,0.28);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--glass-border);border-radius:6px;padding:3px 5px;color:var(--text);font-size:11px;font-family:inherit;outline:none}
+.mc-wt:focus{border-color:var(--gold)}
+.mc-pct{display:block;font-size:9px;font-weight:400;color:var(--text3);margin-top:1px}
+.mc-final{color:var(--gold-light);font-weight:700}
+
+#s-mc .mc-brand-row{padding:0 0 16px}
+#s-mc .mc-brand-chip{font-size:13.5px;padding:10px 22px}
+#s-mc .mc-callout{margin:0 0 20px;padding:14px 18px;font-size:13px;max-width:640px}
+#s-mc .mc-table-wrap{margin:0;max-width:820px}
+#s-mc .mc-table th{padding:14px 20px;font-size:11px}
+#s-mc .mc-table td{padding:16px 20px;font-size:14px}
+#s-mc .mc-item{font-size:15px}
+#s-mc .mc-wt{width:56px;font-size:13px;padding:5px 8px}
 select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23D4A63C' stroke-width='2.5'><polyline points='6 9 12 15 18 9'/></svg>");background-repeat:no-repeat;background-position:right 12px center;padding-right:32px}
 .qcr{display:flex;gap:8px;margin-bottom:10px}
 .qci{flex:1;background:rgba(70,52,24,0.28);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--glass-border);border-radius:9px;padding:9px 11px;color:var(--text);font-size:15px;font-family:inherit;outline:none;font-weight:500;transition:border-color .2s}
@@ -610,6 +637,54 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div style="height:28px"></div>
   </div><!-- /v-calc -->
 
+  <!-- ═══════ MAKING CHARGES VIEW ═══════ -->
+  <div class="view" id="v-mc">
+  <div class="sh"><div class="ic gl">&#128142;</div><h2>Making Charges</h2></div>
+  <p class="mc-intro">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
+
+  <div class="mc-brand-row" id="mcBrandRow">
+    <button class="mc-brand-chip active" data-brand="BlueStone">BlueStone</button>
+    <button class="mc-brand-chip" data-brand="CaratLane">CaratLane</button>
+    <button class="mc-brand-chip" data-brand="Senco Gold">Senco Gold</button>
+  </div>
+
+  <div class="mc-callout" id="mcCallout"></div>
+
+  <div class="mc-table-wrap">
+    <table class="mc-table">
+      <thead><tr><th>Item</th><th class="num">Metal</th><th class="num">Making</th><th class="num">Total</th></tr></thead>
+      <tbody id="mcTableBody">
+        <tr>
+          <td><div class="mc-item">Bangle</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="10" min="0.5" step="0.5" data-cat="Bangle">g</div></td>
+          <td class="num" id="mcMetal-Bangle">&#8377;&mdash;</td>
+          <td class="num" id="mcCharge-Bangle">&#8377;&mdash;<span class="mc-pct" id="mcPct-Bangle"></span></td>
+          <td class="num mc-final" id="mcTotal-Bangle">&#8377;&mdash;</td>
+        </tr>
+        <tr>
+          <td><div class="mc-item">Ring</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="5" min="0.5" step="0.5" data-cat="Ring">g</div></td>
+          <td class="num" id="mcMetal-Ring">&#8377;&mdash;</td>
+          <td class="num" id="mcCharge-Ring">&#8377;&mdash;<span class="mc-pct" id="mcPct-Ring"></span></td>
+          <td class="num mc-final" id="mcTotal-Ring">&#8377;&mdash;</td>
+        </tr>
+        <tr>
+          <td><div class="mc-item">Earrings</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="4" min="0.5" step="0.5" data-cat="Earrings">g</div></td>
+          <td class="num" id="mcMetal-Earrings">&#8377;&mdash;</td>
+          <td class="num" id="mcCharge-Earrings">&#8377;&mdash;<span class="mc-pct" id="mcPct-Earrings"></span></td>
+          <td class="num mc-final" id="mcTotal-Earrings">&#8377;&mdash;</td>
+        </tr>
+        <tr>
+          <td><div class="mc-item">Mangalsutra</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="12" min="0.5" step="0.5" data-cat="Mangalsutra">g</div></td>
+          <td class="num" id="mcMetal-Mangalsutra">&#8377;&mdash;</td>
+          <td class="num" id="mcCharge-Mangalsutra">&#8377;&mdash;<span class="mc-pct" id="mcPct-Mangalsutra"></span></td>
+          <td class="num mc-final" id="mcTotal-Mangalsutra">&#8377;&mdash;</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="calc-note" id="mcNote">Loading making-charge data&hellip;</p>
+  <div style="height:28px"></div>
+  </div><!-- /v-mc -->
+
 </div>
 
 <!-- Daily/total hit counter, always visible above the bottom nav -->
@@ -620,6 +695,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <button class="ni active" data-view="v-rates"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>Rates</button>
   <button class="ni" data-view="v-market"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>Market</button>
   <button class="ni" data-view="v-calc"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Calc</button>
+  <button class="ni" data-view="v-mc"><svg viewBox="0 0 24 24"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a4 4 0 0 1 8 0v2"/></svg>Charges</button>
 </nav>
 </div>
 
@@ -640,6 +716,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         <a href="#s-faq">FAQs</a>
         <a href="#s-cities">Cities</a>
         <a href="#s-calc">Calculators</a>
+        <a href="#s-mc">Making Charges</a>
         <a href="#s-alerts">Alerts</a>
       </nav>
       <div class="site-nav-cta">
@@ -806,6 +883,51 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     </div>
   </section>
 
+  <section class="site-section alt" id="s-mc">
+    <div class="site-container">
+      <div class="site-section-head"><div><span class="site-eyebrow-sm">Real Listed Products</span><h2>Making Charges Comparison</h2></div></div>
+      <p class="calc-note" style="text-align:left;padding:0 0 20px;max-width:640px">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
+      <div class="mc-brand-row" id="mcBrandRowS">
+        <button class="mc-brand-chip active" data-brand="BlueStone">BlueStone</button>
+        <button class="mc-brand-chip" data-brand="CaratLane">CaratLane</button>
+        <button class="mc-brand-chip" data-brand="Senco Gold">Senco Gold</button>
+      </div>
+      <div class="mc-callout" id="mcCalloutS"></div>
+      <div class="mc-table-wrap">
+        <table class="mc-table">
+          <thead><tr><th>Item</th><th class="num">Metal Value</th><th class="num">Making Charge</th><th class="num">Total Price</th></tr></thead>
+          <tbody id="mcTableBodyS">
+            <tr>
+              <td><div class="mc-item">Bangle</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="10" min="0.5" step="0.5" data-cat="Bangle">g</div></td>
+              <td class="num" id="mcMetal-BangleS">&#8377;&mdash;</td>
+              <td class="num" id="mcCharge-BangleS">&#8377;&mdash;<span class="mc-pct" id="mcPct-BangleS"></span></td>
+              <td class="num mc-final" id="mcTotal-BangleS">&#8377;&mdash;</td>
+            </tr>
+            <tr>
+              <td><div class="mc-item">Ring</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="5" min="0.5" step="0.5" data-cat="Ring">g</div></td>
+              <td class="num" id="mcMetal-RingS">&#8377;&mdash;</td>
+              <td class="num" id="mcCharge-RingS">&#8377;&mdash;<span class="mc-pct" id="mcPct-RingS"></span></td>
+              <td class="num mc-final" id="mcTotal-RingS">&#8377;&mdash;</td>
+            </tr>
+            <tr>
+              <td><div class="mc-item">Earrings</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="4" min="0.5" step="0.5" data-cat="Earrings">g</div></td>
+              <td class="num" id="mcMetal-EarringsS">&#8377;&mdash;</td>
+              <td class="num" id="mcCharge-EarringsS">&#8377;&mdash;<span class="mc-pct" id="mcPct-EarringsS"></span></td>
+              <td class="num mc-final" id="mcTotal-EarringsS">&#8377;&mdash;</td>
+            </tr>
+            <tr>
+              <td><div class="mc-item">Mangalsutra</div><div class="mc-wt-row"><input class="mc-wt" type="number" value="12" min="0.5" step="0.5" data-cat="Mangalsutra">g</div></td>
+              <td class="num" id="mcMetal-MangalsutraS">&#8377;&mdash;</td>
+              <td class="num" id="mcCharge-MangalsutraS">&#8377;&mdash;<span class="mc-pct" id="mcPct-MangalsutraS"></span></td>
+              <td class="num mc-final" id="mcTotal-MangalsutraS">&#8377;&mdash;</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="calc-note" id="mcNoteS">Loading making-charge data&hellip;</p>
+    </div>
+  </section>
+
   <section class="site-alerts" id="s-alerts">
     <div class="site-container site-alerts-inner">
       <h2>Never Miss the Cheapest Rate</h2>
@@ -833,45 +955,6 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   </footer>
 </div>
 
-<!-- Background music: Beethoven's Für Elise (public domain), autoplays on
-     visit with a small mute toggle. Browsers block audio-with-sound
-     autoplay until the user has interacted with the page at least once,
-     so playback starts immediately if the browser allows it, and
-     otherwise on the very first tap/click/key anywhere on the page. -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="furelise.ogg" type="audio/ogg">
-  <source src="furelise.mp3" type="audio/mpeg">
-</audio>
-<button class="music-mute" id="musicMute" aria-label="Mute background music" aria-pressed="false" title="Für Elise — Beethoven (public domain)">&#128266;</button>
-<script>
-(function(){
-  var audio=document.getElementById('bgMusic'),btn=document.getElementById('musicMute');
-  if(!audio||!btn)return;
-  var MUTE_KEY='mgr_music_muted';
-  var muted=false;
-  try{muted=localStorage.getItem(MUTE_KEY)==='1'}catch(e){}
-  audio.muted=muted;
-  paintBtn();
-  function paintBtn(){
-    btn.innerHTML=muted?'&#128263;':'&#128266;';
-    btn.setAttribute('aria-pressed',String(muted));
-    btn.setAttribute('aria-label',muted?'Unmute background music':'Mute background music');
-  }
-  function tryPlay(){var p=audio.play();if(p&&p.catch)p.catch(function(){/* still locked — the next click/tap/key retries */})}
-  // 'click'/'touchend'/'keydown' are the gestures every browser (incl. iOS Safari,
-  // which ignores pointerdown/touchstart for media-autoplay purposes) treats as
-  // real user activation, so listen on all three and just keep retrying — play()
-  // on an already-playing element is a harmless no-op, no need to unbind.
-  ['click','touchend','keydown'].forEach(function(ev){document.addEventListener(ev,tryPlay,{passive:true})});
-  tryPlay();
-  btn.addEventListener('click',function(){
-    tryPlay();
-    muted=!muted;audio.muted=muted;
-    try{localStorage.setItem(MUTE_KEY,muted?'1':'0')}catch(e){}
-    paintBtn();
-  });
-})();
-</script>
 
 <script>
 // Google One Tap callback (global scope)
@@ -1385,7 +1468,109 @@ function handleCredentialResponse(resp){
     });
   }
 
-  function renderAll(){renderBrands();paintHero();recalcAll()}
+  function renderAll(){renderBrands();paintHero();recalcAll();renderMcTable()}
+
+  // ─── Making Charges Comparison: real scraped median making-charge %
+  //     per brand/category from mygoldrates.com's production pipeline,
+  //     combined with this app's own live gold rate for the metal value. ───
+  var MC_CATS=['Bangle','Ring','Earrings','Mangalsutra'];
+  var MC_DATA=null;
+  var mcSelectedBrand='BlueStone';
+  var mcWeights={Bangle:10,Ring:5,Earrings:4,Mangalsutra:12};
+  var MC_CACHE_KEY='mgr_mc_cache';
+
+  function findBrandRate22(name){
+    var b=BRANDS.filter(function(x){return x.n===name})[0];
+    return b?b.rate*PURITY['22K']:null;
+  }
+  function loadMcCache(){
+    try{
+      var c=JSON.parse(localStorage.getItem(MC_CACHE_KEY)||'null');
+      if(c&&c.ts&&Date.now()-c.ts<21600000)return c.data; // 6h
+    }catch(e){}
+    return null;
+  }
+  function fetchMcData(){
+    var cached=loadMcCache();
+    if(cached){MC_DATA=cached;renderMcTable();return}
+    fetch('https://mygoldrates.com/making-charges.json').then(function(r){return r.json()}).then(function(json){
+      var map={};
+      (json.brands||[]).forEach(function(b){
+        map[b.brand]={};
+        (b.categories||[]).forEach(function(c){map[b.brand][c.category]=c.making_pct_median});
+      });
+      MC_DATA=map;
+      try{localStorage.setItem(MC_CACHE_KEY,JSON.stringify({ts:Date.now(),data:map}))}catch(e){}
+      renderMcTable();
+    }).catch(function(err){
+      console.warn('making-charges fetch failed',err);
+      SCOPES.forEach(function(suf){var n=$('mcNote',suf);if(n)n.textContent="Couldn't load making-charge data right now — check back shortly."});
+    });
+  }
+  function renderMcTable(){
+    if(!MC_DATA)return;
+    var rate22=findBrandRate22(mcSelectedBrand);
+    var brandData=MC_DATA[mcSelectedBrand]||{};
+    var results=[];
+    MC_CATS.forEach(function(cat){
+      var pct=brandData[cat],wt=mcWeights[cat];
+      var metal=rate22?rate22*wt:null;
+      var mc=(metal!=null&&pct!=null)?metal*pct/100:null;
+      var total=(metal!=null&&mc!=null)?(metal+mc)*(gstOn?1.03:1):null;
+      if(pct!=null&&metal!=null)results.push({cat:cat,pct:pct,metal:metal,mc:mc,total:total});
+      SCOPES.forEach(function(suf){
+        var mEl=$('mcMetal-'+cat,suf),cEl=$('mcCharge-'+cat,suf),pEl=$('mcPct-'+cat,suf),tEl=$('mcTotal-'+cat,suf);
+        if(mEl)mEl.textContent=metal!=null?fmt(metal):'—';
+        if(pct==null||mc==null){
+          if(cEl)cEl.childNodes[0].nodeValue='—';
+          if(pEl)pEl.textContent='no data';
+          if(tEl)tEl.textContent='—';
+        }else{
+          if(cEl)cEl.childNodes[0].nodeValue=fmt(mc);
+          if(pEl)pEl.textContent=pct.toFixed(1)+'%';
+          if(tEl)tEl.textContent=fmt(total);
+        }
+      });
+    });
+    SCOPES.forEach(function(suf){
+      var note=$('mcNote',suf);
+      if(note)note.textContent=results.length
+        ?'Making charges shown as % of gold value, median across real listed products — updates periodically from '+mcSelectedBrand+"'s own price breakup."
+        :'No making-charge data available for '+mcSelectedBrand+' yet.';
+      var callout=$('mcCallout',suf);
+      if(callout&&results.length){
+        var cheapest=results.slice().sort(function(a,b){return a.pct-b.pct})[0];
+        callout.innerHTML='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Cheapest here: <strong>'+cheapest.cat+'</strong> at just <strong>'+cheapest.pct.toFixed(1)+'%</strong> making charge</span>';
+      }else if(callout){callout.innerHTML=''}
+    });
+  }
+  function wireMcBrands(suf){
+    var el=$('mcBrandRow',suf);if(!el)return;
+    el.querySelectorAll('.mc-brand-chip').forEach(function(b){
+      b.addEventListener('click',function(){
+        mcSelectedBrand=b.dataset.brand;
+        SCOPES.forEach(function(s2){
+          var row=$('mcBrandRow',s2);if(!row)return;
+          row.querySelectorAll('.mc-brand-chip').forEach(function(x){x.classList.toggle('active',x.dataset.brand===mcSelectedBrand)});
+        });
+        renderMcTable();
+      });
+    });
+  }
+  function wireMcWeights(suf){
+    var el=$('mcTableBody',suf);if(!el)return;
+    el.querySelectorAll('.mc-wt').forEach(function(inp){
+      inp.addEventListener('input',function(){
+        var v=parseFloat(inp.value)||0;
+        mcWeights[inp.dataset.cat]=v;
+        SCOPES.forEach(function(s2){
+          var body=$('mcTableBody',s2);if(!body)return;
+          body.querySelectorAll('.mc-wt[data-cat="'+inp.dataset.cat+'"]').forEach(function(x){if(x!==inp)x.value=v});
+        });
+        renderMcTable();
+      });
+    });
+  }
 
   // ─── Karat pills (both scopes, kept in sync) ───
   function wireKarats(containerId){
@@ -1594,12 +1779,13 @@ function handleCredentialResponse(resp){
 
   // ─── Live rate + hits wiring (needs $ and SCOPES, defined above) ───
   SCOPES.forEach(function(suf){var c=$('liveChip',suf);if(c)c.addEventListener('click',function(){fetchLiveRates()})});
-  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf)});
+  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf);wireMcBrands(suf);wireMcWeights(suf)});
 
   // ─── init ───
   renderAll();
   renderTrend();
   initSupabaseTrend();
+  fetchMcData();
   fetchLiveRates();
   setInterval(fetchLiveRates,60000);
   setInterval(function(){paintLiveChip(currentDotState())},20000);
