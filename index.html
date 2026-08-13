@@ -289,8 +289,10 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .mc-table td.mc-making{color:var(--rose)}
 .mc-table td.mc-gst{color:var(--text2);font-weight:500}
 .mc-table td.mc-final{color:var(--gold-light);font-weight:800}
+.mc-disclaimer{font-size:10px;color:var(--text3);line-height:1.6;padding:10px 16px 0;text-align:center}
 
 #s-mc .mc-brand-row{padding:0 0 14px}
+#s-mc .mc-disclaimer{text-align:left;max-width:700px;padding:14px 0 0;font-size:11.5px}
 #s-mc .mc-brand-chip{font-size:13.5px;padding:9px 20px 9px 12px}
 #s-mc .mc-brand-logo{width:22px;height:22px}
 #s-mc .mc-purity-row{padding:0 0 20px}
@@ -660,8 +662,9 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
 
   <div class="mc-purity-row" id="mcPurityRow">
     <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
-    <button class="mc-purity-pill" data-k="24K">24K (999)</button>
     <button class="mc-purity-pill" data-k="18K">18K (750)</button>
+    <button class="mc-purity-pill" data-k="14K">14K (585)</button>
+    <button class="mc-purity-pill" data-k="9K">9K (375)</button>
   </div>
 
   <div class="mc-callout" id="mcCallout"></div>
@@ -702,6 +705,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     </table>
   </div>
   <p class="calc-note" id="mcNote">Loading making-charge data&hellip;</p>
+  <p class="mc-disclaimer">&#9888; This comparison is based on a small random sample of listed products per brand and category &mdash; not each jeweller's entire catalogue. Making charges vary by design, weight and finish; a brand charging more here may reflect finer detailing, hallmarking or craftsmanship, not necessarily a worse deal. Treat these figures as indicative, not a quote.</p>
   <div style="height:28px"></div>
   </div><!-- /v-mc -->
 
@@ -914,8 +918,9 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       </div>
       <div class="mc-purity-row" id="mcPurityRowS">
         <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
-        <button class="mc-purity-pill" data-k="24K">24K (999)</button>
         <button class="mc-purity-pill" data-k="18K">18K (750)</button>
+        <button class="mc-purity-pill" data-k="14K">14K (585)</button>
+        <button class="mc-purity-pill" data-k="9K">9K (375)</button>
       </div>
       <div class="mc-callout" id="mcCalloutS"></div>
       <div class="mc-table-wrap">
@@ -954,6 +959,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         </table>
       </div>
       <p class="calc-note" id="mcNoteS">Loading making-charge data&hellip;</p>
+      <p class="mc-disclaimer">&#9888; This comparison is based on a small random sample of listed products per brand and category &mdash; not each jeweller's entire catalogue. Making charges vary by design, weight and finish; a brand charging more here may reflect finer detailing, hallmarking or craftsmanship, not necessarily a worse deal. Treat these figures as indicative, not a quote.</p>
     </div>
   </section>
 
@@ -1039,7 +1045,7 @@ function handleCredentialResponse(resp){
     {n:'Josco Jewellers',d:'joscogroup.com',nat:false,r:'south',rate:15234},
     {n:'Bhindi Jewellers',d:'bhindi.com',nat:false,r:'west',rate:15268}
   ];
-  var PURITY={'24K':1,'22K':22/24,'18K':18/24};
+  var PURITY={'24K':1,'22K':22/24,'18K':18/24,'14K':14/24,'9K':9/24};
 
   // ─── Live gold rate feed ───
   // Each brand's static `rate` above becomes its fixed premium over a live
