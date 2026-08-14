@@ -659,11 +659,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div class="sh"><div class="ic gl">&#128142;</div><h2>Making Charges</h2></div>
   <p class="mc-intro">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
 
-  <div class="mc-brand-row" id="mcBrandRow">
-    <button class="mc-brand-chip active" data-brand="BlueStone"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'">BlueStone</button>
-    <button class="mc-brand-chip" data-brand="CaratLane"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'">CaratLane</button>
-    <button class="mc-brand-chip" data-brand="Senco Gold"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'">Senco Gold</button>
-  </div>
+  <div class="mc-brand-row" id="mcBrandRow"></div>
 
   <div class="mc-purity-row" id="mcPurityRow">
     <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
@@ -916,11 +912,7 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <div class="site-container">
       <div class="site-section-head"><div><span class="site-eyebrow-sm">Real Listed Products</span><h2>Making Charges Comparison</h2></div></div>
       <p class="calc-note" style="text-align:left;padding:0 0 20px;max-width:640px">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
-      <div class="mc-brand-row" id="mcBrandRowS">
-        <button class="mc-brand-chip active" data-brand="BlueStone"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=bluestone.com&sz=64" onerror="this.style.visibility='hidden'">BlueStone</button>
-        <button class="mc-brand-chip" data-brand="CaratLane"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=caratlane.com&sz=64" onerror="this.style.visibility='hidden'">CaratLane</button>
-        <button class="mc-brand-chip" data-brand="Senco Gold"><img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain=sencogoldanddiamonds.com&sz=64" onerror="this.style.visibility='hidden'">Senco Gold</button>
-      </div>
+      <div class="mc-brand-row" id="mcBrandRowS"></div>
       <div class="mc-purity-row" id="mcPurityRowS">
         <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
         <button class="mc-purity-pill" data-k="18K">18K (750)</button>
@@ -1037,7 +1029,7 @@ function handleCredentialResponse(resp){
     {n:'Tanishq',d:'tanishq.co.in',nat:true,r:'all',rate:15245},
     {n:'Kisna',d:'kisna.com',nat:true,r:'all',rate:15250},
     {n:'BlueStone',d:'bluestone.com',nat:true,r:'all',rate:15390},
-    {n:'Waman Hari Pethe',d:'wamanharipethe.com',nat:true,r:'west',rate:15438},
+    {n:'Waman Hari Pethe',d:'whpjewellers.com',nat:true,r:'west',rate:15438},
     // Regional (only shown when Near me is on + region matches)
     {n:'Vaibhav Jewellers',d:'vaibhavjewellers.com',nat:false,r:'south',rate:15098},
     {n:'PN Gadgil & Sons',d:'pngadgilandsons.com',nat:false,r:'west',rate:15112},
@@ -1516,7 +1508,7 @@ function handleCredentialResponse(resp){
   var MC_CATS=['Bangle','Ring','Earrings','Mangalsutra'];
   var MC_GST=0.03;
   var MC_DATA=null;
-  var mcSelectedBrand='BlueStone';
+  var mcSelectedBrand=null;
   var mcKarat='22K';
   var mcWeights={Bangle:10,Ring:5,Earrings:4,Mangalsutra:12};
   var MC_CACHE_KEY='mgr_mc_cache';
@@ -1532,9 +1524,26 @@ function handleCredentialResponse(resp){
     }catch(e){}
     return null;
   }
+  // Brand chips are generated from whatever brands are actually present in
+  // the fetched data, in BRANDS' own order, instead of a hardcoded 3 -
+  // coverage grows automatically as the scraper adds more brands.
+  function renderMcBrandChips(){
+    var names=Object.keys(MC_DATA||{});
+    var avail=BRANDS.filter(function(b){return names.indexOf(b.n)>-1});
+    if(!avail.length)return;
+    if(!mcSelectedBrand||!avail.some(function(b){return b.n===mcSelectedBrand})){
+      mcSelectedBrand=avail[0].n;
+    }
+    var html=avail.map(function(b){
+      return '<button class="mc-brand-chip'+(b.n===mcSelectedBrand?' active':'')+'" data-brand="'+b.n+'">'+
+        '<img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'">'+b.n+'</button>';
+    }).join('');
+    SCOPES.forEach(function(suf){var el=$('mcBrandRow',suf);if(el)el.innerHTML=html});
+    SCOPES.forEach(function(suf){wireMcBrands(suf)});
+  }
   function fetchMcData(){
     var cached=loadMcCache();
-    if(cached){MC_DATA=cached;renderMcTable();return}
+    if(cached){MC_DATA=cached;renderMcBrandChips();renderMcTable();return}
     fetch('https://mygoldrates.com/making-charges.json').then(function(r){return r.json()}).then(function(json){
       var map={};
       (json.brands||[]).forEach(function(b){
@@ -1543,6 +1552,7 @@ function handleCredentialResponse(resp){
       });
       MC_DATA=map;
       try{localStorage.setItem(MC_CACHE_KEY,JSON.stringify({ts:Date.now(),data:map}))}catch(e){}
+      renderMcBrandChips();
       renderMcTable();
     }).catch(function(err){
       console.warn('making-charges fetch failed',err);
