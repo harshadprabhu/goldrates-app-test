@@ -267,11 +267,24 @@ p.calc-note{font-size:10px;color:var(--text3);text-align:center;padding:10px 20p
 
 /* ─── Making Charges Comparison ─── */
 p.mc-intro{font-size:11px;color:var(--text2);line-height:1.6;padding:0 16px 12px}
-.mc-brand-row{display:flex;gap:7px;padding:0 12px 10px;overflow-x:auto;-webkit-overflow-scrolling:touch}
-.mc-brand-row::-webkit-scrollbar{display:none}
-.mc-brand-chip{flex-shrink:0;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:700;padding:7px 16px 7px 10px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text2);cursor:pointer;font-family:inherit;transition:all .2s}
-.mc-brand-chip.active{background:linear-gradient(135deg,var(--gold),#E8BA40);color:#1a0a04;border-color:transparent;box-shadow:0 4px 14px rgba(212,166,60,0.3)}
 .mc-brand-logo{width:18px;height:18px;border-radius:5px;object-fit:contain;flex-shrink:0;background:#fff;border:1px solid var(--border);padding:1px}
+/* Brand picker: a single dropdown trigger + list, not a row of open buttons -
+   scales cleanly as more brands get scraped instead of needing sideways
+   scroll to discover them. */
+.mc-brand-select{position:relative;margin:0 12px 10px}
+.mc-brand-trigger{width:100%;display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;padding:10px 12px 10px 10px;border-radius:13px;border:1px solid var(--glass-border2);background:var(--glass2);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);color:var(--text);cursor:pointer;font-family:inherit;transition:border-color .2s;text-align:left}
+.mc-brand-select.open .mc-brand-trigger{border-color:var(--gold)}
+.mc-brand-trigger-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mc-brand-count{font-size:9.5px;font-weight:700;letter-spacing:.2px;color:var(--text3);background:var(--glass);border:1px solid var(--glass-border);border-radius:99px;padding:3px 9px;flex-shrink:0;white-space:nowrap}
+.mc-brand-chev{width:14px;height:14px;stroke:var(--text3);fill:none;stroke-width:2.5;flex-shrink:0;transition:transform .2s}
+.mc-brand-select.open .mc-brand-chev{transform:rotate(180deg);stroke:var(--gold)}
+.mc-brand-menu{display:none;position:absolute;top:calc(100% + 6px);left:0;right:0;z-index:15;max-height:280px;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--glass2);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border:1px solid var(--glass-border2);border-radius:13px;box-shadow:0 14px 34px rgba(0,0,0,0.45);padding:6px}
+.mc-brand-select.open .mc-brand-menu{display:block}
+.mc-brand-opt{width:100%;display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;padding:9px 10px;border-radius:9px;border:none;background:transparent;color:var(--text2);cursor:pointer;font-family:inherit;text-align:left}
+.mc-brand-opt:hover{background:var(--glass)}
+.mc-brand-opt.active{background:var(--gold-soft);color:var(--gold-light)}
+.mc-brand-opt-check{width:13px;height:13px;stroke:var(--gold);fill:none;stroke-width:3;flex-shrink:0;margin-left:auto;visibility:hidden}
+.mc-brand-opt.active .mc-brand-opt-check{visibility:visible}
 .mc-purity-row{display:flex;justify-content:flex-start;gap:6px;padding:0 12px 12px}
 .mc-purity-pill{font-size:10.5px;font-weight:700;padding:6px 14px;border-radius:99px;border:1px solid var(--glass-border2);background:var(--glass);color:var(--text3);cursor:pointer;font-family:inherit;transition:all .2s}
 .mc-purity-pill.active{background:linear-gradient(135deg,var(--blue),#8FC4EA);color:#08202f;border-color:transparent;box-shadow:0 4px 14px rgba(106,173,223,0.3)}
@@ -296,9 +309,10 @@ p.mc-intro{font-size:11px;color:var(--text2);line-height:1.6;padding:0 16px 12px
 .mc-table td.mc-final{color:var(--gold-light);font-weight:800}
 p.mc-disclaimer{font-size:10px;color:var(--text3);line-height:1.6;padding:10px 16px 0;text-align:center}
 
-#s-mc .mc-brand-row{padding:0 0 14px}
 #s-mc .mc-disclaimer{text-align:left;max-width:700px;padding:14px 0 0;font-size:11.5px}
-#s-mc .mc-brand-chip{font-size:13.5px;padding:9px 20px 9px 12px}
+#s-mc .mc-brand-select{margin:0 0 20px;max-width:360px}
+#s-mc .mc-brand-trigger{font-size:14px;padding:12px 14px}
+#s-mc .mc-brand-menu{max-height:340px}
 #s-mc .mc-brand-logo{width:22px;height:22px}
 #s-mc .mc-purity-row{padding:0 0 20px}
 #s-mc .mc-purity-pill{font-size:12px;padding:8px 18px}
@@ -659,7 +673,15 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div class="sh"><div class="ic gl">&#128142;</div><h2>Making Charges</h2></div>
   <p class="mc-intro">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
 
-  <div class="mc-brand-row" id="mcBrandRow"></div>
+  <div class="mc-brand-select" id="mcBrandSelect">
+    <button class="mc-brand-trigger" id="mcBrandTrigger" type="button" aria-haspopup="listbox" aria-expanded="false">
+      <img class="mc-brand-logo" alt="" id="mcBrandTriggerLogo">
+      <span class="mc-brand-trigger-name" id="mcBrandTriggerName">Select a brand</span>
+      <span class="mc-brand-count" id="mcBrandCount"></span>
+      <svg class="mc-brand-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="mc-brand-menu" id="mcBrandMenu" role="listbox"></div>
+  </div>
 
   <div class="mc-purity-row" id="mcPurityRow">
     <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
@@ -912,7 +934,15 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     <div class="site-container">
       <div class="site-section-head"><div><span class="site-eyebrow-sm">Real Listed Products</span><h2>Making Charges Comparison</h2></div></div>
       <p class="calc-note" style="text-align:left;padding:0 0 20px;max-width:640px">Making charge as a % of gold value &mdash; median across real listed products per category, from each jeweller's own price breakup. Pick a brand to see what a typical piece actually costs.</p>
-      <div class="mc-brand-row" id="mcBrandRowS"></div>
+      <div class="mc-brand-select" id="mcBrandSelectS">
+        <button class="mc-brand-trigger" id="mcBrandTriggerS" type="button" aria-haspopup="listbox" aria-expanded="false">
+          <img class="mc-brand-logo" alt="" id="mcBrandTriggerLogoS">
+          <span class="mc-brand-trigger-name" id="mcBrandTriggerNameS">Select a brand</span>
+          <span class="mc-brand-count" id="mcBrandCountS"></span>
+          <svg class="mc-brand-chev" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="mc-brand-menu" id="mcBrandMenuS" role="listbox"></div>
+      </div>
       <div class="mc-purity-row" id="mcPurityRowS">
         <button class="mc-purity-pill active" data-k="22K">22K (916)</button>
         <button class="mc-purity-pill" data-k="18K">18K (750)</button>
@@ -1524,26 +1554,83 @@ function handleCredentialResponse(resp){
     }catch(e){}
     return null;
   }
-  // Brand chips are generated from whatever brands are actually present in
+  // Brand picker is generated from whatever brands are actually present in
   // the fetched data, in BRANDS' own order, instead of a hardcoded 3 -
-  // coverage grows automatically as the scraper adds more brands.
-  function renderMcBrandChips(){
+  // coverage grows automatically as the scraper adds more brands. It's a
+  // single dropdown (trigger + list), not a row of open buttons, so the
+  // full fetched-brand list stays reachable without sideways scrolling as
+  // coverage grows.
+  function renderMcBrandPicker(){
     var names=Object.keys(MC_DATA||{});
     var avail=BRANDS.filter(function(b){return names.indexOf(b.n)>-1});
     if(!avail.length)return;
     if(!mcSelectedBrand||!avail.some(function(b){return b.n===mcSelectedBrand})){
       mcSelectedBrand=avail[0].n;
     }
-    var html=avail.map(function(b){
-      return '<button class="mc-brand-chip'+(b.n===mcSelectedBrand?' active':'')+'" data-brand="'+b.n+'">'+
-        '<img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'">'+b.n+'</button>';
+    var optHtml=avail.map(function(b){
+      return '<button class="mc-brand-opt'+(b.n===mcSelectedBrand?' active':'')+'" type="button" role="option" aria-selected="'+(b.n===mcSelectedBrand)+'" data-brand="'+b.n+'">'+
+        '<img class="mc-brand-logo" alt="" loading="lazy" src="https://www.google.com/s2/favicons?domain='+b.d+'&sz=64" onerror="this.style.visibility=\'hidden\'">'+
+        '<span>'+b.n+'</span>'+
+        '<svg class="mc-brand-opt-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></button>';
     }).join('');
-    SCOPES.forEach(function(suf){var el=$('mcBrandRow',suf);if(el)el.innerHTML=html});
-    SCOPES.forEach(function(suf){wireMcBrands(suf)});
+    SCOPES.forEach(function(suf){var el=$('mcBrandMenu',suf);if(el)el.innerHTML=optHtml});
+    updateMcBrandTrigger(avail);
   }
+  function updateMcBrandTrigger(avail){
+    var b=avail.filter(function(x){return x.n===mcSelectedBrand})[0];
+    if(!b)return;
+    SCOPES.forEach(function(suf){
+      var logo=$('mcBrandTriggerLogo',suf),name=$('mcBrandTriggerName',suf),count=$('mcBrandCount',suf);
+      if(logo)logo.src='https://www.google.com/s2/favicons?domain='+b.d+'&sz=64';
+      if(name)name.textContent=b.n;
+      if(count)count.textContent=avail.length+' brand'+(avail.length===1?'':'s');
+    });
+  }
+  function closeMcBrandMenus(){
+    SCOPES.forEach(function(suf){
+      var wrap=$('mcBrandSelect',suf);if(!wrap)return;
+      wrap.classList.remove('open');
+      var t=$('mcBrandTrigger',suf);if(t)t.setAttribute('aria-expanded','false');
+    });
+  }
+  function wireMcBrandPicker(suf){
+    var wrap=$('mcBrandSelect',suf),trigger=$('mcBrandTrigger',suf),menu=$('mcBrandMenu',suf);
+    if(!wrap||!trigger||!menu)return;
+    trigger.addEventListener('click',function(e){
+      e.stopPropagation();
+      var willOpen=!wrap.classList.contains('open');
+      closeMcBrandMenus();
+      if(willOpen){wrap.classList.add('open');trigger.setAttribute('aria-expanded','true')}
+    });
+    menu.addEventListener('click',function(e){
+      var opt=e.target.closest('.mc-brand-opt');
+      if(!opt)return;
+      mcSelectedBrand=opt.dataset.brand;
+      var names=Object.keys(MC_DATA||{});
+      var avail=BRANDS.filter(function(b){return names.indexOf(b.n)>-1});
+      updateMcBrandTrigger(avail);
+      SCOPES.forEach(function(s2){
+        var m2=$('mcBrandMenu',s2);if(!m2)return;
+        m2.querySelectorAll('.mc-brand-opt').forEach(function(x){
+          var isActive=x.dataset.brand===mcSelectedBrand;
+          x.classList.toggle('active',isActive);
+          x.setAttribute('aria-selected',isActive);
+        });
+      });
+      closeMcBrandMenus();
+      renderMcTable();
+    });
+  }
+  document.addEventListener('click',function(e){
+    SCOPES.forEach(function(suf){
+      var wrap=$('mcBrandSelect',suf);
+      if(wrap&&wrap.classList.contains('open')&&!wrap.contains(e.target))closeMcBrandMenus();
+    });
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeMcBrandMenus()});
   function fetchMcData(){
     var cached=loadMcCache();
-    if(cached){MC_DATA=cached;renderMcBrandChips();renderMcTable();return}
+    if(cached){MC_DATA=cached;renderMcBrandPicker();renderMcTable();return}
     fetch('https://mygoldrates.com/making-charges.json').then(function(r){return r.json()}).then(function(json){
       var map={};
       (json.brands||[]).forEach(function(b){
@@ -1552,7 +1639,7 @@ function handleCredentialResponse(resp){
       });
       MC_DATA=map;
       try{localStorage.setItem(MC_CACHE_KEY,JSON.stringify({ts:Date.now(),data:map}))}catch(e){}
-      renderMcBrandChips();
+      renderMcBrandPicker();
       renderMcTable();
     }).catch(function(err){
       console.warn('making-charges fetch failed',err);
@@ -1597,19 +1684,6 @@ function handleCredentialResponse(resp){
         var cheapest=results.slice().sort(function(a,b){return a.pct-b.pct})[0];
         callout.innerHTML='<svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg><span>Cheapest here: <strong>'+cheapest.cat+'</strong> at just <strong>'+cheapest.pct.toFixed(1)+'%</strong> making charge</span>';
       }else if(callout){callout.innerHTML=''}
-    });
-  }
-  function wireMcBrands(suf){
-    var el=$('mcBrandRow',suf);if(!el)return;
-    el.querySelectorAll('.mc-brand-chip').forEach(function(b){
-      b.addEventListener('click',function(){
-        mcSelectedBrand=b.dataset.brand;
-        SCOPES.forEach(function(s2){
-          var row=$('mcBrandRow',s2);if(!row)return;
-          row.querySelectorAll('.mc-brand-chip').forEach(function(x){x.classList.toggle('active',x.dataset.brand===mcSelectedBrand)});
-        });
-        renderMcTable();
-      });
     });
   }
   function wireMcPurity(suf){
@@ -1847,7 +1921,7 @@ function handleCredentialResponse(resp){
 
   // ─── Live rate + hits wiring (needs $ and SCOPES, defined above) ───
   SCOPES.forEach(function(suf){var c=$('liveChip',suf);if(c)c.addEventListener('click',function(){fetchLiveRates()})});
-  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf);wireMcBrands(suf);wireMcPurity(suf);wireMcWeights(suf)});
+  SCOPES.forEach(function(suf){wireTrendRange(suf);wireTrendScrub(suf);wireMcBrandPicker(suf);wireMcPurity(suf);wireMcWeights(suf)});
 
   // ─── init ───
   renderAll();
