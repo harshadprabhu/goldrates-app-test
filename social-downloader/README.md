@@ -21,9 +21,18 @@ monetization.
     file is ever written to disk on the server.
 
 This **cannot run as a static site** — it needs a real process to run
-`yt-dlp`/`ffmpeg`. Static hosts (GitHub Pages, Netlify static, etc.) won't
-work; you need something that runs a Node process (Render, Railway, Fly.io,
-a VPS, or the included Dockerfile).
+`yt-dlp`/`ffmpeg`. This is unavoidable, not a hosting preference: a browser
+tab can't fetch `youtube.com`/`instagram.com` pages directly (CORS blocks
+cross-origin reads of their HTML), and YouTube's stream URLs are hidden
+behind a signature cipher that has to be executed against their player code
+— which is exactly what `yt-dlp` does server-side. The MP4/MP3 conversion
+itself is a solved, no-storage streaming pipe (nothing is ever written to
+disk), but *resolving the link* needs a backend.
+
+For a **public site serving other people's traffic**, that backend needs to
+run somewhere reachable 24/7 — Render, Railway, Fly.io, a VPS, or any host
+that runs the included `Dockerfile`. Static hosts (GitHub Pages, Netlify
+static, etc.) won't work.
 
 ## Local setup
 
@@ -80,6 +89,29 @@ each platform's Terms of Service and copyright law in your jurisdiction.
 The footer disclaimer in the UI reflects this; keep it, and don't represent
 this as a bulk/commercial scraping tool.
 
+## Production hardening (already in place)
+
+Since this is meant to serve public traffic, `server/index.js` includes:
+
+- **Per-IP rate limiting** on both `/api/resolve` and `/api/download`
+  (`RESOLVE_RATE_LIMIT` / `DOWNLOAD_RATE_LIMIT` env vars, default 30 / 20
+  requests per 15 minutes). `trust proxy` is enabled so this reads the real
+  client IP through a reverse proxy/load balancer instead of the proxy's IP.
+- **A concurrency cap** (`MAX_CONCURRENT_JOBS`, default 4) on how many
+  `yt-dlp` subprocesses can run at once — each request is a real OS process,
+  so this is what stops a burst of traffic from exhausting CPU/RAM/bandwidth.
+  Requests beyond the cap get a `503` instead of queuing indefinitely.
+- **Timeouts** on the subprocess itself (`RESOLVE_TIMEOUT_MS` default 30s,
+  `DOWNLOAD_TIMEOUT_MS` default 10 min) so a stuck `yt-dlp` call can't hold
+  a job slot forever.
+- Input validation on the pasted URL and `format_id` before either is ever
+  handed to `yt-dlp`.
+
+Still worth adding before a real public launch: HTTPS (usually handled by
+the hosting platform automatically), structured logging/monitoring so you
+notice when a platform breaks extraction, and a basic abuse/legal contact
+(takedown requests will happen — see Legal note above).
+
 ## Known limitations
 
 - **WhatsApp is not supported and can't be** — there's no public URL for
@@ -88,6 +120,3 @@ this as a bulk/commercial scraping tool.
 - Instagram/Facebook/TikTok regularly change their page structure; keep
   `yt-dlp` updated (`yt-dlp -U`, or rebuild the Docker image) when
   extraction starts failing for a platform.
-- No rate limiting, auth, or abuse protection yet — add these before
-  exposing this publicly at scale (e.g. `express-rate-limit`, a queue for
-  concurrent `yt-dlp` processes, and a request timeout).
