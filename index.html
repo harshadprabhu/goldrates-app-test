@@ -256,6 +256,17 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .mc-s{font-size:9px;color:var(--text3);margin-top:1px}
 .mc-d{font-size:10px;font-weight:700;margin-top:3px;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:5px}
 .mc-d.up{color:var(--mint);background:var(--mint-soft)}.mc-d.dn{color:var(--rose);background:var(--rose-soft)}
+.mcard .ac.sv{background:linear-gradient(90deg,rgba(200,210,220,0.28),#C8D2DC)}
+.mc-r.usd{font-family:'DM Sans',sans-serif;font-size:17px;letter-spacing:-.3px}
+.market-sub{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-weight:700;padding:18px 12px 8px}
+.news-list{padding:0 12px;display:flex;flex-direction:column;gap:6px}
+.news-item{display:block;background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--text);transition:border-color .18s,transform .18s}
+.news-item:hover{border-color:var(--glass-border2);transform:translateY(-1px)}
+.news-t{font-size:12.5px;font-weight:600;line-height:1.35;color:var(--text)}
+.news-m{margin-top:6px;display:flex;gap:8px;align-items:center;font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.6px;font-weight:700}
+.news-src{color:var(--gold-light)}
+.news-empty{padding:12px;color:var(--text3);font-size:12px;text-align:center}
+.site-mgrid.global-mgrid{margin-top:20px}
 
 /* ─── Quick calc ─── */
 .qcw{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border-radius:16px;border:1px solid var(--glass-border);padding:14px;position:relative;overflow:hidden}
@@ -578,6 +589,15 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   </div>
   <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
 
+  <div class="market-sub">Global Market</div>
+  <div class="mgrid">
+    <div class="mcard"><div class="ac gl"></div><div class="mc-l">Gold Spot</div><div class="mc-r usd" id="mkGoldUsd">$&mdash;</div><div class="mc-s">XAU/USD &middot; per troy oz</div><div class="mc-d" id="mkGoldUsdD">&mdash;</div></div>
+    <div class="mcard"><div class="ac sv"></div><div class="mc-l">Silver Spot</div><div class="mc-r usd" id="mkSilverUsd">$&mdash;</div><div class="mc-s">XAG/USD &middot; per troy oz</div><div class="mc-d" id="mkSilverUsdD">&mdash;</div></div>
+    <div class="mcard"><div class="ac mt"></div><div class="mc-l">USD / INR</div><div class="mc-r usd" id="mkUsdInr">&mdash;</div><div class="mc-s">Reference FX &middot; live</div><div class="mc-d" id="mkUsdInrD">&mdash;</div></div>
+    <div class="mcard"><div class="ac sv"></div><div class="mc-l">Silver 999</div><div class="mc-r" id="mkSilverInr">&#8377;&mdash;</div><div class="mc-s">Per kg &middot; spot &plus; India premium</div><div class="mc-d" id="mkSilverInrD">&mdash;</div></div>
+  </div>
+  <p class="calc-note">Global Market shows international spot from gold-api.com and USD/INR from open.er-api.com; Silver INR is computed from XAG spot &plus; FX &plus; India duty premium.</p>
+
   <div class="sh"><div class="ic mt">&#128200;</div><h2>Rate Trend</h2></div>
   <div class="trend-range" id="trendRange">
     <button class="tr-btn" data-r="7">1W</button>
@@ -594,6 +614,10 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
     </div>
     <div class="trend-note" id="trendNote">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
   </div>
+
+  <div class="sh"><div class="ic bl">&#128240;</div><h2>Bullion News</h2></div>
+  <div class="news-list" id="newsList"><div class="news-empty">Loading gold &amp; silver headlines&hellip;</div></div>
+  <p class="calc-note">Headlines are filtered live from Moneycontrol RSS for gold, silver and bullion mentions.</p>
 
   <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
   <div class="sh"><div class="ic gl">&#10068;</div><h2>FAQs</h2></div>
@@ -829,6 +853,16 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       </div>
       <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
       <div class="site-section-head" style="margin-top:36px">
+        <div><span class="site-eyebrow-sm">International</span><h2>Global Market</h2></div>
+      </div>
+      <div class="site-mgrid global-mgrid">
+        <div class="mcard"><div class="ac gl"></div><div class="mc-l">Gold Spot</div><div class="mc-r usd" id="mkGoldUsdS">$&mdash;</div><div class="mc-s">XAU/USD &middot; per troy oz</div><div class="mc-d" id="mkGoldUsdDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac sv"></div><div class="mc-l">Silver Spot</div><div class="mc-r usd" id="mkSilverUsdS">$&mdash;</div><div class="mc-s">XAG/USD &middot; per troy oz</div><div class="mc-d" id="mkSilverUsdDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac mt"></div><div class="mc-l">USD / INR</div><div class="mc-r usd" id="mkUsdInrS">&mdash;</div><div class="mc-s">Reference FX &middot; live</div><div class="mc-d" id="mkUsdInrDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac sv"></div><div class="mc-l">Silver 999</div><div class="mc-r" id="mkSilverInrS">&#8377;&mdash;</div><div class="mc-s">Per kg &middot; spot &plus; India premium</div><div class="mc-d" id="mkSilverInrDS">&mdash;</div></div>
+      </div>
+      <p class="calc-note">Global Market shows international spot from gold-api.com and USD/INR from open.er-api.com; Silver INR is computed from XAG spot &plus; FX &plus; India duty premium.</p>
+      <div class="site-section-head" style="margin-top:36px">
         <div><span class="site-eyebrow-sm">Live History</span><h2>Rate Trend</h2></div>
         <div class="trend-range" id="trendRangeS">
           <button class="tr-btn" data-r="7">1W</button>
@@ -846,6 +880,11 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
         </div>
         <div class="trend-note" id="trendNoteS">Tracking starts once the live feed connects — revisit this page over time to build up a real trend.</div>
       </div>
+      <div class="site-section-head" style="margin-top:36px">
+        <div><span class="site-eyebrow-sm">Market Headlines</span><h2>Bullion News</h2></div>
+      </div>
+      <div class="news-list" id="newsListS"><div class="news-empty">Loading gold &amp; silver headlines&hellip;</div></div>
+      <p class="calc-note">Headlines are filtered live from Moneycontrol RSS for gold, silver and bullion mentions.</p>
     </div>
   </section>
 
@@ -1079,18 +1118,33 @@ function handleCredentialResponse(resp){
   // India 24K reference (IBJA-equivalent), so the board keeps its realistic
   // spread while the base price tracks the real market.
   var OZ_TO_G=31.1034768;
+  var OZ_PER_KG=32.1507466; // troy oz per kg — silver quoted per kg locally
   var INDIA_PREMIUM=0.14; // approx import duty + dealer markup over raw LBMA spot, tuned to typical IBJA vs XAU/INR gap
+  var SILVER_INDIA_PREMIUM=0.12; // silver import duty + local markup vs XAG spot, slightly under gold
   var seedMin=Math.min.apply(null,BRANDS.map(function(b){return b.rate}));
   BRANDS.forEach(function(b){b.premiumPct=b.rate/seedMin-1});
-  var LIVE={ibja24:null,ibja22:null,deltaIbja24:0,ts:null,ok:false,source:'static'};
+  var LIVE={ibja24:null,ibja22:null,deltaIbja24:0,ts:null,ok:false,source:'static',
+    goldUsdOz:null,silverUsdOz:null,usdinr:null,silverInrKg:null,
+    deltaGoldUsd:0,deltaSilverUsd:0,deltaUsdInr:0,deltaSilverInr:0};
 
-  function applyLive(usdOz,usdinr){
+  function applyLive(usdOz,usdinr,silverUsdOz){
     var spotRaw=(usdOz/OZ_TO_G)*usdinr;
     var ibja24=spotRaw*(1+INDIA_PREMIUM);
     var prev=LIVE.ibja24;
     LIVE.deltaIbja24=prev?Math.round(ibja24-prev):0;
     LIVE.ibja24=ibja24;LIVE.ibja22=ibja24*PURITY['22K'];
     BRANDS.forEach(function(b){b.rate=ibja24*(1+b.premiumPct)});
+    // Global Market tiles
+    LIVE.deltaGoldUsd=LIVE.goldUsdOz?+(usdOz-LIVE.goldUsdOz).toFixed(2):0;
+    LIVE.deltaUsdInr=LIVE.usdinr?+(usdinr-LIVE.usdinr).toFixed(2):0;
+    LIVE.goldUsdOz=usdOz;LIVE.usdinr=usdinr;
+    if(silverUsdOz){
+      LIVE.deltaSilverUsd=LIVE.silverUsdOz?+(silverUsdOz-LIVE.silverUsdOz).toFixed(2):0;
+      LIVE.silverUsdOz=silverUsdOz;
+      var silverInrKg=silverUsdOz*OZ_PER_KG*usdinr*(1+SILVER_INDIA_PREMIUM);
+      LIVE.deltaSilverInr=LIVE.silverInrKg?Math.round(silverInrKg-LIVE.silverInrKg):0;
+      LIVE.silverInrKg=silverInrKg;
+    }
   }
 
   function agoText(){
@@ -1131,6 +1185,18 @@ function handleCredentialResponse(resp){
     d.classList.add(delta<0?'dn':'up');
     d.innerHTML=(delta<0?'▼ −':'▲ +')+'₹'+Math.abs(delta);
   }
+  // USD / FX variant of setMc: shows $ or a plain number with 2-decimal delta.
+  function setMcUsd(id,suf,val,delta,symbol,decimals){
+    symbol=symbol==null?'$':symbol;decimals=decimals==null?2:decimals;
+    var v=$(id,suf),d=$(id+'D',suf);
+    if(v)v.textContent=symbol+Number(val).toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
+    if(!d)return;
+    var dn=Number(delta||0);
+    d.classList.remove('up','dn');
+    if(Math.abs(dn)<0.005){d.textContent='± '+symbol+'0.00';return}
+    d.classList.add(dn<0?'dn':'up');
+    d.innerHTML=(dn<0?'▼ −':'▲ +')+symbol+Math.abs(dn).toFixed(decimals);
+  }
   function paintMarket(){
     if(!LIVE.ibja24)return;
     var i24=LIVE.ibja24,i22=LIVE.ibja22;
@@ -1141,6 +1207,11 @@ function handleCredentialResponse(resp){
       setMc('mcIbja22',suf,i22,LIVE.deltaIbja24*PURITY['22K']);
       setMc('mcMcx',suf,mcx,mcxD);
       setMc('mcAk',suf,ak,akD);
+      // Global Market strip
+      if(LIVE.goldUsdOz)setMcUsd('mkGoldUsd',suf,LIVE.goldUsdOz,LIVE.deltaGoldUsd,'$',2);
+      if(LIVE.silverUsdOz)setMcUsd('mkSilverUsd',suf,LIVE.silverUsdOz,LIVE.deltaSilverUsd,'$',2);
+      if(LIVE.usdinr)setMcUsd('mkUsdInr',suf,LIVE.usdinr,LIVE.deltaUsdInr,'₹',2);
+      if(LIVE.silverInrKg)setMc('mkSilverInr',suf,LIVE.silverInrKg,LIVE.deltaSilverInr);
     });
   }
 
@@ -1368,15 +1439,20 @@ function handleCredentialResponse(resp){
 
   function fetchLiveRates(){
     paintLiveChip(currentDotState(),true);
+    // Silver spot is a soft-fail: if XAG errors, we still paint gold + FX + IBJA
+    // and the silver tiles just stay on their last known value.
+    var xagP=fetch('https://api.gold-api.com/price/XAG').then(function(r){return r.json()}).catch(function(){return null});
     Promise.all([
       fetch('https://api.gold-api.com/price/XAU').then(function(r){return r.json()}),
-      fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json()})
+      fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json()}),
+      xagP
     ]).then(function(res){
       var usdOz=res[0]&&res[0].price,usdinr=res[1]&&res[1].rates&&res[1].rates.INR;
+      var silverUsdOz=res[2]&&res[2].price;
       if(!usdOz||!usdinr)throw new Error('bad payload');
-      applyLive(usdOz,usdinr);
+      applyLive(usdOz,usdinr,silverUsdOz);
       LIVE.ts=Date.now();LIVE.ok=true;LIVE.source='live';
-      try{localStorage.setItem('mgr_live_cache',JSON.stringify({usdOz:usdOz,usdinr:usdinr}))}catch(e){}
+      try{localStorage.setItem('mgr_live_cache',JSON.stringify({usdOz:usdOz,usdinr:usdinr,silverUsdOz:silverUsdOz}))}catch(e){}
       recordHistoryPoint(LIVE.ibja24);
       renderAll();paintMarket();paintLiveChip(currentDotState());renderTrend();
     }).catch(function(err){
@@ -1384,7 +1460,7 @@ function handleCredentialResponse(resp){
       if(!LIVE.ok){
         var cached=null;
         try{cached=JSON.parse(localStorage.getItem('mgr_live_cache')||'null')}catch(e){}
-        if(cached&&cached.usdOz){applyLive(cached.usdOz,cached.usdinr);LIVE.source='cached';LIVE.ts=Date.now()}
+        if(cached&&cached.usdOz){applyLive(cached.usdOz,cached.usdinr,cached.silverUsdOz);LIVE.source='cached';LIVE.ts=Date.now()}
         else{LIVE.source='static'}
         renderAll();paintMarket();
       }
@@ -1415,6 +1491,99 @@ function handleCredentialResponse(resp){
       var local=0;
       try{local=(parseInt(localStorage.getItem('mgr_local_hits'))||0)+1;localStorage.setItem('mgr_local_hits',local)}catch(e){}
       paintHits(local.toLocaleString('en-IN')+' views on this device (offline)');
+    });
+  }
+
+  // ─── Bullion news rail: pulls Moneycontrol RSS (CORS-open) browser-side,
+  //     filters headlines to gold / silver / bullion mentions, and caches
+  //     the parsed result in localStorage for 30 min to avoid re-hitting the
+  //     feed on every SPA nav. NOTE: dealer-per-city rates, 90-day OHLC and
+  //     the economic calendar all need a small server-side proxy — no free
+  //     CORS-open upstream exists for those — and are deliberately deferred
+  //     to a Supabase edge function follow-up. ───
+  var NEWS_FEEDS=[
+    'https://www.moneycontrol.com/rss/business.xml',
+    'https://www.moneycontrol.com/rss/latestnews.xml'
+  ];
+  var NEWS_KEYWORDS=/(gold|silver|bullion|xau|xag|mcx|ibja)/i;
+  var NEWS_CACHE_KEY='mgr_news_cache_v1';
+  var NEWS_TTL_MS=30*60*1000;
+  var NEWS_MAX=8;
+
+  function renderNews(items){
+    var html;
+    if(!items||!items.length){
+      html='<div class="news-empty">No gold or silver headlines right now — check back shortly.</div>';
+    } else {
+      html=items.slice(0,NEWS_MAX).map(function(it){
+        var t=(it.title||'').replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]});
+        var when=it.published?new Date(it.published):null;
+        var whenTxt=when&&!isNaN(when)?whenAgo(when):'';
+        var src=(it.source||'Moneycontrol').replace(/[<>&]/g,'');
+        return '<a class="news-item" href="'+it.url+'" target="_blank" rel="noopener noreferrer">'+
+          '<div class="news-t">'+t+'</div>'+
+          '<div class="news-m"><span class="news-src">'+src+'</span>'+(whenTxt?'<span>·</span><span>'+whenTxt+'</span>':'')+'</div>'+
+          '</a>';
+      }).join('');
+    }
+    SCOPES.forEach(function(suf){var el=$('newsList',suf);if(el)el.innerHTML=html});
+  }
+  function whenAgo(d){
+    var s=Math.round((Date.now()-d.getTime())/1000);
+    if(s<60)return 'just now';
+    if(s<3600)return Math.round(s/60)+'m ago';
+    if(s<86400)return Math.round(s/3600)+'h ago';
+    return Math.round(s/86400)+'d ago';
+  }
+  function parseRss(xmlText,source){
+    try {
+      var doc=new DOMParser().parseFromString(xmlText,'application/xml');
+      if(doc.querySelector('parsererror'))return [];
+      var items=doc.querySelectorAll('item');
+      var out=[];
+      for(var i=0;i<items.length;i++){
+        var el=items[i];
+        var title=(el.querySelector('title')||{}).textContent||'';
+        var link=(el.querySelector('link')||{}).textContent||'';
+        var pub=(el.querySelector('pubDate')||{}).textContent||'';
+        if(!title||!link)continue;
+        if(!NEWS_KEYWORDS.test(title))continue;
+        out.push({title:title.trim(),url:link.trim(),source:source,published:pub});
+      }
+      return out;
+    } catch(e){return []}
+  }
+  function fetchNews(){
+    // serve cache first when fresh
+    try {
+      var raw=localStorage.getItem(NEWS_CACHE_KEY);
+      if(raw){
+        var c=JSON.parse(raw);
+        if(c&&c.ts&&(Date.now()-c.ts)<NEWS_TTL_MS&&c.items){
+          renderNews(c.items);
+          return;
+        }
+      }
+    } catch(e){}
+    Promise.all(NEWS_FEEDS.map(function(u){
+      return fetch(u).then(function(r){return r.text()})
+        .then(function(t){return parseRss(t,'Moneycontrol')})
+        .catch(function(){return []});
+    })).then(function(lists){
+      var seen={},merged=[];
+      lists.forEach(function(list){list.forEach(function(it){
+        if(seen[it.url])return;seen[it.url]=1;merged.push(it);
+      })});
+      merged.sort(function(a,b){
+        var ta=new Date(a.published||0).getTime()||0;
+        var tb=new Date(b.published||0).getTime()||0;
+        return tb-ta;
+      });
+      renderNews(merged);
+      try{localStorage.setItem(NEWS_CACHE_KEY,JSON.stringify({ts:Date.now(),items:merged.slice(0,NEWS_MAX)}))}catch(e){}
+    }).catch(function(err){
+      console.warn('News fetch failed',err);
+      renderNews([]);
     });
   }
 
@@ -1931,6 +2100,8 @@ function handleCredentialResponse(resp){
   fetchLiveRates();
   setInterval(fetchLiveRates,60000);
   setInterval(function(){paintLiveChip(currentDotState())},20000);
+  fetchNews();
+  setInterval(fetchNews,15*60*1000);
   loadHits();
 })();
 </script>
