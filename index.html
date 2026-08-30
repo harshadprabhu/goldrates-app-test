@@ -271,6 +271,36 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .mcard .ac.sv{background:linear-gradient(90deg,rgba(200,210,220,0.28),#C8D2DC)}
 .mc-r.usd{font-family:'DM Sans',sans-serif;font-size:17px;letter-spacing:-.3px}
 .market-sub{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-weight:700;padding:18px 12px 8px}
+/* dealer / vendor rates table (server-fed via cf-worker) */
+.vtable{margin:0 12px;background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:13px;overflow:hidden}
+.vtable-hd{display:grid;grid-template-columns:1.4fr 1fr 1fr .8fr;gap:6px;padding:10px 12px;font-size:9.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--text3);background:rgba(0,0,0,.22);border-bottom:1px solid var(--glass-border)}
+.vrow{display:grid;grid-template-columns:1.4fr 1fr 1fr .8fr;gap:6px;padding:11px 12px;border-bottom:1px solid rgba(255,255,255,.04);align-items:center;font-size:11.5px;transition:background-color .3s ease}
+.vrow:last-child{border-bottom:none}
+.vrow-dealer{font-weight:700;color:var(--text)}
+.vrow-city{color:var(--text3);font-size:10.5px}
+.vrow-price{font-family:'IBM Plex Mono',ui-monospace,monospace;font-weight:700;color:var(--gold-light);letter-spacing:-.3px}
+.vrow-price.dim{color:var(--text3);font-weight:500}
+.vrow-ago{font-size:10px;color:var(--text3);text-align:right}
+.vrow.pulse-up{background:color-mix(in srgb,var(--mint) 8%,transparent)}
+.vrow.pulse-dn{background:color-mix(in srgb,var(--rose) 8%,transparent)}
+.v-empty{padding:16px;text-align:center;color:var(--text3);font-size:11.5px}
+.v-toggle{display:block;width:calc(100% - 24px);margin:10px 12px 0;padding:8px;background:transparent;border:1px dashed var(--glass-border2);border-radius:10px;color:var(--gold-light);font:600 11px 'DM Sans',sans-serif;letter-spacing:.06em;cursor:pointer;text-transform:uppercase}
+.v-toggle:hover{background:var(--gold-soft)}
+.v-detail{display:none;background:rgba(0,0,0,.14);padding:8px 12px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;color:var(--text2);border-top:1px solid var(--glass-border)}
+.v-detail.open{display:block}
+.v-detail-row{display:grid;grid-template-columns:2fr 1fr 1fr;gap:8px;padding:3px 0;border-bottom:1px solid rgba(255,255,255,.03)}
+.v-detail-row:last-child{border-bottom:none}
+.v-detail-lbl{font-size:9px;color:var(--text3);letter-spacing:.1em;text-transform:uppercase;padding:6px 0 3px}
+/* economic calendar strip */
+.cal-list{padding:0 12px;display:flex;flex-direction:column;gap:6px}
+.cal-item{background:var(--glass2);border:1px solid var(--glass-border);border-radius:11px;padding:10px 12px;display:grid;grid-template-columns:60px 1fr auto;gap:10px;align-items:center;font-size:11.5px}
+.cal-time{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--gold-light);font-size:10.5px;letter-spacing:-.2px}
+.cal-title{color:var(--text);line-height:1.3}
+.cal-meta{display:flex;flex-direction:column;gap:2px;font-size:9.5px;color:var(--text3);text-align:right;font-family:'IBM Plex Mono',monospace}
+.cal-impact{display:inline-flex;padding:1px 6px;border-radius:99px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;font-size:9px}
+.cal-impact.high{color:var(--rose);background:var(--rose-soft)}
+.cal-impact.medium{color:#D9A441;background:rgba(217,164,65,.14)}
+.cal-impact.low{color:var(--text3);background:rgba(150,150,150,.1)}
 .news-list{padding:0 12px;display:flex;flex-direction:column;gap:6px}
 .news-item{display:block;background:var(--glass2);backdrop-filter:blur(20px);border:1px solid var(--glass-border);border-radius:12px;padding:11px 13px;text-decoration:none;color:var(--text);transition:border-color .18s,transform .18s}
 .news-item:hover{border-color:var(--glass-border2);transform:translateY(-1px)}
@@ -636,6 +666,17 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <div class="news-list" id="newsList"><div class="news-empty">Loading gold &amp; silver headlines&hellip;</div></div>
   <p class="calc-note">Headlines are filtered live from Moneycontrol RSS for gold, silver and bullion mentions.</p>
 
+  <div class="sh"><div class="ic gl">&#127976;</div><h2>Dealer Rates</h2></div>
+  <div class="vtable" id="vendorTable">
+    <div class="vtable-hd"><div>Dealer</div><div>Gold 999</div><div>Silver 999</div><div>Updated</div></div>
+    <div id="vendorRows"><div class="v-empty">Loading dealer rates&hellip;</div></div>
+  </div>
+  <p class="calc-note">Live from bullion trading dealers via the shared VOTS bullion-industry price stream. Tap a dealer for the full grid.</p>
+
+  <div class="sh"><div class="ic bl">&#128197;</div><h2>Economic Calendar</h2></div>
+  <div class="cal-list" id="calList"><div class="v-empty">Loading US calendar&hellip;</div></div>
+  <p class="calc-note">Upcoming US economic events (ForexFactory). High-impact prints usually move XAU/USD spot within minutes.</p>
+
   <div class="dv"><div class="ln"></div><div class="gm r"></div><div class="gm g"></div><div class="gm b"></div><div class="ln"></div></div>
   <div class="sh"><div class="ic gl">&#10068;</div><h2>FAQs</h2></div>
   <div class="faq-wrap">
@@ -907,6 +948,21 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       </div>
       <div class="news-list" id="newsListS"><div class="news-empty">Loading gold &amp; silver headlines&hellip;</div></div>
       <p class="calc-note">Headlines are filtered live from Moneycontrol RSS for gold, silver and bullion mentions.</p>
+
+      <div class="site-section-head" style="margin-top:36px">
+        <div><span class="site-eyebrow-sm">Bullion Trading Dealers</span><h2>Dealer Rates</h2></div>
+      </div>
+      <div class="vtable" id="vendorTableS">
+        <div class="vtable-hd"><div>Dealer</div><div>Gold 999</div><div>Silver 999</div><div>Updated</div></div>
+        <div id="vendorRowsS"><div class="v-empty">Loading dealer rates&hellip;</div></div>
+      </div>
+      <p class="calc-note">Live from bullion trading dealers via the shared VOTS bullion-industry price stream. Tap a dealer for the full grid.</p>
+
+      <div class="site-section-head" style="margin-top:36px">
+        <div><span class="site-eyebrow-sm">Macro Events</span><h2>Economic Calendar</h2></div>
+      </div>
+      <div class="cal-list" id="calListS"><div class="v-empty">Loading US calendar&hellip;</div></div>
+      <p class="calc-note">Upcoming US economic events (ForexFactory). High-impact prints usually move XAU/USD spot within minutes.</p>
     </div>
   </section>
 
@@ -1726,6 +1782,137 @@ function handleCredentialResponse(resp){
     });
   }
 
+  // ─── Market API worker (Cloudflare Worker on mygoldrates account) ───
+  // Serves: /market /vendors /calendar /news /ohlc — all CORS-open and
+  // edge-cached, so the browser polls fast without hammering upstreams.
+  // Wired here for /vendors (live dealer rates via VOTS Broadcast
+  // Streaming) and /calendar (this week's US economic events). /market
+  // and /ohlc are available too but the client already computes market
+  // values directly. /news falls back to Moneycontrol RSS in-browser.
+  var MARKET_API_BASE = 'https://mygoldrates-market-api.harshads-priority.workers.dev';
+
+  // ── Dealer rates table ─────────────────────────────────────────────
+  var vendorPrev = {}; // per-dealer previous gold_999 for pulse detection
+  function agoStr(iso){
+    if(!iso) return '';
+    var s = Math.round((Date.now()-new Date(iso).getTime())/1000);
+    if(s<5) return 'just now';
+    if(s<60) return s+'s ago';
+    if(s<3600) return Math.round(s/60)+'m ago';
+    return Math.round(s/3600)+'h ago';
+  }
+  function fmtIn(n){
+    if(n==null||!isFinite(n)) return '—';
+    return '₹'+Math.round(n).toLocaleString('en-IN');
+  }
+  function esc(s){return (s==null?'':String(s)).replace(/[<>&]/g,function(c){return {'<':'&lt;','>':'&gt;','&':'&amp;'}[c]})}
+  function vendorRowHtml(v){
+    var g = v.gold_999 && v.gold_999.price ? fmtIn(v.gold_999.price) : '—';
+    var s = v.silver_999 && v.silver_999.price && v.silver_999.price>1000
+              ? fmtIn(v.silver_999.price) : '—';
+    var detailRows = (v.all_rows||[]).map(function(r){
+      var sell = r.sell!=null ? Math.round(r.sell).toLocaleString('en-IN') : '—';
+      var buy  = r.buy!=null  ? Math.round(r.buy ).toLocaleString('en-IN') : '—';
+      return '<div class="v-detail-row"><div>'+esc(r.name)+'</div><div>'+buy+'</div><div>'+sell+'</div></div>';
+    }).join('');
+    return (
+      '<div class="vrow" data-dealer="'+esc(v.dealer_id)+'">'+
+        '<div><div class="vrow-dealer">'+esc(v.dealer)+'</div>'+
+          '<div class="vrow-city">'+esc(v.city||'')+'</div></div>'+
+        '<div class="vrow-price'+(g==='—'?' dim':'')+'">'+g+'</div>'+
+        '<div class="vrow-price'+(s==='—'?' dim':'')+'">'+s+'</div>'+
+        '<div class="vrow-ago">'+agoStr(v.timestamp)+'</div>'+
+      '</div>'+
+      (detailRows ? '<button class="v-toggle" data-toggle="'+esc(v.dealer_id)+'">Show full grid ('+(v.all_rows.length)+' rows)</button>'+
+        '<div class="v-detail" data-detail="'+esc(v.dealer_id)+'">'+
+          '<div class="v-detail-lbl">Commodity · Buy · Sell</div>'+
+          detailRows+
+        '</div>' : '')
+    );
+  }
+  function renderVendors(vendors){
+    var html;
+    if(!vendors||!vendors.length){
+      html = '<div class="v-empty">No dealer feeds responded this tick — retrying&hellip;</div>';
+    } else {
+      html = vendors.map(vendorRowHtml).join('');
+    }
+    SCOPES.forEach(function(suf){
+      var el = $('vendorRows',suf); if(!el) return;
+      el.innerHTML = html;
+      // Pulse rows whose gold_999 moved since last tick
+      vendors && vendors.forEach(function(v){
+        var prev = vendorPrev[v.dealer_id];
+        var now  = v.gold_999 && v.gold_999.price;
+        if(prev!=null && now!=null && Math.abs(now-prev)>=1){
+          var row = el.querySelector('[data-dealer="'+v.dealer_id+'"]');
+          if(row){
+            row.classList.remove('pulse-up','pulse-dn');
+            void row.offsetWidth;
+            row.classList.add(now>prev?'pulse-up':'pulse-dn');
+            setTimeout(function(){row.classList.remove('pulse-up','pulse-dn');},1200);
+          }
+        }
+        if(now!=null) vendorPrev[v.dealer_id] = now;
+      });
+      // Wire the show-full-grid toggles
+      el.querySelectorAll('[data-toggle]').forEach(function(btn){
+        btn.addEventListener('click', function(){
+          var id = btn.getAttribute('data-toggle');
+          var d = el.querySelector('[data-detail="'+id+'"]');
+          if(d) d.classList.toggle('open');
+          btn.textContent = d && d.classList.contains('open')
+            ? 'Hide full grid'
+            : ('Show full grid ('+(d?d.querySelectorAll('.v-detail-row').length:0)+' rows)');
+        });
+      });
+    });
+  }
+  function fetchVendors(){
+    fetch(MARKET_API_BASE+'/vendors').then(function(r){return r.json()}).then(function(j){
+      renderVendors(j&&j.vendors||[]);
+    }).catch(function(err){
+      console.warn('vendors fetch failed',err);
+      renderVendors([]);
+    });
+  }
+
+  // ── Economic calendar (US events, this week) ───────────────────────
+  var CAL_KEYWORDS_HIGH = /^(High)$/i;
+  function calItemHtml(ev){
+    var when = (ev.time||'').toLowerCase();
+    var d = ev.date ? ev.date.split('-') : null;
+    var dateShort = d ? (d[0]+'/'+d[1]) : '';
+    var impact = (ev.impact||'').toLowerCase() || 'low';
+    return (
+      '<div class="cal-item">'+
+        '<div class="cal-time">'+esc(dateShort)+'<br>'+esc(when)+'</div>'+
+        '<div class="cal-title">'+esc(ev.title||'—')+'</div>'+
+        '<div class="cal-meta">'+
+          '<span class="cal-impact '+esc(impact)+'">'+esc(ev.impact||'')+'</span>'+
+          (ev.forecast?'<span>Fcst '+esc(ev.forecast)+'</span>':'')+
+          (ev.previous?'<span>Prev '+esc(ev.previous)+'</span>':'')+
+        '</div>'+
+      '</div>'
+    );
+  }
+  function renderCalendar(events){
+    var html = (!events||!events.length)
+      ? '<div class="v-empty">No upcoming events this week.</div>'
+      : events.slice(0,10).map(calItemHtml).join('');
+    SCOPES.forEach(function(suf){
+      var el = $('calList',suf); if(el) el.innerHTML = html;
+    });
+  }
+  function fetchCalendar(){
+    fetch(MARKET_API_BASE+'/calendar').then(function(r){return r.json()}).then(function(j){
+      renderCalendar(j&&j.events||[]);
+    }).catch(function(err){
+      console.warn('calendar fetch failed',err);
+      renderCalendar([]);
+    });
+  }
+
   // Shared state — the phone app (ids as-is) and the desktop site (ids +'S')
   // both read/write this, so switching breakpoints never desyncs them.
   var currentK='24K';
@@ -2246,6 +2433,13 @@ function handleCredentialResponse(resp){
   setInterval(function(){paintLiveChip(currentDotState());paintLiveStrip();},3000);
   fetchNews();
   setInterval(fetchNews,15*60*1000);
+  // Dealer rates + economic calendar via mygoldrates-market-api worker.
+  // Vendors poll every 15s (edge-cache is 60s so most hits are free);
+  // calendar polls every 30 min (upstream refreshes weekly).
+  fetchVendors();
+  setInterval(fetchVendors,15000);
+  fetchCalendar();
+  setInterval(fetchCalendar,30*60*1000);
   loadHits();
 })();
 </script>
