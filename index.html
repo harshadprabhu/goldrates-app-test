@@ -256,6 +256,18 @@ html,body{height:100%;overflow:hidden;font-family:'DM Sans',system-ui,sans-serif
 .mc-s{font-size:9px;color:var(--text3);margin-top:1px}
 .mc-d{font-size:10px;font-weight:700;margin-top:3px;display:inline-flex;align-items:center;gap:2px;padding:2px 6px;border-radius:5px}
 .mc-d.up{color:var(--mint);background:var(--mint-soft)}.mc-d.dn{color:var(--rose);background:var(--rose-soft)}
+.mcard{transition:background-color .4s ease,border-color .4s ease,box-shadow .4s ease}
+.mcard.pulse-up{background:color-mix(in srgb,var(--mint) 12%,var(--glass2));border-color:color-mix(in srgb,var(--mint) 45%,var(--glass-border));box-shadow:0 0 0 1px color-mix(in srgb,var(--mint) 30%,transparent),0 4px 18px color-mix(in srgb,var(--mint) 22%,transparent)}
+.mcard.pulse-dn{background:color-mix(in srgb,var(--rose) 12%,var(--glass2));border-color:color-mix(in srgb,var(--rose) 45%,var(--glass-border));box-shadow:0 0 0 1px color-mix(in srgb,var(--rose) 30%,transparent),0 4px 18px color-mix(in srgb,var(--rose) 22%,transparent)}
+.mk-live-strip{display:flex;align-items:center;gap:10px;padding:0 12px 8px;font-size:11px}
+.mk-live-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;font-family:'DM Sans',sans-serif;font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:9.5px;color:var(--mint);background:color-mix(in srgb,var(--mint) 12%,transparent);border:1px solid color-mix(in srgb,var(--mint) 30%,var(--glass-border))}
+.mk-live-badge.warn{color:#D9A441;background:rgba(217,164,65,.14);border-color:rgba(217,164,65,.4)}
+.mk-live-badge.bad{color:var(--rose);background:var(--rose-soft);border-color:color-mix(in srgb,var(--rose) 30%,var(--glass-border))}
+.mk-live-badge .live-dot-mini{width:6px;height:6px;border-radius:50%;background:var(--mint);animation:mkPulse 1.6s infinite ease-in-out;box-shadow:0 0 6px var(--mint)}
+.mk-live-badge.warn .live-dot-mini{background:#D9A441;box-shadow:0 0 6px #D9A441}
+.mk-live-badge.bad .live-dot-mini{background:var(--rose);box-shadow:0 0 6px var(--rose);animation:none}
+@keyframes mkPulse{0%{opacity:.55;transform:scale(.9)}50%{opacity:1;transform:scale(1.15)}100%{opacity:.55;transform:scale(.9)}}
+.mk-live-note{color:var(--text3);font-family:'DM Sans',sans-serif;font-size:11px;font-weight:500}
 .mcard .ac.sv{background:linear-gradient(90deg,rgba(200,210,220,0.28),#C8D2DC)}
 .mc-r.usd{font-family:'DM Sans',sans-serif;font-size:17px;letter-spacing:-.3px}
 .market-sub{font-size:10.5px;letter-spacing:1.5px;text-transform:uppercase;color:var(--text3);font-weight:700;padding:18px 12px 8px}
@@ -581,13 +593,18 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
   <!-- ═══════ MARKET VIEW ═══════ -->
   <div class="view" id="v-market">
   <div class="sh"><div class="ic rs">&#9830;</div><h2>Market Pulse</h2></div>
+  <div class="mk-live-strip">
+    <span class="mk-live-badge" id="mkLive"><span class="live-dot-mini"></span><span id="mkLiveTxt">LIVE</span></span>
+    <span class="mk-live-note" id="mkLiveNote">Connecting&hellip;</span>
+  </div>
   <div class="mgrid">
     <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r" id="mcIbja24">&#8377;&mdash;</div><div class="mc-s">999 Fine &middot; National &middot; live</div><div class="mc-d" id="mcIbja24D">&mdash;</div></div>
     <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r" id="mcIbja22">&#8377;&mdash;</div><div class="mc-s">916 &middot; National &middot; live</div><div class="mc-d" id="mcIbja22D">&mdash;</div></div>
-    <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcx">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures (est.)</div><div class="mc-d" id="mcMcxD">&mdash;</div></div>
+    <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcx">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures &middot; <span id="mcMcxU">live</span></div><div class="mc-d" id="mcMcxD">&mdash;</div></div>
+    <div class="mcard"><div class="ac sv"></div><div class="mc-l">MCX Silver</div><div class="mc-r" id="mcMcxAg">&#8377;&mdash;</div><div class="mc-s">Per kg &middot; Futures &middot; <span id="mcMcxAgU">live</span></div><div class="mc-d" id="mcMcxAgD">&mdash;</div></div>
     <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAk">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkD">&mdash;</div></div>
   </div>
-  <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
+  <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX Gold &amp; Silver pull real-time futures from Moneycontrol pricefeed. AKGSMA is an estimated regional offset.</p>
 
   <div class="market-sub">Global Market</div>
   <div class="mgrid">
@@ -845,13 +862,18 @@ select.qci{cursor:pointer;appearance:none;-webkit-appearance:none;background-ima
       <div class="site-section-head">
         <div><span class="site-eyebrow-sm">Reference Rates</span><h2>Market Pulse</h2></div>
       </div>
+      <div class="mk-live-strip">
+        <span class="mk-live-badge" id="mkLiveS"><span class="live-dot-mini"></span><span id="mkLiveTxtS">LIVE</span></span>
+        <span class="mk-live-note" id="mkLiveNoteS">Connecting&hellip;</span>
+      </div>
       <div class="site-mgrid">
         <div class="mcard"><div class="ac gl"></div><div class="mc-l">IBJA 24K</div><div class="mc-r" id="mcIbja24S">&#8377;&mdash;</div><div class="mc-s">999 Fine &middot; National &middot; live</div><div class="mc-d" id="mcIbja24DS">&mdash;</div></div>
         <div class="mcard"><div class="ac rs"></div><div class="mc-l">IBJA 22K</div><div class="mc-r" id="mcIbja22S">&#8377;&mdash;</div><div class="mc-s">916 &middot; National &middot; live</div><div class="mc-d" id="mcIbja22DS">&mdash;</div></div>
-        <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcxS">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures (est.)</div><div class="mc-d" id="mcMcxDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac bl"></div><div class="mc-l">MCX Gold</div><div class="mc-r" id="mcMcxS">&#8377;&mdash;</div><div class="mc-s">Per 10g &middot; Futures &middot; <span id="mcMcxUS">live</span></div><div class="mc-d" id="mcMcxDS">&mdash;</div></div>
+        <div class="mcard"><div class="ac sv"></div><div class="mc-l">MCX Silver</div><div class="mc-r" id="mcMcxAgS">&#8377;&mdash;</div><div class="mc-s">Per kg &middot; Futures &middot; <span id="mcMcxAgUS">live</span></div><div class="mc-d" id="mcMcxAgDS">&mdash;</div></div>
         <div class="mcard"><div class="ac mt"></div><div class="mc-l">AKGSMA</div><div class="mc-r" id="mcAkS">&#8377;&mdash;</div><div class="mc-s">24K &middot; Regional (est.)</div><div class="mc-d" id="mcAkDS">&mdash;</div></div>
       </div>
-      <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX &amp; AKGSMA are estimated offsets, not exchange feeds.</p>
+      <p class="calc-note">IBJA rows are computed live from international spot gold + USD/INR. MCX Gold &amp; Silver pull real-time futures from Moneycontrol pricefeed. AKGSMA is an estimated regional offset.</p>
       <div class="site-section-head" style="margin-top:36px">
         <div><span class="site-eyebrow-sm">International</span><h2>Global Market</h2></div>
       </div>
@@ -1175,43 +1197,157 @@ function handleCredentialResponse(resp){
     });
   }
 
+  // Adds a one-shot pulse-up/pulse-dn class on the tile's .mcard wrapper for
+  // a brief flash matching the direction of change — same visual language
+  // finmetpulse uses on its live rate board.
+  function pulseTile(el, dir){
+    if(!el) return;
+    var card = el.closest ? el.closest('.mcard') : null;
+    if(!card) return;
+    card.classList.remove('pulse-up','pulse-dn');
+    // force reflow so re-adding the class re-triggers the transition
+    void card.offsetWidth;
+    if(dir<0) card.classList.add('pulse-dn');
+    else if(dir>0) card.classList.add('pulse-up');
+    setTimeout(function(){ card.classList.remove('pulse-up','pulse-dn'); }, 1100);
+  }
   function setMc(id,suf,val,delta){
     var v=$(id,suf),d=$(id+'D',suf);
     if(v)v.textContent=fmt(val);
-    if(!d)return;
-    delta=Math.round(delta||0);
-    d.classList.remove('up','dn');
-    if(delta===0){d.textContent='± ₹0';return}
-    d.classList.add(delta<0?'dn':'up');
-    d.innerHTML=(delta<0?'▼ −':'▲ +')+'₹'+Math.abs(delta);
+    if(d){
+      delta=Math.round(delta||0);
+      d.classList.remove('up','dn');
+      if(delta===0){ d.textContent='± ₹0'; }
+      else {
+        d.classList.add(delta<0?'dn':'up');
+        d.innerHTML=(delta<0?'▼ −':'▲ +')+'₹'+Math.abs(delta);
+      }
+    }
+    pulseTile(v||d, delta);
   }
   // USD / FX variant of setMc: shows $ or a plain number with 2-decimal delta.
   function setMcUsd(id,suf,val,delta,symbol,decimals){
     symbol=symbol==null?'$':symbol;decimals=decimals==null?2:decimals;
     var v=$(id,suf),d=$(id+'D',suf);
     if(v)v.textContent=symbol+Number(val).toLocaleString('en-US',{minimumFractionDigits:decimals,maximumFractionDigits:decimals});
-    if(!d)return;
     var dn=Number(delta||0);
-    d.classList.remove('up','dn');
-    if(Math.abs(dn)<0.005){d.textContent='± '+symbol+'0.00';return}
-    d.classList.add(dn<0?'dn':'up');
-    d.innerHTML=(dn<0?'▼ −':'▲ +')+symbol+Math.abs(dn).toFixed(decimals);
+    if(d){
+      d.classList.remove('up','dn');
+      if(Math.abs(dn)<0.005){ d.textContent='± '+symbol+'0.00'; }
+      else {
+        d.classList.add(dn<0?'dn':'up');
+        d.innerHTML=(dn<0?'▼ −':'▲ +')+symbol+Math.abs(dn).toFixed(decimals);
+      }
+    }
+    pulseTile(v||d, dn);
   }
   function paintMarket(){
     if(!LIVE.ibja24)return;
     var i24=LIVE.ibja24,i22=LIVE.ibja22;
-    var mcx=i24*10*1.004,mcxD=LIVE.deltaIbja24*10*1.004; // est. futures contango over spot
+    // MCX Gold: if we have a live Moneycontrol reading use it (real futures),
+    // otherwise fall back to the spot × 10 × contango estimate so the tile
+    // never renders "—" during the first tick before the MCX call resolves.
+    var mcx = LIVE.mcxGold!=null ? LIVE.mcxGold : i24*10*1.004;
+    var mcxD = LIVE.mcxGold!=null ? LIVE.deltaMcxGold : LIVE.deltaIbja24*10*1.004;
     var ak=i24*1.002,akD=LIVE.deltaIbja24*1.002; // est. regional spread
     SCOPES.forEach(function(suf){
       setMc('mcIbja24',suf,i24,LIVE.deltaIbja24);
       setMc('mcIbja22',suf,i22,LIVE.deltaIbja24*PURITY['22K']);
       setMc('mcMcx',suf,mcx,mcxD);
       setMc('mcAk',suf,ak,akD);
+      if(LIVE.mcxSilver!=null) setMc('mcMcxAg',suf,LIVE.mcxSilver,LIVE.deltaMcxSilver);
       // Global Market strip
       if(LIVE.goldUsdOz)setMcUsd('mkGoldUsd',suf,LIVE.goldUsdOz,LIVE.deltaGoldUsd,'$',2);
       if(LIVE.silverUsdOz)setMcUsd('mkSilverUsd',suf,LIVE.silverUsdOz,LIVE.deltaSilverUsd,'$',2);
       if(LIVE.usdinr)setMcUsd('mkUsdInr',suf,LIVE.usdinr,LIVE.deltaUsdInr,'₹',2);
       if(LIVE.silverInrKg)setMc('mkSilverInr',suf,LIVE.silverInrKg,LIVE.deltaSilverInr);
+      // MCX expiry chip text under the value
+      var eu = $('mcMcxU', suf); if(eu && LIVE.mcxGoldExpiry) eu.textContent = LIVE.mcxGoldExpiry;
+      var ev = $('mcMcxAgU', suf); if(ev && LIVE.mcxSilverExpiry) ev.textContent = LIVE.mcxSilverExpiry;
+    });
+  }
+
+  // ─── MCX Gold + Silver live futures via Moneycontrol pricefeed (CORS *) ──
+  // Contracts expire nominally on the 5th of the month with holiday shifts;
+  // we probe day 4/5/6 of this month + next four until one returns 200 and
+  // cache the working expiry in localStorage so subsequent ticks are a
+  // single GET. If a cached expiry starts 404-ing (contract rolled), we
+  // clear it and re-probe on the next tick.
+  var MCX_URL = 'https://priceapi.moneycontrol.com/pricefeed/mcx/commodityfuture/';
+  function mcxCandidateExpiries(){
+    var months=['JAN','FEB','MAR','APR','MAY','JUN','JUL','AUG','SEP','OCT','NOV','DEC'];
+    var out=[]; var now=new Date();
+    for(var m=0;m<5;m++){
+      var d=new Date(now.getFullYear(), now.getMonth()+m, 1);
+      var ym = months[d.getMonth()] + d.getFullYear();
+      ['05','04','06'].forEach(function(day){ out.push(day+ym); });
+    }
+    return out;
+  }
+  function fetchMcxOne(sym, cachedExpiry){
+    // Try cached first; on 404/non-200/data-missing walk candidates.
+    var order = cachedExpiry ? [cachedExpiry].concat(mcxCandidateExpiries().filter(function(e){return e!==cachedExpiry})) : mcxCandidateExpiries();
+    var i = 0;
+    function step(){
+      if(i>=order.length) return Promise.resolve(null);
+      var exp = order[i++];
+      return fetch(MCX_URL+sym+'?expiry='+exp)
+        .then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(j){
+          if(!j || j.code!=='200' || !j.data || !j.data.pricecurrent) return step();
+          var ltp = parseFloat(j.data.pricecurrent);
+          if(!(ltp>0)) return step();
+          return { expiry: j.data.EXPIRY || exp, ltp: ltp,
+                   pchg: parseFloat(j.data.pricepercentchange||0) };
+        })
+        .catch(function(){ return step(); });
+    }
+    return step();
+  }
+  function fetchMcxLive(){
+    var goldCached  = null, silverCached = null;
+    try {
+      goldCached   = localStorage.getItem('mcx_expiry_GOLD');
+      silverCached = localStorage.getItem('mcx_expiry_SILVER');
+    } catch(e){}
+    return Promise.all([
+      fetchMcxOne('GOLD', goldCached).catch(function(){return null;}),
+      fetchMcxOne('SILVER', silverCached).catch(function(){return null;})
+    ]).then(function(res){
+      var g=res[0], s=res[1];
+      if(g){
+        try{ localStorage.setItem('mcx_expiry_GOLD', g.expiry); }catch(e){}
+        var pg = LIVE.mcxGold;
+        LIVE.deltaMcxGold = pg!=null ? Math.round(g.ltp - pg) : 0;
+        LIVE.mcxGold = g.ltp; LIVE.mcxGoldExpiry = g.expiry;
+      }
+      if(s){
+        try{ localStorage.setItem('mcx_expiry_SILVER', s.expiry); }catch(e){}
+        var ps = LIVE.mcxSilver;
+        LIVE.deltaMcxSilver = ps!=null ? Math.round(s.ltp - ps) : 0;
+        LIVE.mcxSilver = s.ltp; LIVE.mcxSilverExpiry = s.expiry;
+      }
+    });
+  }
+
+  // Header live-status chip (LIVE / DELAYED / STALLED + "updated Xs ago").
+  function agoTxt(ts){
+    if(!ts) return '';
+    var s = Math.round((Date.now()-ts)/1000);
+    if(s<5) return 'just now';
+    if(s<60) return s+'s ago';
+    return Math.round(s/60)+'m ago';
+  }
+  function paintLiveStrip(){
+    var state = LIVE.source==='live' ? 'ok'
+              : LIVE.source==='cached' ? 'warn' : 'bad';
+    var label = state==='ok' ? 'LIVE' : state==='warn' ? 'DELAYED' : 'OFFLINE';
+    var note = LIVE.ts ? ('Updated '+agoTxt(LIVE.ts)) : 'Connecting…';
+    SCOPES.forEach(function(suf){
+      var b=$('mkLive',suf), t=$('mkLiveTxt',suf), n=$('mkLiveNote',suf);
+      if(b){ b.classList.remove('warn','bad'); if(state!=='ok') b.classList.add(state); }
+      if(t) t.textContent = label;
+      if(n) n.textContent = note;
     });
   }
 
@@ -1439,13 +1575,16 @@ function handleCredentialResponse(resp){
 
   function fetchLiveRates(){
     paintLiveChip(currentDotState(),true);
-    // Silver spot is a soft-fail: if XAG errors, we still paint gold + FX + IBJA
-    // and the silver tiles just stay on their last known value.
-    var xagP=fetch('https://api.gold-api.com/price/XAG').then(function(r){return r.json()}).catch(function(){return null});
+    paintLiveStrip();
+    // Silver spot + MCX are soft-fails: if either errors, we still paint the
+    // gold + FX + IBJA path and the affected tiles stay on their last-known
+    // value. All four calls run in parallel so the tick is one round-trip.
+    var xagP = fetch('https://api.gold-api.com/price/XAG').then(function(r){return r.json()}).catch(function(){return null});
+    var mcxP = fetchMcxLive().catch(function(){return null});
     Promise.all([
       fetch('https://api.gold-api.com/price/XAU').then(function(r){return r.json()}),
       fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json()}),
-      xagP
+      xagP, mcxP
     ]).then(function(res){
       var usdOz=res[0]&&res[0].price,usdinr=res[1]&&res[1].rates&&res[1].rates.INR;
       var silverUsdOz=res[2]&&res[2].price;
@@ -1454,7 +1593,7 @@ function handleCredentialResponse(resp){
       LIVE.ts=Date.now();LIVE.ok=true;LIVE.source='live';
       try{localStorage.setItem('mgr_live_cache',JSON.stringify({usdOz:usdOz,usdinr:usdinr,silverUsdOz:silverUsdOz}))}catch(e){}
       recordHistoryPoint(LIVE.ibja24);
-      renderAll();paintMarket();paintLiveChip(currentDotState());renderTrend();
+      renderAll();paintMarket();paintLiveChip(currentDotState());paintLiveStrip();renderTrend();
     }).catch(function(err){
       console.warn('Live gold rate fetch failed',err);
       if(!LIVE.ok){
@@ -1464,7 +1603,7 @@ function handleCredentialResponse(resp){
         else{LIVE.source='static'}
         renderAll();paintMarket();
       }
-      paintLiveChip(currentDotState());
+      paintLiveChip(currentDotState());paintLiveStrip();
     });
   }
   // ─── Hit counter (daily + total), via a free public counter API ───
@@ -2097,9 +2236,14 @@ function handleCredentialResponse(resp){
   renderTrend();
   initSupabaseTrend();
   fetchMcData();
+  // Live-feel polling. Spot + FX + MCX every 10s (matches finmetpulse's
+  // felt refresh rate) — the upstream APIs themselves tick every few
+  // seconds, and Cloudflare's edge cache on our side keeps request cost
+  // low. The live-status chip repaints every 3s so the "Xs ago" number
+  // counts up smoothly even between actual fetches.
   fetchLiveRates();
-  setInterval(fetchLiveRates,60000);
-  setInterval(function(){paintLiveChip(currentDotState())},20000);
+  setInterval(fetchLiveRates,10000);
+  setInterval(function(){paintLiveChip(currentDotState());paintLiveStrip();},3000);
   fetchNews();
   setInterval(fetchNews,15*60*1000);
   loadHits();
